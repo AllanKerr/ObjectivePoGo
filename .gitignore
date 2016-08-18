@@ -19,7 +19,6 @@ DerivedData/
 
 # build products
 build/
-*.[oa]
 
 # repositories
 .hg
