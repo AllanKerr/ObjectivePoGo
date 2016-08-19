@@ -246,7 +246,11 @@
     NSURLSession *session = [self.infoProvider.sessionManager session];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *res = (NSHTTPURLResponse *)response;
-        if (error != nil || res.statusCode != 200) {
+        if (res.statusCode != 200) {
+            NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%li", (long)res.statusCode]};
+            error = [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeInvalidStatusCode userInfo:userInfo];
+        }
+        if (error != nil) {
             [self performSelector:@selector(_failedWithError:) onThread:currentThread withObject:error waitUntilDone:NO];
         } else {
             NSError *parseError;

@@ -18,7 +18,8 @@ typedef NS_ENUM(NSUInteger, PGErrorCode) {
     PGErrorCodeAcceptTermsOfServiceFailed,
     PGErrorCodeDidNotFindPokemon,
     PGErrorCodeSigningIn,
-    PGErrorCodeNoInactiveAccounts
+    PGErrorCodeNoInactiveAccounts,
+    PGErrorCodeInvalidStatusCode
 };
 
 FOUNDATION_EXPORT NSString *const PGErrorDomain;
