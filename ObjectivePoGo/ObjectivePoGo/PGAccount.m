@@ -8,8 +8,15 @@
 
 #import "PGAccount.h"
 #import "PGRequestGroup.h"
-#import "PGGetProfileRequest.h"
+#import "PGGetPlayerRequest.h"
 #import "PGGetMapObjectsRequest.h"
+#import "PGAcceptTermsOfServiceRequest.h"
+#import "PGDownloadSettingsRequest.h"
+#import "PGGetInventoryRequest.h"
+#import "PGGetHatchedEggsRequest.h"
+#import "PGCheckAwardedBadgesRequest.h"
+#import "PGDownloadRemoteConfigVersionRequest.h"
+#import "PGResponse.h"
 #import <DDURLParser.h>
 
 #import "GetPlayerResponse.pbobjc.h"
@@ -17,6 +24,7 @@
 #import "MarkTutorialCompleteResponse.pbobjc.h"
 #import "Signature.pbobjc.h"
 #import "PGSensorSpoofer.h"
+#import "InventoryDelta.pbobjc.h"
 
 #define ARC4RANDOM_MAX 0x100000000
 
@@ -25,15 +33,17 @@
 
 typedef void(^PGPrepareLoginCompletion)(NSString *lt, NSString *execution, NSError *error);
 typedef void(^PGGetTicketCompletion)(NSString *ticket, NSError *error);
-typedef void(^PGGetAccessTokenCompletion)(NSString *accessToken, NSError *error);
+typedef void(^PGAsyncCompletion)(NSError *error);
 
 @interface PGAccount ()
+@property (readonly, nonatomic) NSTimeInterval timeSinceQuery;
 @property (readwrite, nonatomic) BOOL isFetching;
 @property (readwrite, nonatomic) NSTimeInterval lastQueryTime;
-@property (readonly, nonatomic) NSTimeInterval timeSinceQuery;
 @property (readwrite, nonatomic) NSTimeInterval minUpdateInterval;
 @property (readwrite, nonatomic) CLLocationDistance baseAltitude;
 @property (readwrite, nonatomic) double baseTravelRate;
+@property (readwrite, nonatomic) int64_t inventoryTimeStamp;
+@property (readwrite, nonatomic, strong) NSString *downloadSettingsHash;
 @property (readwrite, nonatomic ,strong) PGAccountInfo *accountInfo;
 
 // PGRequestInfoProvider Properties
@@ -70,10 +80,17 @@ typedef void(^PGGetAccessTokenCompletion)(NSString *accessToken, NSError *error)
         if (error == nil) {
             [account getTicketWithUsername:accountInfo.username password:accountInfo.password lt:lt execution:execution completion:^(NSString *ticket, NSError *error){
                 if (error == nil) {
-                    [account getAccessTokenWithTicket:ticket completion:^(NSString *accessToken, NSError *error){
+                    [account getAccessTokenWithTicket:ticket completion:^(NSError *error){
                         if (error == nil) {
-                            account.accessToken = accessToken;
-                            completion(account, nil);
+                            [account getProfileWithCompletion:^(GetPlayerResponse *response, NSError *error){
+                                if (error == nil) {
+                                    [account getPlayerDataWithCompletion:^(NSError *error){
+                                        completion(account, error);
+                                    }];
+                                } else {
+                                    completion(nil, error);
+                                }
+                            }];
                         } else {
                             completion(nil, error);
                         }
@@ -158,7 +175,7 @@ typedef void(^PGGetAccessTokenCompletion)(NSString *accessToken, NSError *error)
     }];
 }
 
-- (void)getAccessTokenWithTicket:(NSString *)ticket completion:(PGGetAccessTokenCompletion)completion {
+- (void)getAccessTokenWithTicket:(NSString *)ticket completion:(PGAsyncCompletion)completion {
     NSDictionary *parameters = @{@"client_id" : @"mobile-app_pokemon-go",
                                  @"redirect_uri" : @"https://www.nianticlabs.com/pokemongo/error",
                                  @"client_secret" : PGPokemonApiClientSecret,
@@ -172,17 +189,42 @@ typedef void(^PGGetAccessTokenCompletion)(NSString *accessToken, NSError *error)
             DDURLParser *parser = [[DDURLParser alloc] initWithURLString:urlStr];
             NSString *accessToken = [parser valueForVariable:@"access_token"];
             if (accessToken.length > 0) {
-                completion(accessToken, nil);
+                self.accessToken = accessToken;
+                completion(nil);
             } else {
                 NSDictionary *userInfo = @{NSLocalizedDescriptionKey : @"Invalid token"};
-                completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeGetAccessTokenFailed userInfo:userInfo]);
+                completion([NSError errorWithDomain:PGErrorDomain code:PGErrorCodeGetAccessTokenFailed userInfo:userInfo]);
             }
         } else {
-            completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeGetAccessTokenFailed userInfo:nil]);
+            completion([NSError errorWithDomain:PGErrorDomain code:PGErrorCodeGetAccessTokenFailed userInfo:nil]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeGetAccessTokenFailed userInfo:nil]);
+        completion([NSError errorWithDomain:PGErrorDomain code:PGErrorCodeGetAccessTokenFailed userInfo:nil]);
     }];
+}
+
+- (void)getPlayerDataWithCompletion:(PGAsyncCompletion)completion {
+    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
+        if (error == nil) {
+            PGResponse *remoteConfigResponse = [responses objectAtIndex:0];
+            PGResponse *hatchedEggsResponse = [responses objectAtIndex:1];
+            PGResponse *inventoryResponse = [responses objectAtIndex:2];
+            PGResponse *awardedBadgesResponse = [responses objectAtIndex:3];
+            PGResponse *downloadSettingsResponse = [responses objectAtIndex:4];
+            [self receivedResponse:remoteConfigResponse];
+            [self receivedResponse:hatchedEggsResponse];
+            [self receivedInventoryResponse:inventoryResponse];
+            [self receivedResponse:awardedBadgesResponse];
+            [self receivedDownloadSettingsResponse:downloadSettingsResponse];
+            completion(nil);
+        } else {
+            completion(error);
+        }
+    }];
+    PGDownloadRemoteConfigVersionRequest *remoteConfigRequest = [[PGDownloadRemoteConfigVersionRequest alloc] init];
+    [group addRequest:remoteConfigRequest];
+    [self addPlayerDataRequestsToGroup:group];
+    [group start];
 }
 
 - (double)applyNoise:(double)value magnitude:(double)magnitude {
@@ -194,24 +236,27 @@ typedef void(^PGGetAccessTokenCompletion)(NSString *accessToken, NSError *error)
     [self _updateSensorData];
     self.isFetching = YES;
     
-    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(ResponseEnvelope *response, NSError *error){
+    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
         self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
         self.isFetching = NO;
         if (error == nil) {
-            NSError *parseError;
-            NSData *data = [response.returnsArray firstObject];
-            GetMapObjectsResponse *mapObjects = [GetMapObjectsResponse parseFromData:data error:nil];
-            if (parseError == nil) {
-                completion(self.accountInfo.username, mapObjects, nil);
-            } else {
-                completion(self.accountInfo.username, nil, parseError);
-            }
+            PGResponse *response = [responses objectAtIndex:0];
+            PGResponse *hatchedEggsResponse = [responses objectAtIndex:1];
+            PGResponse *inventoryResponse = [responses objectAtIndex:2];
+            PGResponse *awardedBadgesResponse = [responses objectAtIndex:3];
+            PGResponse *downloadSettingsResponse = [responses objectAtIndex:4];
+            [self receivedResponse:hatchedEggsResponse];
+            [self receivedInventoryResponse:inventoryResponse];
+            [self receivedResponse:awardedBadgesResponse];
+            [self receivedDownloadSettingsResponse:downloadSettingsResponse];
+            completion(self.accountInfo.username, (GetMapObjectsResponse *)response.message, response.error);
         } else {
             completion(self.accountInfo.username, nil, error);
         }
     }];
     PGGetMapObjectsRequest *request = [[PGGetMapObjectsRequest alloc] initWithCoordinate:self.location.coordinate];
-    [group addRequest:request];;
+    [group addRequest:request];
+    [self addPlayerDataRequestsToGroup:group];
     [group start];
 }
 
@@ -220,75 +265,98 @@ typedef void(^PGGetAccessTokenCompletion)(NSString *accessToken, NSError *error)
     [self _updateSensorData];
     self.isFetching = YES;
     
-    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(ResponseEnvelope *response, NSError *error){
+    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
         self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
         self.isFetching = NO;
         if (error == nil) {
-            NSError *parseError;
-            NSData *data = [response.returnsArray firstObject];
-            GetMapObjectsResponse *mapObjects = [GetMapObjectsResponse parseFromData:data error:nil];
-            if (parseError == nil) {
-                completion(self.accountInfo.username, mapObjects, nil);
-            } else {
-                completion(self.accountInfo.username, nil, parseError);
-            }
+            PGResponse *response = [responses objectAtIndex:0];
+            PGResponse *hatchedEggsResponse = [responses objectAtIndex:1];
+            PGResponse *inventoryResponse = [responses objectAtIndex:2];
+            PGResponse *awardedBadgesResponse = [responses objectAtIndex:3];
+            PGResponse *downloadSettingsResponse = [responses objectAtIndex:4];
+            [self receivedResponse:hatchedEggsResponse];
+            [self receivedInventoryResponse:inventoryResponse];
+            [self receivedResponse:awardedBadgesResponse];
+            [self receivedDownloadSettingsResponse:downloadSettingsResponse];
+            completion(self.accountInfo.username, (GetMapObjectsResponse *)response.message, response.error);
         } else {
             completion(self.accountInfo.username, nil, error);
         }
     }];
-    PGGetMapObjectsRequest *request = [[PGGetMapObjectsRequest alloc] initWithCoordinate:coordinate cellId:cellId];
-    [group addRequest:request];;
+    PGGetMapObjectsRequest *mapObjectsRequest = [[PGGetMapObjectsRequest alloc] initWithCoordinate:coordinate cellId:cellId];
+    [group addRequest:mapObjectsRequest];
+    [self addPlayerDataRequestsToGroup:group];
     [group start];
 }
 
 - (void)getProfileWithCompletion:(PGGetProfileCompletion)completion {
     self.isFetching = YES;
-    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(ResponseEnvelope *response, NSError *error){
-        self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
+    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
         self.isFetching = NO;
         if (error == nil) {
-            NSError *parseError;
-            NSData *data = [response.returnsArray firstObject];
-            GetPlayerResponse *profile = [GetPlayerResponse parseFromData:data error:&parseError];
-            if (parseError == nil) {
-                completion(profile, nil);
-            } else {
-                completion(nil, parseError);
-            }
+            PGResponse *response = [responses firstObject];
+            completion((GetPlayerResponse *)response.message, response.error);
         } else {
             completion(nil, error);
         }
     }];
-    PGGetProfileRequest *request = [[PGGetProfileRequest alloc] init];
+    PGGetPlayerRequest *request = [[PGGetPlayerRequest alloc] init];
     [group addRequest:request];
     [group start];
 }
 
 - (void)acceptTermsOfServiceWithCompletion:(PGAcceptTermsOfServiceCompletion)completion {
     self.isFetching = YES;
-    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(ResponseEnvelope *response, NSError *error){
+    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
         self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
         self.isFetching = NO;
         if (error == nil) {
-            NSError *parseError;
-            NSData *data = [response.returnsArray firstObject];
-            MarkTutorialCompleteResponse *response = [MarkTutorialCompleteResponse parseFromData:data error:&parseError];
-            if (parseError == nil) {
-                if (response.success) {
-                    completion(nil);
-                } else {
-                    completion([NSError errorWithDomain:PGErrorDomain code:PGErrorCodeAcceptTermsOfServiceFailed userInfo:nil]);
-                }
-            } else {
-                completion(parseError);
-            }
+            PGResponse *response = [responses firstObject];
+            completion(response.error);
         } else {
             completion(error);
         }
     }];
-    PGGetProfileRequest *request = [[PGGetProfileRequest alloc] init];
+    PGAcceptTermsOfServiceRequest *request = [[PGAcceptTermsOfServiceRequest alloc] init];
     [group addRequest:request];
     [group start];
+}
+
+- (void)addPlayerDataRequestsToGroup:(PGRequestGroup *)group {
+    PGGetHatchedEggsRequest *hatchedEggsRequest = [[PGGetHatchedEggsRequest alloc] init];
+    PGGetInventoryRequest *inventoryRequest = [[PGGetInventoryRequest alloc] initWithTimeStamp:self.inventoryTimeStamp];
+    PGCheckAwardedBadgesRequest *awardedBadgesRequest = [[PGCheckAwardedBadgesRequest alloc] init];
+    PGDownloadSettingsRequest *downloadSettingsRequest = [[PGDownloadSettingsRequest alloc] initWithHash:self.downloadSettingsHash];
+    [group addRequest:hatchedEggsRequest];
+    [group addRequest:inventoryRequest];
+    [group addRequest:awardedBadgesRequest];
+    [group addRequest:downloadSettingsRequest];
+}
+
+- (void)receivedInventoryResponse:(PGResponse *)response {
+    if (response.error == nil) {
+        GetInventoryResponse *message = (GetInventoryResponse *)response.message;
+        if (message.hasInventoryDelta) {
+            self.inventoryTimeStamp = message.inventoryDelta.newTimestampMs;
+        }
+    } else {
+        NSLog(@"%@ failed: %@", [response class], response.error);
+    }
+}
+
+- (void)receivedDownloadSettingsResponse:(PGResponse *)response {
+    if (response.error == nil) {
+        DownloadSettingsResponse *message = (DownloadSettingsResponse *)response.message;
+        self.downloadSettingsHash = message.hash_p;
+    } else {
+        NSLog(@"%@ failed: %@", [response class], response.error);
+    }
+}
+
+- (void)receivedResponse:(PGResponse *)response {
+    if (response.error != nil) {
+        NSLog(@"%@ failed: %@", [response class], response.error);
+    }
 }
 
 - (void)updateTicket:(AuthTicket *)ticket {
