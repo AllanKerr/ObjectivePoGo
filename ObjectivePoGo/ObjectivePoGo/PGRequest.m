@@ -13,6 +13,11 @@
 @end
 
 @implementation PGRequest
+@dynamic type;
+
+- (RequestType)type {
+    return self.rawRequest.requestType;
+}
 
 - (instancetype)initWithType:(RequestType)type {
     if (self = [super init]) {

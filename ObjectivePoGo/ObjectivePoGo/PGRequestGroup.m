@@ -16,19 +16,21 @@
 #import "xxhash.h"
 #import "encrypt.h"
 #import "PGSensorSpoofer.h"
-
-const uint32_t HashSeed = 0x1B845238;
+#import "PGResponseBuilder.h"
+#import "PGConstants.h"
 
 @interface PGRequestGroup ()
 @property (nonatomic, strong) id <PGRequestInfoProvider>infoProvider;
 @property (nonatomic, strong) PKRequestCompletion completion;
 @property (nonatomic, strong) RequestEnvelope *requestEnvelope;
+@property (nonatomic, strong) PGResponseBuilder *responseBuilder;
 @end
 
 @implementation PGRequestGroup
 
 - (id)initWithInfoProvider:(id <PGRequestInfoProvider>)infoProvider completion:(PKRequestCompletion)completion {
     if (self = [super init]) {
+        self.responseBuilder = [[PGResponseBuilder alloc] init];
         self.infoProvider = infoProvider;
         self.completion = completion;
         [self _buildRequestEnvelope];
@@ -151,7 +153,7 @@ const uint32_t HashSeed = 0x1B845238;
 
 - (uint32_t)generateLocation1:(AuthTicket *)authTicket latitude:(double)latitude longitude:(double)longitude altitude:(double)altitude {
     // need to serialize authentication ticket for calculating location hash 1
-    uint32_t firstHash = XXH32(authTicket.data.bytes, authTicket.data.length, HashSeed);
+    uint32_t firstHash = XXH32(authTicket.data.bytes, authTicket.data.length, PGHashSeed);
     
     NSData *latitudeHexData = [self doubleToHexData:latitude];
     NSData *longitudeHexData = [self doubleToHexData:longitude];
@@ -162,8 +164,7 @@ const uint32_t HashSeed = 0x1B845238;
     [locationBytesData appendData:longitudeHexData];
     [locationBytesData appendData:altitudeHexData];
     
-    uint32_t result = XXH32(locationBytesData.bytes, locationBytesData.length, firstHash);
-    return result;
+    return XXH32(locationBytesData.bytes, locationBytesData.length, firstHash);
 }
 
 - (uint32_t)generateLocation2:(double)latitude longitude:(double)longitude altitude:(double)altitude {
@@ -176,16 +177,14 @@ const uint32_t HashSeed = 0x1B845238;
     [locationBytesData appendData:longitudeHexData];
     [locationBytesData appendData:altitudeHexData];
     
-    uint32_t result = XXH32(locationBytesData.bytes, locationBytesData.length, HashSeed);
-    return result;
+    return XXH32(locationBytesData.bytes, locationBytesData.length, PGHashSeed);
 }
 
 - (uint64_t)generateRequestHash:(Request *)request authTicket:(AuthTicket *)authTicket {
     NSData *authTicketData = authTicket.data;
     NSData *requestData = request.data;
-    uint64_t firstHash = XXH64(authTicketData.bytes, authTicketData.length, HashSeed);
-    uint64_t result = XXH64(requestData.bytes, requestData.length, firstHash);
-    return result;
+    uint64_t firstHash = XXH64(authTicketData.bytes, authTicketData.length, PGHashSeed);
+    return XXH64(requestData.bytes, requestData.length, firstHash);
 }
 
 - (NSData *)generateSignatureData:(Signature *)signature {
@@ -200,9 +199,7 @@ const uint32_t HashSeed = 0x1B845238;
     memset(output, 0, outputSize);
     
     result = encrypt6(signatureData.bytes, signatureData.length, ivData.bytes, ivData.length, output, &outputSize);
-    
-    NSData *outputData = [NSData dataWithBytes:output length:outputSize];
-    return outputData;
+    return [NSData dataWithBytes:output length:outputSize];
 }
 
 - (NSData *)uRandom:(NSInteger)bytes {
@@ -229,12 +226,12 @@ const uint32_t HashSeed = 0x1B845238;
         (unsigned char) (valueBits >> 8),
         (unsigned char) valueBits
     };
-    NSData *hexData = [NSData dataWithBytes:bytes length:sizeof(bytes)];
-    return hexData;
+    return [NSData dataWithBytes:bytes length:sizeof(bytes)];
 }
 
 - (void)addRequest:(PGRequest *)request {
     [self.requestEnvelope.requestsArray addObject:request.rawRequest];
+    [self.responseBuilder addRequestType:request.type];
 }
 
 - (void)start {
@@ -278,8 +275,10 @@ const uint32_t HashSeed = 0x1B845238;
     } else if (responseEnvelope.statusCode == 102) {
         self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeExpiredAuthTicket userInfo:nil]);
     } else if (responseEnvelope.statusCode == 1 || responseEnvelope.statusCode == 2) {
-        self.completion(responseEnvelope, nil);
+        NSArray *responses = [self.responseBuilder buildFromEnvelope:responseEnvelope];
+        self.completion(responses, nil);
     } else {
+        NSLog(@"%@", self.infoProvider.ticket);
         NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%i", responseEnvelope.statusCode]};
         self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo]);
     }

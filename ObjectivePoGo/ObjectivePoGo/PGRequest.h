@@ -11,6 +11,7 @@
 #import "Request.pbobjc.h"
 
 @interface PGRequest : NSObject
+@property (readonly, nonatomic) RequestType type;
 @property (readonly, nonatomic, strong) Request *rawRequest;
 - (instancetype)initWithType:(RequestType)type;
 @end

@@ -10,9 +10,10 @@
 #import "ResponseEnvelope.pbobjc.h"
 #import "PGAccount.h"
 #import "PGRequest.h"
+#import "PGResponse.h"
 #import "PGRequestInfoProvider.h"
 
-typedef void(^PKRequestCompletion)(ResponseEnvelope *account, NSError *error);
+typedef void(^PKRequestCompletion)(NSArray <PGResponse *>*responses, NSError *error);
 
 @interface PGRequestGroup : NSObject
 - (id)initWithInfoProvider:(id <PGRequestInfoProvider>)infoProvider completion:(PKRequestCompletion)completion;
