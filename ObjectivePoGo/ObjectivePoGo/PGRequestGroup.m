@@ -278,7 +278,6 @@
         NSArray *responses = [self.responseBuilder buildFromEnvelope:responseEnvelope];
         self.completion(responses, nil);
     } else {
-        NSLog(@"%@", self.infoProvider.ticket);
         NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%i", responseEnvelope.statusCode]};
         self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo]);
     }
