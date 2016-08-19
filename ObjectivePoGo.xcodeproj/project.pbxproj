@@ -272,13 +272,20 @@
 		114140DB1D6502E8004F52B6 /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140C71D6502E8004F52B6 /* PGConstants.m */; };
 		114140DC1D6502E8004F52B6 /* PGDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140C91D6502E8004F52B6 /* PGDeviceInfo.m */; };
 		114140DD1D6502E8004F52B6 /* PGGetMapObjectsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140CB1D6502E8004F52B6 /* PGGetMapObjectsRequest.m */; };
-		114140DE1D6502E8004F52B6 /* PGGetProfileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140CD1D6502E8004F52B6 /* PGGetProfileRequest.m */; };
 		114140DF1D6502E8004F52B6 /* PGRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140CF1D6502E8004F52B6 /* PGRequest.m */; };
 		114140E01D6502E8004F52B6 /* PGRequestGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140D11D6502E8004F52B6 /* PGRequestGroup.m */; };
 		114140E11D6502E8004F52B6 /* PGSensorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140D41D6502E8004F52B6 /* PGSensorInfo.m */; };
 		114140E21D6502E8004F52B6 /* PGSensorSpoofer.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140D61D6502E8004F52B6 /* PGSensorSpoofer.m */; };
 		114140E41D650470004F52B6 /* SensorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 114140E31D650470004F52B6 /* SensorData.plist */; };
 		114140E61D650507004F52B6 /* Accounts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 114140E51D650507004F52B6 /* Accounts.plist */; };
+		114140E91D663E53004F52B6 /* PGGetPlayerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140E81D663E53004F52B6 /* PGGetPlayerRequest.m */; };
+		114140EC1D663E78004F52B6 /* PGGetHatchedEggsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140EB1D663E78004F52B6 /* PGGetHatchedEggsRequest.m */; };
+		114140EF1D663E98004F52B6 /* PGGetInventoryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140EE1D663E98004F52B6 /* PGGetInventoryRequest.m */; };
+		114140F21D663EA7004F52B6 /* PGCheckAwardedBadgesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140F11D663EA7004F52B6 /* PGCheckAwardedBadgesRequest.m */; };
+		114140F51D663ED4004F52B6 /* PGDownloadSettingsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140F41D663ED4004F52B6 /* PGDownloadSettingsRequest.m */; };
+		114140F81D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140F71D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.m */; };
+		114140FB1D667859004F52B6 /* PGResponseBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140FA1D667859004F52B6 /* PGResponseBuilder.m */; };
+		114140FE1D6680AD004F52B6 /* PGResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140FD1D6680AD004F52B6 /* PGResponse.m */; };
 		9338A4CD9A76E58A679D1076 /* libPods-ObjectivePoGo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 548A51B5B943E69EF268B298 /* libPods-ObjectivePoGo.a */; };
 /* End PBXBuildFile section */
 
@@ -823,8 +830,6 @@
 		114140C91D6502E8004F52B6 /* PGDeviceInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDeviceInfo.m; sourceTree = "<group>"; };
 		114140CA1D6502E8004F52B6 /* PGGetMapObjectsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGGetMapObjectsRequest.h; sourceTree = "<group>"; };
 		114140CB1D6502E8004F52B6 /* PGGetMapObjectsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGGetMapObjectsRequest.m; sourceTree = "<group>"; };
-		114140CC1D6502E8004F52B6 /* PGGetProfileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGGetProfileRequest.h; sourceTree = "<group>"; };
-		114140CD1D6502E8004F52B6 /* PGGetProfileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGGetProfileRequest.m; sourceTree = "<group>"; };
 		114140CE1D6502E8004F52B6 /* PGRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRequest.h; sourceTree = "<group>"; };
 		114140CF1D6502E8004F52B6 /* PGRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGRequest.m; sourceTree = "<group>"; };
 		114140D01D6502E8004F52B6 /* PGRequestGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGRequestGroup.h; sourceTree = "<group>"; };
@@ -836,6 +841,22 @@
 		114140D61D6502E8004F52B6 /* PGSensorSpoofer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSensorSpoofer.m; sourceTree = "<group>"; };
 		114140E31D650470004F52B6 /* SensorData.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = SensorData.plist; sourceTree = "<group>"; };
 		114140E51D650507004F52B6 /* Accounts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Accounts.plist; sourceTree = "<group>"; };
+		114140E71D663E53004F52B6 /* PGGetPlayerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGGetPlayerRequest.h; sourceTree = "<group>"; };
+		114140E81D663E53004F52B6 /* PGGetPlayerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGGetPlayerRequest.m; sourceTree = "<group>"; };
+		114140EA1D663E78004F52B6 /* PGGetHatchedEggsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGGetHatchedEggsRequest.h; sourceTree = "<group>"; };
+		114140EB1D663E78004F52B6 /* PGGetHatchedEggsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGGetHatchedEggsRequest.m; sourceTree = "<group>"; };
+		114140ED1D663E98004F52B6 /* PGGetInventoryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGGetInventoryRequest.h; sourceTree = "<group>"; };
+		114140EE1D663E98004F52B6 /* PGGetInventoryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGGetInventoryRequest.m; sourceTree = "<group>"; };
+		114140F01D663EA7004F52B6 /* PGCheckAwardedBadgesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGCheckAwardedBadgesRequest.h; sourceTree = "<group>"; };
+		114140F11D663EA7004F52B6 /* PGCheckAwardedBadgesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCheckAwardedBadgesRequest.m; sourceTree = "<group>"; };
+		114140F31D663ED4004F52B6 /* PGDownloadSettingsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDownloadSettingsRequest.h; sourceTree = "<group>"; };
+		114140F41D663ED4004F52B6 /* PGDownloadSettingsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDownloadSettingsRequest.m; sourceTree = "<group>"; };
+		114140F61D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGDownloadRemoteConfigVersionRequest.h; sourceTree = "<group>"; };
+		114140F71D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGDownloadRemoteConfigVersionRequest.m; sourceTree = "<group>"; };
+		114140F91D667859004F52B6 /* PGResponseBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResponseBuilder.h; sourceTree = "<group>"; };
+		114140FA1D667859004F52B6 /* PGResponseBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResponseBuilder.m; sourceTree = "<group>"; };
+		114140FC1D6680AD004F52B6 /* PGResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResponse.h; sourceTree = "<group>"; };
+		114140FD1D6680AD004F52B6 /* PGResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResponse.m; sourceTree = "<group>"; };
 		12CD2640487F8A1398F50E51 /* Pods-ObjectivePoGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectivePoGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectivePoGo/Pods-ObjectivePoGo.release.xcconfig"; sourceTree = "<group>"; };
 		548A51B5B943E69EF268B298 /* libPods-ObjectivePoGo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectivePoGo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6047825F0C69F872F09C1C3 /* Pods-ObjectivePoGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectivePoGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectivePoGo/Pods-ObjectivePoGo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1673,27 +1694,41 @@
 				114140C71D6502E8004F52B6 /* PGConstants.m */,
 				114140C01D6502E8004F52B6 /* PGAccount.h */,
 				114140C11D6502E8004F52B6 /* PGAccount.m */,
-				114140BE1D6502E8004F52B6 /* PGAcceptTermsOfServiceRequest.h */,
-				114140BF1D6502E8004F52B6 /* PGAcceptTermsOfServiceRequest.m */,
 				114140C21D6502E8004F52B6 /* PGAccountInfo.h */,
 				114140C31D6502E8004F52B6 /* PGAccountInfo.m */,
 				114140C41D6502E8004F52B6 /* PGAccountManager.h */,
 				114140C51D6502E8004F52B6 /* PGAccountManager.m */,
-				114140C81D6502E8004F52B6 /* PGDeviceInfo.h */,
-				114140C91D6502E8004F52B6 /* PGDeviceInfo.m */,
-				114140CA1D6502E8004F52B6 /* PGGetMapObjectsRequest.h */,
-				114140CB1D6502E8004F52B6 /* PGGetMapObjectsRequest.m */,
-				114140CC1D6502E8004F52B6 /* PGGetProfileRequest.h */,
-				114140CD1D6502E8004F52B6 /* PGGetProfileRequest.m */,
-				114140CE1D6502E8004F52B6 /* PGRequest.h */,
-				114140CF1D6502E8004F52B6 /* PGRequest.m */,
-				114140D01D6502E8004F52B6 /* PGRequestGroup.h */,
-				114140D11D6502E8004F52B6 /* PGRequestGroup.m */,
-				114140D21D6502E8004F52B6 /* PGRequestInfoProvider.h */,
-				114140D31D6502E8004F52B6 /* PGSensorInfo.h */,
-				114140D41D6502E8004F52B6 /* PGSensorInfo.m */,
 				114140D51D6502E8004F52B6 /* PGSensorSpoofer.h */,
 				114140D61D6502E8004F52B6 /* PGSensorSpoofer.m */,
+				114140D31D6502E8004F52B6 /* PGSensorInfo.h */,
+				114140D41D6502E8004F52B6 /* PGSensorInfo.m */,
+				114140C81D6502E8004F52B6 /* PGDeviceInfo.h */,
+				114140C91D6502E8004F52B6 /* PGDeviceInfo.m */,
+				114140D21D6502E8004F52B6 /* PGRequestInfoProvider.h */,
+				114140D01D6502E8004F52B6 /* PGRequestGroup.h */,
+				114140D11D6502E8004F52B6 /* PGRequestGroup.m */,
+				114140F91D667859004F52B6 /* PGResponseBuilder.h */,
+				114140FA1D667859004F52B6 /* PGResponseBuilder.m */,
+				114140FC1D6680AD004F52B6 /* PGResponse.h */,
+				114140FD1D6680AD004F52B6 /* PGResponse.m */,
+				114140CE1D6502E8004F52B6 /* PGRequest.h */,
+				114140CF1D6502E8004F52B6 /* PGRequest.m */,
+				114140CA1D6502E8004F52B6 /* PGGetMapObjectsRequest.h */,
+				114140CB1D6502E8004F52B6 /* PGGetMapObjectsRequest.m */,
+				114140BE1D6502E8004F52B6 /* PGAcceptTermsOfServiceRequest.h */,
+				114140BF1D6502E8004F52B6 /* PGAcceptTermsOfServiceRequest.m */,
+				114140E71D663E53004F52B6 /* PGGetPlayerRequest.h */,
+				114140E81D663E53004F52B6 /* PGGetPlayerRequest.m */,
+				114140EA1D663E78004F52B6 /* PGGetHatchedEggsRequest.h */,
+				114140EB1D663E78004F52B6 /* PGGetHatchedEggsRequest.m */,
+				114140ED1D663E98004F52B6 /* PGGetInventoryRequest.h */,
+				114140EE1D663E98004F52B6 /* PGGetInventoryRequest.m */,
+				114140F01D663EA7004F52B6 /* PGCheckAwardedBadgesRequest.h */,
+				114140F11D663EA7004F52B6 /* PGCheckAwardedBadgesRequest.m */,
+				114140F31D663ED4004F52B6 /* PGDownloadSettingsRequest.h */,
+				114140F41D663ED4004F52B6 /* PGDownloadSettingsRequest.m */,
+				114140F61D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.h */,
+				114140F71D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.m */,
 			);
 			path = ObjectivePoGo;
 			sourceTree = "<group>";
@@ -1850,7 +1885,6 @@
 				114140151D6501A4004F52B6 /* FortLureInfo.pbobjc.m in Sources */,
 				114140571D6501A4004F52B6 /* UseItemGymMessage.pbobjc.m in Sources */,
 				1141408C1D6501A4004F52B6 /* UseItemEggIncubatorResponse.pbobjc.m in Sources */,
-				114140DE1D6502E8004F52B6 /* PGGetProfileRequest.m in Sources */,
 				114140B61D6501E0004F52B6 /* xxhash.c in Sources */,
 				114140651D6501A4004F52B6 /* DiskEncounterResponse.pbobjc.m in Sources */,
 				1141404E1D6501A4004F52B6 /* SetContactSettingsMessage.pbobjc.m in Sources */,
@@ -1889,6 +1923,7 @@
 				1141402A1D6501A4004F52B6 /* CheckAwardedBadgesMessage.pbobjc.m in Sources */,
 				1141402C1D6501A4004F52B6 /* ClaimCodenameMessage.pbobjc.m in Sources */,
 				114140B01D6501A4004F52B6 /* PokemonSettings.pbobjc.m in Sources */,
+				114140EF1D663E98004F52B6 /* PGGetInventoryRequest.m in Sources */,
 				114140511D6501A4004F52B6 /* SfidaActionLogMessage.pbobjc.m in Sources */,
 				11413DF51D650112004F52B6 /* GPBCodedInputStream.m in Sources */,
 				114140831D6501A4004F52B6 /* SetAvatarResponse.pbobjc.m in Sources */,
@@ -1896,11 +1931,13 @@
 				1141400F1D6501A4004F52B6 /* InventoryUpgradeType.pbobjc.m in Sources */,
 				11413FD81D6501A4004F52B6 /* BattleLog.pbobjc.m in Sources */,
 				1141401D1D6501A4004F52B6 /* MapPokemon.pbobjc.m in Sources */,
+				114140F81D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.m in Sources */,
 				114140391D6501A4004F52B6 /* FortDetailsMessage.pbobjc.m in Sources */,
 				114140171D6501A4004F52B6 /* FortRenderingType.pbobjc.m in Sources */,
 				1141408F1D6501A4004F52B6 /* UseItemReviveResponse.pbobjc.m in Sources */,
 				11413FE41D6501A4004F52B6 /* CatchPokemonLogEntry.pbobjc.m in Sources */,
 				1141406E1D6501A4004F52B6 /* FortDeployPokemonResponse.pbobjc.m in Sources */,
+				114140FE1D6680AD004F52B6 /* PGResponse.m in Sources */,
 				114140721D6501A4004F52B6 /* GetAssetDigestResponse.pbobjc.m in Sources */,
 				114140611D6501A4004F52B6 /* CheckCodenameAvailableResponse.pbobjc.m in Sources */,
 				114140371D6501A4004F52B6 /* EvolvePokemonMessage.pbobjc.m in Sources */,
@@ -1917,6 +1954,7 @@
 				11413FE11D6501A4004F52B6 /* GymMembership.pbobjc.m in Sources */,
 				114140741D6501A4004F52B6 /* GetGymDetailsResponse.pbobjc.m in Sources */,
 				114140591D6501A4004F52B6 /* UseItemReviveMessage.pbobjc.m in Sources */,
+				114140F51D663ED4004F52B6 /* PGDownloadSettingsRequest.m in Sources */,
 				114140941D6501A4004F52B6 /* InventorySettings.pbobjc.m in Sources */,
 				11413DEF1D650112004F52B6 /* SourceContext.pbobjc.m in Sources */,
 				1141404F1D6501A4004F52B6 /* SetFavoritePokemonMessage.pbobjc.m in Sources */,
@@ -1931,6 +1969,7 @@
 				114140931D6501A4004F52B6 /* GlobalSettings.pbobjc.m in Sources */,
 				11413DFB1D650112004F52B6 /* GPBMessage.m in Sources */,
 				114140911D6501A4004F52B6 /* DownloadSettingsAction.pbobjc.m in Sources */,
+				114140E91D663E53004F52B6 /* PGGetPlayerRequest.m in Sources */,
 				1141403C1D6501A4004F52B6 /* GetAssetDigestMessage.pbobjc.m in Sources */,
 				114140791D6501A4004F52B6 /* GetPlayerProfileResponse.pbobjc.m in Sources */,
 				1141401E1D6501A4004F52B6 /* NearbyPokemon.pbobjc.m in Sources */,
@@ -1949,6 +1988,7 @@
 				114140291D6501A4004F52B6 /* CatchPokemonMessage.pbobjc.m in Sources */,
 				11413DFA1D650112004F52B6 /* GPBExtensionRegistry.m in Sources */,
 				114140451D6501A4004F52B6 /* GetSuggestedCodenamesMessage.pbobjc.m in Sources */,
+				114140F21D663EA7004F52B6 /* PGCheckAwardedBadgesRequest.m in Sources */,
 				114140A61D6501A4004F52B6 /* PokeballAttributes.pbobjc.m in Sources */,
 				114140161D6501A4004F52B6 /* FortModifier.pbobjc.m in Sources */,
 				1141401C1D6501A4004F52B6 /* MapObjectsStatus.pbobjc.m in Sources */,
@@ -1959,6 +1999,7 @@
 				114140191D6501A4004F52B6 /* FortSummary.pbobjc.m in Sources */,
 				11413E011D650112004F52B6 /* GPBWellKnownTypes.m in Sources */,
 				114140E01D6502E8004F52B6 /* PGRequestGroup.m in Sources */,
+				114140FB1D667859004F52B6 /* PGResponseBuilder.m in Sources */,
 				114140251D6501A4004F52B6 /* Unknown6.pbobjc.m in Sources */,
 				114140631D6501A4004F52B6 /* CollectDailyBonusResponse.pbobjc.m in Sources */,
 				114140011D6501A4004F52B6 /* PokemonType.pbobjc.m in Sources */,
@@ -2031,6 +2072,7 @@
 				11413DFD1D650112004F52B6 /* GPBRootObject.m in Sources */,
 				1141403F1D6501A4004F52B6 /* GetHatchedEggsMessage.pbobjc.m in Sources */,
 				114140751D6501A4004F52B6 /* GetHatchedEggsResponse.pbobjc.m in Sources */,
+				114140EC1D663E78004F52B6 /* PGGetHatchedEggsRequest.m in Sources */,
 				11413DF91D650112004F52B6 /* GPBExtensionInternals.m in Sources */,
 				114140091D6501A4004F52B6 /* EggIncubatorType.pbobjc.m in Sources */,
 				11413FDB1D6501A4004F52B6 /* BattleResults.pbobjc.m in Sources */,

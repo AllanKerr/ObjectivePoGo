@@ -21,3 +21,6 @@ NSString *const PGPokemonApiAndroidId = @"9774d56d682e549c";
 NSString *const PGPokemonApiClientSecret = @"w8ScCUXJQc6kXKw8FiOhd8Fixzht18Dq3PEVkUCP5ZPxtgyWsbTvWHFLm2wNY0JR";
 NSString *const PGPokemonApiService = @"ptc";
 NSString *const PGPokemonApiClientSig = @"321187995bc7cdc2b5fc91b11a96e2baa8602c62";
+
+const uint32_t PGPokemonApiAppVersion = 3300;
+const uint32_t PGHashSeed = 0x1B845238;
