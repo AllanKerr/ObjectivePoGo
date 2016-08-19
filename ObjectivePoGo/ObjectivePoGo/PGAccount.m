@@ -88,13 +88,15 @@ typedef void(^PGAsyncCompletion)(NSError *error);
                     [account getAccessTokenWithTicket:ticket completion:^(NSError *error){
                         if (error == nil) {
                             [account getProfileWithCompletion:^(GetPlayerResponse *response, NSError *error){
-                                if (error == nil) {
+                                // Not entirely happy with this solution, without the delayed dispatch the
+                                // requests are occasionally rate limited causing the login flow to fail
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                                     [account getPlayerDataWithCompletion:^(NSError *error){
-                                        completion(account, error);
+                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                            completion(account, error);
+                                        });
                                     }];
-                                } else {
-                                    completion(nil, error);
-                                }
+                                });
                             }];
                         } else {
                             completion(nil, error);
