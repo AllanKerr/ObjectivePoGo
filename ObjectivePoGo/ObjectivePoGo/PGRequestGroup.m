@@ -41,7 +41,7 @@
 - (void)_buildRequestEnvelope {
     self.requestEnvelope = [RequestEnvelope message];
     self.requestEnvelope.statusCode = 2;
-    self.requestEnvelope.requestId = [[NSDate date] timeIntervalSince1970] * 1000;
+    self.requestEnvelope.requestId = self.infoProvider.requestID;
     
     CLLocation *location = self.infoProvider.location;
     if (location != nil) {

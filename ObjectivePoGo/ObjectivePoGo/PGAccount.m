@@ -48,6 +48,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 
 // PGRequestInfoProvider Properties
 @property (readwrite, nonatomic) uint64_t startTime;
+@property (readwrite, nonatomic) uint64_t requestID;
 @property (readwrite, nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @property (readwrite, nonatomic, strong) NSString *apiURL;
 @property (readwrite, nonatomic, strong) AuthTicket *ticket;
@@ -72,6 +73,10 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 - (NSTimeInterval)timeSinceQuery {
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     return currentTime - self.lastQueryTime;
+}
+
+- (uint64_t)requestID {
+    return _requestID++;
 }
 
 + (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo completion:(PGAccountCompletion)completion {
@@ -113,6 +118,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         self.baseTravelRate = 16.6667; // m/s
         
         self.startTime = [[NSDate date] timeIntervalSince1970] * 1000;
+        self.requestID = PGRequestIdBase + (arc4random() % PGRequestIdRange);
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         sessionConfiguration.HTTPAdditionalHeaders = @{@"User-Agent":PGPokemonApiRequestUserAgent};
         self.sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:sessionConfiguration];

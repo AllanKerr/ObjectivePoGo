@@ -24,3 +24,6 @@ NSString *const PGPokemonApiClientSig = @"321187995bc7cdc2b5fc91b11a96e2baa8602c
 
 const uint32_t PGPokemonApiAppVersion = 3300;
 const uint32_t PGHashSeed = 0x1B845238;
+
+const uint64_t PGRequestIdBase = 100000000;
+const uint64_t PGRequestIdRange = 899999999;
