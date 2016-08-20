@@ -17,6 +17,21 @@ typedef void(^PMFetchAccountCompletion)(PGAccount *, NSError *);
 NSString *const PGAccountsFilename = @"Accounts.plist";
 NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
 
+@implementation NSMutableArray (Shuffling)
+
+- (void)shuffle
+{
+    NSUInteger count = [self count];
+    if (count < 1) return;
+    for (NSUInteger i = 0; i < count - 1; ++i) {
+        NSInteger remainingCount = count - i;
+        NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
+        [self exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+    }
+}
+
+@end
+
 @interface PGAccountManager ()
 @property (nonatomic) BOOL isPerformingLogin;
 @property (nonatomic) NSInteger minAccountBuffer;
@@ -66,6 +81,8 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
             PGAccountInfo *accountInfo = [[PGAccountInfo alloc] initWithInfo:info];
             [self.inactiveAccounts addObject:accountInfo];
         }
+        [self.inactiveAccounts shuffle];
+
         self.activeAccounts = [NSMutableArray arrayWithCapacity:self.inactiveAccounts.count];
         self.activeAccountsDict = [NSMutableDictionary dictionaryWithCapacity:self.inactiveAccounts.count];
         self.minAccountBuffer = roundf(self.inactiveAccounts.count * 0.078125);
