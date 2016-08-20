@@ -286,6 +286,7 @@
 		114140F81D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140F71D666EEB004F52B6 /* PGDownloadRemoteConfigVersionRequest.m */; };
 		114140FB1D667859004F52B6 /* PGResponseBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140FA1D667859004F52B6 /* PGResponseBuilder.m */; };
 		114140FE1D6680AD004F52B6 /* PGResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140FD1D6680AD004F52B6 /* PGResponse.m */; };
+		114141451D68F5A2004F52B6 /* PGConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 114141441D68F5A2004F52B6 /* PGConfig.m */; };
 		9338A4CD9A76E58A679D1076 /* libPods-ObjectivePoGo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 548A51B5B943E69EF268B298 /* libPods-ObjectivePoGo.a */; };
 /* End PBXBuildFile section */
 
@@ -857,6 +858,8 @@
 		114140FA1D667859004F52B6 /* PGResponseBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResponseBuilder.m; sourceTree = "<group>"; };
 		114140FC1D6680AD004F52B6 /* PGResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGResponse.h; sourceTree = "<group>"; };
 		114140FD1D6680AD004F52B6 /* PGResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGResponse.m; sourceTree = "<group>"; };
+		114141431D68F5A2004F52B6 /* PGConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConfig.h; sourceTree = "<group>"; };
+		114141441D68F5A2004F52B6 /* PGConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConfig.m; sourceTree = "<group>"; };
 		12CD2640487F8A1398F50E51 /* Pods-ObjectivePoGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectivePoGo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectivePoGo/Pods-ObjectivePoGo.release.xcconfig"; sourceTree = "<group>"; };
 		548A51B5B943E69EF268B298 /* libPods-ObjectivePoGo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjectivePoGo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6047825F0C69F872F09C1C3 /* Pods-ObjectivePoGo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjectivePoGo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjectivePoGo/Pods-ObjectivePoGo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1690,6 +1693,8 @@
 		114140BD1D6502E8004F52B6 /* ObjectivePoGo */ = {
 			isa = PBXGroup;
 			children = (
+				114141431D68F5A2004F52B6 /* PGConfig.h */,
+				114141441D68F5A2004F52B6 /* PGConfig.m */,
 				114140C61D6502E8004F52B6 /* PGConstants.h */,
 				114140C71D6502E8004F52B6 /* PGConstants.m */,
 				114140C01D6502E8004F52B6 /* PGAccount.h */,
@@ -2120,6 +2125,7 @@
 				114140AB1D6501A4004F52B6 /* MoveSettings.pbobjc.m in Sources */,
 				114140361D6501A4004F52B6 /* EquipBadgeMessage.pbobjc.m in Sources */,
 				114140021D6501A4004F52B6 /* TeamColor.pbobjc.m in Sources */,
+				114141451D68F5A2004F52B6 /* PGConfig.m in Sources */,
 				1141404D1D6501A4004F52B6 /* SetAvatarMessage.pbobjc.m in Sources */,
 				11413FD61D6501A4004F52B6 /* BattleAction.pbobjc.m in Sources */,
 				1141401B1D6501A4004F52B6 /* MapCell.pbobjc.m in Sources */,

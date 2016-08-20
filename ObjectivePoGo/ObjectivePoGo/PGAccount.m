@@ -18,6 +18,7 @@
 #import "PGDownloadRemoteConfigVersionRequest.h"
 #import "PGResponse.h"
 #import <DDURLParser.h>
+#import "PGConfig.h"
 
 #import "GetPlayerResponse.pbobjc.h"
 #import "GetMapObjectsResponse.pbobjc.h"
@@ -115,9 +116,9 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 - (instancetype)initWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo {
     if (self = [super init]) {
         self.accountInfo = accountInfo;
-        self.minUpdateInterval = 10;
-        self.baseAltitude = 93;
-        self.baseTravelRate = 16.6667; // m/s
+        self.minUpdateInterval = PGConfigQueryInterval;
+        self.baseAltitude = PGConfigBaseAltitude;
+        self.baseTravelRate = PGConfigBaseTravelRate;
         
         self.startTime = [[NSDate date] timeIntervalSince1970] * 1000;
         self.requestID = PGRequestIdBase + (arc4random() % PGRequestIdRange);

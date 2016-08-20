@@ -9,7 +9,7 @@
 #import "PGDownloadRemoteConfigVersionRequest.h"
 #import "DownloadRemoteConfigVersionMessage.pbobjc.h"
 #import "Platform.pbobjc.h"
-#import "PGConstants.h"
+#import "PGConfig.h"
 
 @implementation PGDownloadRemoteConfigVersionRequest
 
@@ -17,7 +17,7 @@
     if (self = [super initWithType:RequestType_DownloadRemoteConfigVersion]) {
         DownloadRemoteConfigVersionMessage *message = [DownloadRemoteConfigVersionMessage message];
         message.platform = Platform_Ios;
-        message.appVersion = PGPokemonApiAppVersion;
+        message.appVersion = PGCongfigAppVersion;
         self.rawRequest.requestMessage = message.data;
     }
     return self;
