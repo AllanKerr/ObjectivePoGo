@@ -27,6 +27,8 @@
 #import "Signature.pbobjc.h"
 #import "PGSensorSpoofer.h"
 #import "InventoryDelta.pbobjc.h"
+#import "GlobalSettings.pbobjc.h"
+#import "MapSettings.pbobjc.h"
 
 #define ARC4RANDOM_MAX 0x100000000
 
@@ -409,6 +411,12 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 - (void)receivedDownloadSettingsResponse:(PGResponse *)response {
     if (response.error == nil) {
         DownloadSettingsResponse *message = (DownloadSettingsResponse *)response.message;
+        if (message.hasSettings && message.settings.hasMapSettings && message.settings.mapSettings.getMapObjectsMinRefreshSeconds > 0) {
+            if (message.settings.mapSettings.getMapObjectsMinRefreshSeconds != PGConfigQueryInterval) {
+                NSLog(@"The minimum query interval has been changed to %f", message.settings.mapSettings.getMapObjectsMinRefreshSeconds);
+            }
+            self.minUpdateInterval = message.settings.mapSettings.getMapObjectsMinRefreshSeconds;
+        }
         self.downloadSettingsHash = message.hash_p;
     } else {
         NSLog(@"%@ failed: %@", [response class], response.error);
