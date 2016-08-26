@@ -36,6 +36,7 @@ typedef void(^PGAcceptTermsOfServiceCompletion)(NSError *error);
 // PGRequestInfoProvider Properties
 @property (readonly, nonatomic) uint64_t startTime;
 @property (readonly, nonatomic) uint64_t requestID;
+@property (readonly, nonatomic, strong) NSString *username;
 @property (readonly, nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @property (readonly, nonatomic, strong) NSString *apiURL;
 @property (readonly, nonatomic, strong) AuthTicket *ticket;

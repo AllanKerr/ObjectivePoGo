@@ -66,6 +66,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 @implementation PGAccount
 @dynamic isReadyForQuery;
 @dynamic timeSinceQuery;
+@dynamic username;
 
 - (BOOL)isReadyForQuery {
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
@@ -79,6 +80,10 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 
 - (uint64_t)requestID {
     return _requestID++;
+}
+
+- (NSString *)username {
+    return self.accountInfo.username;
 }
 
 + (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo completion:(PGAccountCompletion)completion {

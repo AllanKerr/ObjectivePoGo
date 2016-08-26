@@ -291,6 +291,9 @@
     } else if (responseEnvelope.statusCode == 1 || responseEnvelope.statusCode == 2) {
         NSArray *responses = [self.responseBuilder buildFromEnvelope:responseEnvelope];
         self.completion(responses, nil);
+    } else if (responseEnvelope.statusCode == 3){
+        NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"%@ may be banned", self.infoProvider.username]};
+        self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeBanned userInfo:userInfo]);
     } else {
         NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%i", responseEnvelope.statusCode]};
         self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo]);
