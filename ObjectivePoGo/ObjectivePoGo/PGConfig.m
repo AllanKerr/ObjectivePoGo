@@ -9,7 +9,7 @@
 #import "PGConfig.h"
 
 // The most recent app version used by DownloadRemoteConfigVersionRequest
-const uint32_t PGCongfigAppVersion = 3500;
+const uint32_t PGConfigAppVersion = 3500;
 
 // The query interval before the server begins to rate limit requests
 const uint32_t PGConfigQueryInterval = 10;

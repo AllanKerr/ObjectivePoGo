@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 // The most recent app version used by DownloadRemoteConfigVersionRequest
-FOUNDATION_EXPORT const uint32_t PGCongfigAppVersion;
+FOUNDATION_EXPORT const uint32_t PGConfigAppVersion;
 
 // The query interval before the server begins to rate limit requests
 FOUNDATION_EXPORT const uint32_t PGConfigQueryInterval;

@@ -17,7 +17,7 @@
     if (self = [super initWithType:RequestType_DownloadRemoteConfigVersion]) {
         DownloadRemoteConfigVersionMessage *message = [DownloadRemoteConfigVersionMessage message];
         message.platform = Platform_Ios;
-        message.appVersion = PGCongfigAppVersion;
+        message.appVersion = PGConfigAppVersion;
         self.rawRequest.requestMessage = message.data;
     }
     return self;
