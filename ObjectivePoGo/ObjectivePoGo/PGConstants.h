@@ -20,7 +20,8 @@ typedef NS_ENUM(NSUInteger, PGErrorCode) {
     PGErrorCodeSigningIn,
     PGErrorCodeNoInactiveAccounts,
     PGErrorCodeInvalidStatusCode,
-    PGErrorCodeReceivedChallenge
+    PGErrorCodeReceivedChallenge,
+    PGErrorCodeBanned
 };
 
 FOUNDATION_EXPORT NSString *const PGErrorDomain;

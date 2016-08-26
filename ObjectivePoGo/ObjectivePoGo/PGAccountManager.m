@@ -39,6 +39,7 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
 @property (nonatomic, strong) NSMutableArray *bufferAccounts;
 @property (nonatomic, strong) NSMutableArray *inactiveAccounts;
 @property (nonatomic, strong) NSMutableArray *activeAccounts;
+@property (nonatomic, strong) NSMutableArray *bannedAccounts;
 @property (nonatomic, strong) NSMutableDictionary *activeAccountsDict;
 @property (nonatomic, strong) NSMutableDictionary *deviceInfos;
 @property (readonly, nonatomic) NSString *deviceInfosPath;
@@ -83,6 +84,7 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
         }
         [self.inactiveAccounts shuffle];
 
+        self.bannedAccounts = [NSMutableArray array];
         self.activeAccounts = [NSMutableArray arrayWithCapacity:self.inactiveAccounts.count];
         self.activeAccountsDict = [NSMutableDictionary dictionaryWithCapacity:self.inactiveAccounts.count];
         self.minAccountBuffer = roundf(self.inactiveAccounts.count * 0.078125);
@@ -133,7 +135,11 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
             [self.activeAccounts addObject:account];
         } else {
             NSLog(@"Sign in failed: %@", accountInfo.username);
-            [self.inactiveAccounts addObject:accountInfo];
+            if (error.code != PGErrorCodeBanned) {
+                [self.inactiveAccounts addObject:accountInfo];
+            } else {
+                [self.bannedAccounts addObject:accountInfo];
+            }
         }
         self.isPerformingLogin = NO;
         completion(account, error);
@@ -201,6 +207,10 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
             [account getMapObjectsForCoordinate:coordinate completion:^(NSString *username, GetMapObjectsResponse *mapObjects, NSError *error){
                 if (error.code == PGErrorCodeExpiredAuthTicket) {
                     [self _deactivateAccount:account];
+                } else if (error.code == PGErrorCodeBanned) {
+                    [self.activeAccounts removeObject:account];
+                    [self.activeAccountsDict removeObjectForKey:account.accountInfo];
+                    [self.bannedAccounts addObject:account.accountInfo];
                 }
                 completion(username, mapObjects, error);
             }];
@@ -219,6 +229,10 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
             [account getMapObjectsForCellId:cellId coordinate:coordinate completion:^(NSString *username, GetMapObjectsResponse *mapObjects, NSError *error){
                 if (error.code == PGErrorCodeExpiredAuthTicket) {
                     [self _deactivateAccount:account];
+                } else if (error.code == PGErrorCodeBanned) {
+                    [self.activeAccounts removeObject:account];
+                    [self.activeAccountsDict removeObjectForKey:account.accountInfo];
+                    [self.bannedAccounts addObject:account.accountInfo];
                 }
                 completion(username, mapObjects, error);
             }];
