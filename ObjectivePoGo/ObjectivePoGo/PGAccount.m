@@ -381,9 +381,12 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         return response.error;
     }
     CheckChallengeResponse *message = (CheckChallengeResponse *)response.message;
-    if (message.showChallenge || message.challengeURL) {
+    if (message.showChallenge) {
         NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"showChallenge:%i challengeURL:%@", message.showChallenge, message.challengeURL]};
         return [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeReceivedChallenge userInfo:userInfo];
+    } if (message.challengeURL.length > 1) {
+        NSLog(@"Received challenge URL:%@", message.challengeURL);
+        return nil;
     } else {
         return nil;
     }

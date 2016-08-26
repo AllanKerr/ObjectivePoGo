@@ -111,7 +111,7 @@
         self.requestEnvelope.msSinceLastLocationfix = timeSinceStart - locationFix.timestampSnapshot;
         [signature.locationFixArray addObjectsFromArray:self.infoProvider.locationFixes];
     } else {
-        self.requestEnvelope.msSinceLastLocationfix = -1;
+        self.requestEnvelope.msSinceLastLocationfix = 989;
     }
     PGSensorInfo *sensorInfo = self.infoProvider.sensorInfo;
     Signature_SensorInfo *sigSensorInfo = [Signature_SensorInfo message];
@@ -253,8 +253,6 @@
     request.HTTPBody = self.requestEnvelope.data;
     request.HTTPMethod = @"POST";
     
-    NSLog(@"%@", self.requestEnvelope);
-    
     NSThread *currentThread = [NSThread currentThread];
     NSURLSession *session = [self.infoProvider.sessionManager session];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -284,7 +282,6 @@
         [self.infoProvider updateApiURL:apiURL];
     }
     if (responseEnvelope.hasAuthTicket) {
-        NSLog(@"\n\n\n\nINITIAL RESPOSE:%@", responseEnvelope);
         [self.infoProvider updateTicket:responseEnvelope.authTicket];
         NSMutableArray *requestsArray = self.requestEnvelope.requestsArray;
         [self _buildRequestEnvelope];
@@ -296,7 +293,6 @@
         NSArray *responses = [self.responseBuilder buildFromEnvelope:responseEnvelope];
         self.completion(responses, nil);
     } else {
-        NSLog(@"RECEIVED ODD RESPONSE");
         NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%i", responseEnvelope.statusCode]};
         self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo]);
     }
