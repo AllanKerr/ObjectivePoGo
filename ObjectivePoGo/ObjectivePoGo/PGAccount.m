@@ -42,7 +42,6 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 @property (readwrite, nonatomic) BOOL isFetching;
 @property (readwrite, nonatomic) NSTimeInterval lastQueryTime;
 @property (readwrite, nonatomic) NSTimeInterval minUpdateInterval;
-@property (readwrite, nonatomic) CLLocationDistance baseAltitude;
 @property (readwrite, nonatomic) double baseTravelRate;
 @property (readwrite, nonatomic) int64_t inventoryTimeStamp;
 @property (readwrite, nonatomic, strong) NSString *downloadSettingsHash;
@@ -123,7 +122,6 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     if (self = [super init]) {
         self.accountInfo = accountInfo;
         self.minUpdateInterval = PGConfigQueryInterval;
-        self.baseAltitude = PGConfigBaseAltitude;
         self.baseTravelRate = PGConfigBaseTravelRate;
         
         self.startTime = [[NSDate date] timeIntervalSince1970] * 1000;
@@ -435,8 +433,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 }
 
 - (void)_updateLocationWithCoordinate:(CLLocationCoordinate2D)coordinate {
-    CGFloat altitude = [self applyNoise:self.baseAltitude magnitude:0.05];
-    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate altitude:altitude horizontalAccuracy:10 verticalAccuracy:12 timestamp:[NSDate date]];
+    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate altitude:0 horizontalAccuracy:PGConfigHorizontalAccuracy verticalAccuracy:PGConfigVerticalAccuracy timestamp:[NSDate date]];
     self.lastLocation = self.location;
     self.location = location;
     
@@ -474,8 +471,8 @@ typedef void(^PGAsyncCompletion)(NSError *error);
             locationFix.timestampSnapshot = timeSinceStart;
             locationFix.latitude = coordinate.latitude;
             locationFix.longitude = coordinate.longitude;
-            locationFix.horizontalAccuracy = [self applyNoise:self.baseAltitude magnitude:0.05]; //TODO
-            locationFix.verticalAccuracy = 10;
+            locationFix.horizontalAccuracy = PGConfigHorizontalAccuracy;
+            locationFix.verticalAccuracy = PGConfigVerticalAccuracy;
             locationFix.providerStatus = 3;
             locationFix.locationType = 1;
             [locationFixes addObject:locationFix];

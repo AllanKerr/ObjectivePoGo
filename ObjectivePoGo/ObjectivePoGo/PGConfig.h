@@ -17,8 +17,8 @@ FOUNDATION_EXPORT const uint32_t PGConfigQueryInterval;
 // The base value travel rate is randomized around in m/s
 FOUNDATION_EXPORT const float PGConfigBaseTravelRate;
 
-// The base altitude above sea level that altitude is randomized around
-FOUNDATION_EXPORT const float PGConfigBaseAltitude;
+FOUNDATION_EXPORT const float PGConfigHorizontalAccuracy;
+FOUNDATION_EXPORT const float PGConfigVerticalAccuracy;
 
 FOUNDATION_EXPORT NSString *const PGConfigLanguage;
 FOUNDATION_EXPORT NSString *const PGConfigCountry;

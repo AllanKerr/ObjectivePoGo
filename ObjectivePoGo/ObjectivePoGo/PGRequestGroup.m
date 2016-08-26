@@ -47,7 +47,7 @@
     if (location != nil) {
         self.requestEnvelope.latitude = location.coordinate.latitude;
         self.requestEnvelope.longitude = location.coordinate.longitude;
-        self.requestEnvelope.accuracy = location.altitude;
+        self.requestEnvelope.accuracy = location.horizontalAccuracy;
     }
     if (![self _addAuthTicket]) {
         [self _addAuthInfo];
@@ -98,11 +98,10 @@
     CLLocation *location = self.infoProvider.location;
     double latitude = location.coordinate.latitude;
     double longitude = location.coordinate.longitude;
-    double altitude = location.altitude;
     
     Signature *signature = [Signature new];
-    signature.locationHash1 = [self generateLocation1:authData latitude:latitude longitude:longitude altitude:altitude];
-    signature.locationHash2 = [self generateLocation2:latitude longitude:longitude altitude:altitude];
+    signature.locationHash1 = [self generateLocation1:authData latitude:latitude longitude:longitude accuracy:location.horizontalAccuracy];
+    signature.locationHash2 = [self generateLocation2:latitude longitude:longitude accuracy:location.horizontalAccuracy];
     
     uint64_t currentTime = [[NSDate date] timeIntervalSince1970] * 1000;
     uint64_t timeSinceStart = currentTime - self.infoProvider.startTime;
@@ -163,31 +162,31 @@
     return signature;
 }
 
-- (uint32_t)generateLocation1:(NSData *)authData latitude:(double)latitude longitude:(double)longitude altitude:(double)altitude {
+- (uint32_t)generateLocation1:(NSData *)authData latitude:(double)latitude longitude:(double)longitude accuracy:(double)accuracy {
     // need to serialize authentication ticket for calculating location hash 1
     uint32_t firstHash = XXH32(authData.bytes, authData.length, PGHashSeed);
     
     NSData *latitudeHexData = [self doubleToHexData:latitude];
     NSData *longitudeHexData = [self doubleToHexData:longitude];
-    NSData *altitudeHexData = [self doubleToHexData:altitude];
+    NSData *accuracyHexData = [self doubleToHexData:accuracy];
     
     NSMutableData *locationBytesData = [NSMutableData data];
     [locationBytesData appendData:latitudeHexData];
     [locationBytesData appendData:longitudeHexData];
-    [locationBytesData appendData:altitudeHexData];
+    [locationBytesData appendData:accuracyHexData];
     
     return XXH32(locationBytesData.bytes, locationBytesData.length, firstHash);
 }
 
-- (uint32_t)generateLocation2:(double)latitude longitude:(double)longitude altitude:(double)altitude {
+- (uint32_t)generateLocation2:(double)latitude longitude:(double)longitude accuracy:(double)accuracy {
     NSData *latitudeHexData = [self doubleToHexData:latitude];
     NSData *longitudeHexData = [self doubleToHexData:longitude];
-    NSData *altitudeHexData = [self doubleToHexData:altitude];
+    NSData *accuracyHexData = [self doubleToHexData:accuracy];
     
     NSMutableData *locationBytesData = [NSMutableData data];
     [locationBytesData appendData:latitudeHexData];
     [locationBytesData appendData:longitudeHexData];
-    [locationBytesData appendData:altitudeHexData];
+    [locationBytesData appendData:accuracyHexData];
     
     return XXH32(locationBytesData.bytes, locationBytesData.length, PGHashSeed);
 }
