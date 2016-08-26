@@ -21,6 +21,7 @@
 #import "PGConfig.h"
 #import "PGCheckChallengeRequest.h"
 #import "PGSetAvatarRequest.h"
+#import "PGEncounterTutorialCompleteRequest.h"
 
 #import "GetPlayerResponse.pbobjc.h"
 #import "GetMapObjectsResponse.pbobjc.h"
@@ -320,9 +321,26 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
         if (error == nil) {
             SetAvatarResponse *message = (SetAvatarResponse *)response.message;
+            if (message.status == SetAvatarResponse_Status_Success) {
+                [self markTutorialCompleteWithState:TutorialState_AvatarSelection completion:completion];
+            } else {
+                NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Set avatar received invalid status:%i", message.status]};
+                NSError *error = [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo];
+                completion(NO, error);
+            }
             completion(message.status == SetAvatarResponse_Status_Success, response.error);
         } else {
-            [self markTutorialCompleteWithState:TutorialState_AvatarSelection completion:completion];
+            completion(NO, error);
+        }
+    }];
+}
+
+- (void)completeTutorialEncounterWithCompletion:(PGBooleanCompletion)completion {
+    PGEncounterTutorialCompleteRequest *request = [[PGEncounterTutorialCompleteRequest alloc] init];
+    [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
+        if (error == nil) {
+            EncounterTutorialCompleteResponse *message = (EncounterTutorialCompleteResponse *)response.message;
+            completion(message.result == EncounterTutorialCompleteResponse_Result_Success, response.error);
         }
     }];
 }
