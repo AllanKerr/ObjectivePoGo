@@ -1,5 +1,5 @@
 //
-//  PKAcceptTermsOfServiceRequest.h
+//  PGCompleteTutorialStateRequest.h
 //  ObjectivePoGo
 //
 //  Created by 43f9879ddabcb80a685cf0e269a0bfca1e52786dee41c38604ae3b28a9d53657 on 2016-08-17.
@@ -7,7 +7,8 @@
 //
 
 #import "PGRequest.h"
+#import "TutorialState.pbobjc.h"
 
-@interface PGAcceptTermsOfServiceRequest : PGRequest
-
+@interface PGCompleteTutorialStateRequest : PGRequest
+- (instancetype)initWithState:(TutorialState)state;
 @end

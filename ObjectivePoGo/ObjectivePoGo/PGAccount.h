@@ -26,7 +26,6 @@ typedef void(^PGAccountCompletion)(PGAccount *account, NSError *error);
 
 typedef void(^PGMapObjectsCompletion)(NSString *username, GetMapObjectsResponse *mapObjects, NSError *error);
 typedef void(^PGGetProfileCompletion)(GetPlayerResponse *playerProfile, NSError *error);
-typedef void(^PGAcceptTermsOfServiceCompletion)(NSError *error);
 
 @interface PGAccount : NSObject <PGRequestInfoProvider>
 @property (readonly, nonatomic) BOOL isReadyForQuery;
@@ -50,7 +49,6 @@ typedef void(^PGAcceptTermsOfServiceCompletion)(NSError *error);
 - (void)getMapObjectsForCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 - (void)getMapObjectsForCellId:(uint64_t)cellId coordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 - (void)getProfileWithCompletion:(PGGetProfileCompletion)completion;
-- (void)acceptTermsOfServiceWithCompletion:(PGAcceptTermsOfServiceCompletion)completion;
 - (CLLocationDistance)distanceFromCoordinate:(CLLocationCoordinate2D)coordinate;
 @end
 
