@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PlayerBadge.pbobjc.h"
- #import "BadgeType.pbobjc.h"
+ #import "POGOProtos/Data/PlayerBadge.pbobjc.h"
+ #import "POGOProtos/Enums/BadgeType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

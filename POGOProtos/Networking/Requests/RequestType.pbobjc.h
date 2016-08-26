@@ -188,6 +188,8 @@ typedef GPB_ENUM(RequestType) {
 
   /// Implemented [R & M]
   RequestType_SetContactSettings = 151,
+  RequestType_SetBuddyPokemon = 152,
+  RequestType_GetBuddyWalked = 153,
 
   /// Implemented [R & M]
   RequestType_GetAssetDigest = 300,
@@ -215,6 +217,8 @@ typedef GPB_ENUM(RequestType) {
 
   /// Can't find this one
   RequestType_LoadSpawnPoints = 500,
+  RequestType_CheckChallenge = 600,
+  RequestType_VerifyChallenge = 601,
 
   /// Implemented [R & M]
   RequestType_Echo = 666,

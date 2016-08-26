@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Unknown6Response.pbobjc.h"
- #import "Currency.pbobjc.h"
- #import "ItemData.pbobjc.h"
+ #import "POGOProtos/Networking/Envelopes/Unknown6Response.pbobjc.h"
+ #import "POGOProtos/Data/Player/Currency.pbobjc.h"
+ #import "POGOProtos/Inventory/Item/ItemData.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

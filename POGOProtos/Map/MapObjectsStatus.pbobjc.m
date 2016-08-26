@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "MapObjectsStatus.pbobjc.h"
+ #import "POGOProtos/Map/MapObjectsStatus.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "StartGymBattleResponse.pbobjc.h"
- #import "BattleLog.pbobjc.h"
- #import "BattleParticipant.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/StartGymBattleResponse.pbobjc.h"
+ #import "POGOProtos/Data/Battle/BattleLog.pbobjc.h"
+ #import "POGOProtos/Data/Battle/BattleParticipant.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

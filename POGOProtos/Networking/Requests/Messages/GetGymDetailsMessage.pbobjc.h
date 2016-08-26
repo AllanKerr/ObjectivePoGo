@@ -47,6 +47,7 @@ typedef GPB_ENUM(GetGymDetailsMessage_FieldNumber) {
   GetGymDetailsMessage_FieldNumber_PlayerLongitude = 3,
   GetGymDetailsMessage_FieldNumber_GymLatitude = 4,
   GetGymDetailsMessage_FieldNumber_GymLongitude = 5,
+  GetGymDetailsMessage_FieldNumber_ClientVersion = 6,
 };
 
 @interface GetGymDetailsMessage : GPBMessage
@@ -60,6 +61,8 @@ typedef GPB_ENUM(GetGymDetailsMessage_FieldNumber) {
 @property(nonatomic, readwrite) double gymLatitude;
 
 @property(nonatomic, readwrite) double gymLongitude;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSString *clientVersion;
 
 @end
 

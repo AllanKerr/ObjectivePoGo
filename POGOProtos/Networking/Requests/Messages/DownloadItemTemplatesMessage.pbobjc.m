@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "DownloadItemTemplatesMessage.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/DownloadItemTemplatesMessage.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

@@ -47,12 +47,11 @@
     if (location != nil) {
         self.requestEnvelope.latitude = location.coordinate.latitude;
         self.requestEnvelope.longitude = location.coordinate.longitude;
-        self.requestEnvelope.altitude = location.altitude;
+        self.requestEnvelope.accuracy = location.altitude;
     }
     if (![self _addAuthTicket]) {
         [self _addAuthInfo];
     }
-    self.requestEnvelope.unknown12 = 989;
 }
 
 - (BOOL)_addAuthTicket {
@@ -78,34 +77,42 @@
 }
 
 - (void)_addUnknown6 {
+    NSData *authData;
     if (self.requestEnvelope.hasAuthTicket) {
-        Unknown6 *unknown6 = [Unknown6 new];
-        unknown6.requestType = 6;
-        
-        Unknown6_Unknown2 *unknown6Unknown2 = [Unknown6_Unknown2 new];
-        Signature *signature = [self buildSignature:self.requestEnvelope.authTicket];
-        unknown6Unknown2.encryptedSignature = [self generateSignatureData:signature];
-        unknown6.unknown2 = unknown6Unknown2;
-        
-        [self.requestEnvelope.unknown6Array addObject:unknown6];
+        authData = self.requestEnvelope.authTicket.data;
+    } else {
+        authData = self.requestEnvelope.authInfo.data;
     }
+    Unknown6 *unknown6 = [Unknown6 new];
+    unknown6.requestType = 6;
+        
+    Unknown6_Unknown2 *unknown6Unknown2 = [Unknown6_Unknown2 new];
+    Signature *signature = [self buildSignature:authData];
+    unknown6Unknown2.encryptedSignature = [self generateSignatureData:signature];
+    unknown6.unknown2 = unknown6Unknown2;
+        
+    [self.requestEnvelope.unknown6Array addObject:unknown6];
 }
 
-- (Signature *)buildSignature:(AuthTicket *)ticket {
+- (Signature *)buildSignature:(NSData *)authData {
     CLLocation *location = self.infoProvider.location;
     double latitude = location.coordinate.latitude;
     double longitude = location.coordinate.longitude;
     double altitude = location.altitude;
     
     Signature *signature = [Signature new];
-    signature.locationHash1 = [self generateLocation1:ticket latitude:latitude longitude:longitude altitude:altitude];
+    signature.locationHash1 = [self generateLocation1:authData latitude:latitude longitude:longitude altitude:altitude];
     signature.locationHash2 = [self generateLocation2:latitude longitude:longitude altitude:altitude];
     
-    if (self.infoProvider.locationFixes != nil) {
-        [signature.locationFixArray addObjectsFromArray:self.infoProvider.locationFixes];
-    }
     uint64_t currentTime = [[NSDate date] timeIntervalSince1970] * 1000;
     uint64_t timeSinceStart = currentTime - self.infoProvider.startTime;
+    if (self.infoProvider.locationFixes != nil) {
+        Signature_LocationFix *locationFix = [self.infoProvider.locationFixes lastObject];
+        self.requestEnvelope.msSinceLastLocationfix = timeSinceStart - locationFix.timestampSnapshot;
+        [signature.locationFixArray addObjectsFromArray:self.infoProvider.locationFixes];
+    } else {
+        self.requestEnvelope.msSinceLastLocationfix = -1;
+    }
     PGSensorInfo *sensorInfo = self.infoProvider.sensorInfo;
     Signature_SensorInfo *sigSensorInfo = [Signature_SensorInfo message];
     sigSensorInfo.timestampSnapshot = timeSinceStart;
@@ -142,18 +149,23 @@
     signature.activityStatus = [Signature_ActivityStatus message];
     
     for (Request *request in self.requestEnvelope.requestsArray) {
-        uint64_t hash = [self generateRequestHash:request authTicket:ticket];
+        uint64_t hash = [self generateRequestHash:request authTicket:authData];
         [signature.requestHashArray addValue:hash];
     }
-    signature.unk22 = [self uRandom:32];
+    if (self.infoProvider.sessionHash == nil) {
+        NSData *sessionHash = [self uRandom:16];
+        [self.infoProvider updateSessionHash:sessionHash];
+    }
+    signature.sessionHash = self.infoProvider.sessionHash;
     signature.timestamp = currentTime;
-    signature.timestampSinceStart = timeSinceStart;    
+    signature.timestampSinceStart = timeSinceStart;
+    signature.unknown25 = 7363665268261373700;
     return signature;
 }
 
-- (uint32_t)generateLocation1:(AuthTicket *)authTicket latitude:(double)latitude longitude:(double)longitude altitude:(double)altitude {
+- (uint32_t)generateLocation1:(NSData *)authData latitude:(double)latitude longitude:(double)longitude altitude:(double)altitude {
     // need to serialize authentication ticket for calculating location hash 1
-    uint32_t firstHash = XXH32(authTicket.data.bytes, authTicket.data.length, PGHashSeed);
+    uint32_t firstHash = XXH32(authData.bytes, authData.length, PGHashSeed);
     
     NSData *latitudeHexData = [self doubleToHexData:latitude];
     NSData *longitudeHexData = [self doubleToHexData:longitude];
@@ -180,8 +192,7 @@
     return XXH32(locationBytesData.bytes, locationBytesData.length, PGHashSeed);
 }
 
-- (uint64_t)generateRequestHash:(Request *)request authTicket:(AuthTicket *)authTicket {
-    NSData *authTicketData = authTicket.data;
+- (uint64_t)generateRequestHash:(Request *)request authTicket:(NSData *)authTicketData {
     NSData *requestData = request.data;
     uint64_t firstHash = XXH64(authTicketData.bytes, authTicketData.length, PGHashSeed);
     return XXH64(requestData.bytes, requestData.length, firstHash);
@@ -242,6 +253,8 @@
     request.HTTPBody = self.requestEnvelope.data;
     request.HTTPMethod = @"POST";
     
+    NSLog(@"%@", self.requestEnvelope);
+    
     NSThread *currentThread = [NSThread currentThread];
     NSURLSession *session = [self.infoProvider.sessionManager session];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -271,6 +284,7 @@
         [self.infoProvider updateApiURL:apiURL];
     }
     if (responseEnvelope.hasAuthTicket) {
+        NSLog(@"\n\n\n\nINITIAL RESPOSE:%@", responseEnvelope);
         [self.infoProvider updateTicket:responseEnvelope.authTicket];
         NSMutableArray *requestsArray = self.requestEnvelope.requestsArray;
         [self _buildRequestEnvelope];
@@ -282,6 +296,7 @@
         NSArray *responses = [self.responseBuilder buildFromEnvelope:responseEnvelope];
         self.completion(responses, nil);
     } else {
+        NSLog(@"RECEIVED ODD RESPONSE");
         NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%i", responseEnvelope.statusCode]};
         self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo]);
     }

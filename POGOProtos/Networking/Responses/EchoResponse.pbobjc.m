@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EchoResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/EchoResponse.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

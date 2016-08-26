@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PokeballAttributes.pbobjc.h"
- #import "ItemEffect.pbobjc.h"
+ #import "POGOProtos/Settings/Master/Item/PokeballAttributes.pbobjc.h"
+ #import "POGOProtos/Enums/ItemEffect.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

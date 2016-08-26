@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GymState.pbobjc.h"
- #import "FortData.pbobjc.h"
- #import "GymMembership.pbobjc.h"
+ #import "POGOProtos/Data/Gym/GymState.pbobjc.h"
+ #import "POGOProtos/Map/Fort/FortData.pbobjc.h"
+ #import "POGOProtos/Data/Gym/GymMembership.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

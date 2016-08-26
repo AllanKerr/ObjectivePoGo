@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "CatchPokemonLogEntry.pbobjc.h"
- #import "PokemonId.pbobjc.h"
+ #import "POGOProtos/Data/Logs/CatchPokemonLogEntry.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -109,7 +109,7 @@ typedef struct CatchPokemonLogEntry__storage_ {
         .hasIndex = 3,
         .offset = (uint32_t)offsetof(CatchPokemonLogEntry__storage_, pokemonDataId),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
+        .dataType = GPBDataTypeFixed64,
       },
     };
     GPBDescriptor *localDescriptor =
@@ -158,11 +158,13 @@ GPBEnumDescriptor *CatchPokemonLogEntry_Result_EnumDescriptor(void) {
   static GPBEnumDescriptor *descriptor = NULL;
   if (!descriptor) {
     static const char *valueNames =
-        "Unset\000PokemonCaptured\000PokemonFled\000";
+        "Unset\000PokemonCaptured\000PokemonFled\000Pokemo"
+        "nHatched\000";
     static const int32_t values[] = {
         CatchPokemonLogEntry_Result_Unset,
         CatchPokemonLogEntry_Result_PokemonCaptured,
         CatchPokemonLogEntry_Result_PokemonFled,
+        CatchPokemonLogEntry_Result_PokemonHatched,
     };
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(CatchPokemonLogEntry_Result)
@@ -182,6 +184,7 @@ BOOL CatchPokemonLogEntry_Result_IsValidValue(int32_t value__) {
     case CatchPokemonLogEntry_Result_Unset:
     case CatchPokemonLogEntry_Result_PokemonCaptured:
     case CatchPokemonLogEntry_Result_PokemonFled:
+    case CatchPokemonLogEntry_Result_PokemonHatched:
       return YES;
     default:
       return NO;

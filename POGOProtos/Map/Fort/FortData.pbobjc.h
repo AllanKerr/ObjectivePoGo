@@ -60,7 +60,7 @@ typedef GPB_ENUM(FortData_FieldNumber) {
   FortData_FieldNumber_Type = 9,
   FortData_FieldNumber_GymPoints = 10,
   FortData_FieldNumber_IsInBattle = 11,
-  FortData_FieldNumber_ActiveFortModifier = 12,
+  FortData_FieldNumber_ActiveFortModifierArray = 12,
   FortData_FieldNumber_LureInfo = 13,
   FortData_FieldNumber_CooldownCompleteTimestampMs = 14,
   FortData_FieldNumber_Sponsor = 15,
@@ -95,19 +95,22 @@ typedef GPB_ENUM(FortData_FieldNumber) {
 /// Whether someone is battling at the gym currently
 @property(nonatomic, readwrite) BOOL isInBattle;
 
+///// Fields related to pokestops only
+// |activeFortModifierArray| contains |ItemId|
+@property(nonatomic, readwrite, strong, null_resettable) GPBEnumArray *activeFortModifierArray;
+/// The number of items in @c activeFortModifierArray without causing the array to be created.
+@property(nonatomic, readonly) NSUInteger activeFortModifierArray_Count;
+
+@property(nonatomic, readwrite, strong, null_resettable) FortLureInfo *lureInfo;
+/// Test to see if @c lureInfo has been set.
+@property(nonatomic, readwrite) BOOL hasLureInfo;
+
 /// Timestamp when the pokestop can be activated again to get items / xp
 @property(nonatomic, readwrite) int64_t cooldownCompleteTimestampMs;
 
 @property(nonatomic, readwrite) enum FortSponsor sponsor;
 
 @property(nonatomic, readwrite) enum FortRenderingType renderingType;
-
-/// Might represent the type of item applied to the pokestop, right now only lures can be applied
-@property(nonatomic, readwrite, copy, null_resettable) NSData *activeFortModifier;
-
-@property(nonatomic, readwrite, strong, null_resettable) FortLureInfo *lureInfo;
-/// Test to see if @c lureInfo has been set.
-@property(nonatomic, readwrite) BOOL hasLureInfo;
 
 @end
 

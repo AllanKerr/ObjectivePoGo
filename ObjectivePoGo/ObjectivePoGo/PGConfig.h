@@ -19,3 +19,6 @@ FOUNDATION_EXPORT const float PGConfigBaseTravelRate;
 
 // The base altitude above sea level that altitude is randomized around
 FOUNDATION_EXPORT const float PGConfigBaseAltitude;
+
+FOUNDATION_EXPORT NSString *const PGConfigLanguage;
+FOUNDATION_EXPORT NSString *const PGConfigCountry;

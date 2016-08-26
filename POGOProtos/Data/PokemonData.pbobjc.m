@@ -13,10 +13,10 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PokemonData.pbobjc.h"
- #import "PokemonId.pbobjc.h"
- #import "PokemonMove.pbobjc.h"
- #import "ItemId.pbobjc.h"
+ #import "POGOProtos/Data/PokemonData.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonId.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonMove.pbobjc.h"
+ #import "POGOProtos/Inventory/Item/ItemId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -90,6 +90,7 @@ static GPBFileDescriptor *PokemonDataRoot_FileDescriptor(void) {
 @dynamic favorite;
 @dynamic nickname;
 @dynamic fromFort;
+@dynamic buddyCandyAwarded;
 
 typedef struct PokemonData__storage_ {
   uint32_t _has_storage_[1];
@@ -113,6 +114,7 @@ typedef struct PokemonData__storage_ {
   float additionalCpMultiplier;
   int32_t favorite;
   int32_t fromFort;
+  int32_t buddyCandyAwarded;
   NSString *deployedFortId;
   NSString *ownerName;
   NSString *eggIncubatorId;
@@ -397,6 +399,15 @@ typedef struct PokemonData__storage_ {
         .number = PokemonData_FieldNumber_FromFort,
         .hasIndex = 30,
         .offset = (uint32_t)offsetof(PokemonData__storage_, fromFort),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeInt32,
+      },
+      {
+        .name = "buddyCandyAwarded",
+        .dataTypeSpecific.className = NULL,
+        .number = PokemonData_FieldNumber_BuddyCandyAwarded,
+        .hasIndex = 31,
+        .offset = (uint32_t)offsetof(PokemonData__storage_, buddyCandyAwarded),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeInt32,
       },

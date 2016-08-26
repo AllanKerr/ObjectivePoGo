@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "SfidaActionLogResponse.pbobjc.h"
- #import "ActionLogEntry.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/SfidaActionLogResponse.pbobjc.h"
+ #import "POGOProtos/Data/Logs/ActionLogEntry.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

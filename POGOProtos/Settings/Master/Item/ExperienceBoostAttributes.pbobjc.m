@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "ExperienceBoostAttributes.pbobjc.h"
+ #import "POGOProtos/Settings/Master/Item/ExperienceBoostAttributes.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

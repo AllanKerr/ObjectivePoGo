@@ -25,6 +25,7 @@
 CF_EXTERN_C_BEGIN
 
 @class FortSettings;
+@class GpsSettings;
 @class InventorySettings;
 @class LevelSettings;
 @class MapSettings;
@@ -52,6 +53,7 @@ typedef GPB_ENUM(GlobalSettings_FieldNumber) {
   GlobalSettings_FieldNumber_LevelSettings = 4,
   GlobalSettings_FieldNumber_InventorySettings = 5,
   GlobalSettings_FieldNumber_MinimumClientVersion = 6,
+  GlobalSettings_FieldNumber_GpsSettings = 7,
 };
 
 @interface GlobalSettings : GPBMessage
@@ -73,6 +75,10 @@ typedef GPB_ENUM(GlobalSettings_FieldNumber) {
 @property(nonatomic, readwrite) BOOL hasInventorySettings;
 
 @property(nonatomic, readwrite, copy, null_resettable) NSString *minimumClientVersion;
+
+@property(nonatomic, readwrite, strong, null_resettable) GpsSettings *gpsSettings;
+/// Test to see if @c gpsSettings has been set.
+@property(nonatomic, readwrite) BOOL hasGpsSettings;
 
 @end
 

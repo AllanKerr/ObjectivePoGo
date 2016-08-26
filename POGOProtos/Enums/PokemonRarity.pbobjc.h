@@ -33,9 +33,9 @@ typedef GPB_ENUM(PokemonRarity) {
   /// by this enum. The message will also have C functions to get/set the rawValue
   /// of the field.
   PokemonRarity_GPBUnrecognizedEnumeratorValue = kGPBUnrecognizedEnumeratorValue,
-  PokemonRarity_Normal = 0,
-  PokemonRarity_Legendary = 1,
-  PokemonRarity_Mythic = 2,
+  PokemonRarity_PokemonRarityNormal = 0,
+  PokemonRarity_PokemonRarityLegendary = 1,
+  PokemonRarity_PokemonRarityMythic = 2,
 };
 
 GPBEnumDescriptor *PokemonRarity_EnumDescriptor(void);

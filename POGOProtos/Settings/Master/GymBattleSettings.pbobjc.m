@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GymBattleSettings.pbobjc.h"
+ #import "POGOProtos/Settings/Master/GymBattleSettings.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -57,6 +57,7 @@ static GPBFileDescriptor *GymBattleSettingsRoot_FileDescriptor(void) {
 @dynamic dodgeDurationMs;
 @dynamic minimumPlayerLevel;
 @dynamic swapDurationMs;
+@dynamic dodgeDamageReductionPercent;
 
 typedef struct GymBattleSettings__storage_ {
   uint32_t _has_storage_[1];
@@ -74,6 +75,7 @@ typedef struct GymBattleSettings__storage_ {
   int32_t dodgeDurationMs;
   int32_t minimumPlayerLevel;
   int32_t swapDurationMs;
+  float dodgeDamageReductionPercent;
 } GymBattleSettings__storage_;
 
 // This method is threadsafe because it is initially called
@@ -207,6 +209,15 @@ typedef struct GymBattleSettings__storage_ {
         .offset = (uint32_t)offsetof(GymBattleSettings__storage_, swapDurationMs),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeInt32,
+      },
+      {
+        .name = "dodgeDamageReductionPercent",
+        .dataTypeSpecific.className = NULL,
+        .number = GymBattleSettings_FieldNumber_DodgeDamageReductionPercent,
+        .hasIndex = 14,
+        .offset = (uint32_t)offsetof(GymBattleSettings__storage_, dodgeDamageReductionPercent),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeFloat,
       },
     };
     GPBDescriptor *localDescriptor =

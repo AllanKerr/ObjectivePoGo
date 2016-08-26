@@ -38,6 +38,7 @@ typedef GPB_ENUM(CatchPokemonLogEntry_Result) {
   CatchPokemonLogEntry_Result_Unset = 0,
   CatchPokemonLogEntry_Result_PokemonCaptured = 1,
   CatchPokemonLogEntry_Result_PokemonFled = 2,
+  CatchPokemonLogEntry_Result_PokemonHatched = 3,
 };
 
 GPBEnumDescriptor *CatchPokemonLogEntry_Result_EnumDescriptor(void);

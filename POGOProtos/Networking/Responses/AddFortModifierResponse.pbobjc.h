@@ -24,7 +24,29 @@
 
 CF_EXTERN_C_BEGIN
 
+@class FortDetailsResponse;
+
 NS_ASSUME_NONNULL_BEGIN
+
+#pragma mark - Enum AddFortModifierResponse_Result
+
+typedef GPB_ENUM(AddFortModifierResponse_Result) {
+  /// Value used if any message's field encounters a value that is not defined
+  /// by this enum. The message will also have C functions to get/set the rawValue
+  /// of the field.
+  AddFortModifierResponse_Result_GPBUnrecognizedEnumeratorValue = kGPBUnrecognizedEnumeratorValue,
+  AddFortModifierResponse_Result_NoResultSet = 0,
+  AddFortModifierResponse_Result_Success = 1,
+  AddFortModifierResponse_Result_FortAlreadyHasModifier = 2,
+  AddFortModifierResponse_Result_TooFarAway = 3,
+  AddFortModifierResponse_Result_NoItemInInventory = 4,
+};
+
+GPBEnumDescriptor *AddFortModifierResponse_Result_EnumDescriptor(void);
+
+/// Checks to see if the given value is defined by the enum or was not known at
+/// the time this source was generated.
+BOOL AddFortModifierResponse_Result_IsValidValue(int32_t value);
 
 #pragma mark - AddFortModifierResponseRoot
 
@@ -41,10 +63,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - AddFortModifierResponse
 
-/// Initialized by assist.py
+typedef GPB_ENUM(AddFortModifierResponse_FieldNumber) {
+  AddFortModifierResponse_FieldNumber_Result = 1,
+  AddFortModifierResponse_FieldNumber_FortDetails = 2,
+};
+
 @interface AddFortModifierResponse : GPBMessage
 
+@property(nonatomic, readwrite) AddFortModifierResponse_Result result;
+
+@property(nonatomic, readwrite, strong, null_resettable) FortDetailsResponse *fortDetails;
+/// Test to see if @c fortDetails has been set.
+@property(nonatomic, readwrite) BOOL hasFortDetails;
+
 @end
+
+/// Fetches the raw value of a @c AddFortModifierResponse's @c result property, even
+/// if the value was not defined by the enum at the time the code was generated.
+int32_t AddFortModifierResponse_Result_RawValue(AddFortModifierResponse *message);
+/// Sets the raw value of an @c AddFortModifierResponse's @c result property, allowing
+/// it to be set to a value that was not defined by the enum at the time the code
+/// was generated.
+void SetAddFortModifierResponse_Result_RawValue(AddFortModifierResponse *message, int32_t value);
 
 NS_ASSUME_NONNULL_END
 

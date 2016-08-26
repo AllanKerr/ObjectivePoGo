@@ -24,6 +24,7 @@
 
 CF_EXTERN_C_BEGIN
 
+@class BuddyPokemon;
 @class ContactSettings;
 @class Currency;
 @class DailyBonus;
@@ -60,6 +61,8 @@ typedef GPB_ENUM(PlayerData_FieldNumber) {
   PlayerData_FieldNumber_EquippedBadge = 12,
   PlayerData_FieldNumber_ContactSettings = 13,
   PlayerData_FieldNumber_CurrenciesArray = 14,
+  PlayerData_FieldNumber_RemainingCodenameClaims = 15,
+  PlayerData_FieldNumber_BuddyPokemon = 16,
 };
 
 @interface PlayerData : GPBMessage
@@ -98,6 +101,12 @@ typedef GPB_ENUM(PlayerData_FieldNumber) {
 @property(nonatomic, readwrite, strong, null_resettable) NSMutableArray<Currency*> *currenciesArray;
 /// The number of items in @c currenciesArray without causing the array to be created.
 @property(nonatomic, readonly) NSUInteger currenciesArray_Count;
+
+@property(nonatomic, readwrite) int32_t remainingCodenameClaims;
+
+@property(nonatomic, readwrite, strong, null_resettable) BuddyPokemon *buddyPokemon;
+/// Test to see if @c buddyPokemon has been set.
+@property(nonatomic, readwrite) BOOL hasBuddyPokemon;
 
 @end
 

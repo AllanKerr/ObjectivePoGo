@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GetGymDetailsMessage.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/GetGymDetailsMessage.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -48,10 +48,12 @@ static GPBFileDescriptor *GetGymDetailsMessageRoot_FileDescriptor(void) {
 @dynamic playerLongitude;
 @dynamic gymLatitude;
 @dynamic gymLongitude;
+@dynamic clientVersion;
 
 typedef struct GetGymDetailsMessage__storage_ {
   uint32_t _has_storage_[1];
   NSString *gymId;
+  NSString *clientVersion;
   double playerLatitude;
   double playerLongitude;
   double gymLatitude;
@@ -108,6 +110,15 @@ typedef struct GetGymDetailsMessage__storage_ {
         .offset = (uint32_t)offsetof(GetGymDetailsMessage__storage_, gymLongitude),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
+      },
+      {
+        .name = "clientVersion",
+        .dataTypeSpecific.className = NULL,
+        .number = GetGymDetailsMessage_FieldNumber_ClientVersion,
+        .hasIndex = 5,
+        .offset = (uint32_t)offsetof(GetGymDetailsMessage__storage_, clientVersion),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeString,
       },
     };
     GPBDescriptor *localDescriptor =

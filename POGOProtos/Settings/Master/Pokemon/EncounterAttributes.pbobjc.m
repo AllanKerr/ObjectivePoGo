@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EncounterAttributes.pbobjc.h"
- #import "PokemonMovementType.pbobjc.h"
+ #import "POGOProtos/Settings/Master/Pokemon/EncounterAttributes.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonMovementType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

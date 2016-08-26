@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GetPlayerMessage.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/GetPlayerMessage.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -43,11 +43,11 @@ static GPBFileDescriptor *GetPlayerMessageRoot_FileDescriptor(void) {
 
 @implementation GetPlayerMessage
 
-@dynamic appVersion;
+@dynamic hasPlayerLocale, playerLocale;
 
 typedef struct GetPlayerMessage__storage_ {
   uint32_t _has_storage_[1];
-  NSString *appVersion;
+  GetPlayerMessage_PlayerLocale *playerLocale;
 } GetPlayerMessage__storage_;
 
 // This method is threadsafe because it is initially called
@@ -57,13 +57,13 @@ typedef struct GetPlayerMessage__storage_ {
   if (!descriptor) {
     static GPBMessageFieldDescription fields[] = {
       {
-        .name = "appVersion",
-        .dataTypeSpecific.className = NULL,
-        .number = GetPlayerMessage_FieldNumber_AppVersion,
+        .name = "playerLocale",
+        .dataTypeSpecific.className = GPBStringifySymbol(GetPlayerMessage_PlayerLocale),
+        .number = GetPlayerMessage_FieldNumber_PlayerLocale,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(GetPlayerMessage__storage_, appVersion),
+        .offset = (uint32_t)offsetof(GetPlayerMessage__storage_, playerLocale),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeString,
+        .dataType = GPBDataTypeMessage,
       },
     };
     GPBDescriptor *localDescriptor =
@@ -73,6 +73,60 @@ typedef struct GetPlayerMessage__storage_ {
                                         fields:fields
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(GetPlayerMessage__storage_)
+                                         flags:0];
+    NSAssert(descriptor == nil, @"Startup recursed!");
+    descriptor = localDescriptor;
+  }
+  return descriptor;
+}
+
+@end
+
+#pragma mark - GetPlayerMessage_PlayerLocale
+
+@implementation GetPlayerMessage_PlayerLocale
+
+@dynamic country;
+@dynamic language;
+
+typedef struct GetPlayerMessage_PlayerLocale__storage_ {
+  uint32_t _has_storage_[1];
+  NSString *country;
+  NSString *language;
+} GetPlayerMessage_PlayerLocale__storage_;
+
+// This method is threadsafe because it is initially called
+// in +initialize for each subclass.
++ (GPBDescriptor *)descriptor {
+  static GPBDescriptor *descriptor = nil;
+  if (!descriptor) {
+    static GPBMessageFieldDescription fields[] = {
+      {
+        .name = "country",
+        .dataTypeSpecific.className = NULL,
+        .number = GetPlayerMessage_PlayerLocale_FieldNumber_Country,
+        .hasIndex = 0,
+        .offset = (uint32_t)offsetof(GetPlayerMessage_PlayerLocale__storage_, country),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "language",
+        .dataTypeSpecific.className = NULL,
+        .number = GetPlayerMessage_PlayerLocale_FieldNumber_Language,
+        .hasIndex = 1,
+        .offset = (uint32_t)offsetof(GetPlayerMessage_PlayerLocale__storage_, language),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeString,
+      },
+    };
+    GPBDescriptor *localDescriptor =
+        [GPBDescriptor allocDescriptorForClass:[GetPlayerMessage_PlayerLocale class]
+                                     rootClass:[GetPlayerMessageRoot class]
+                                          file:GetPlayerMessageRoot_FileDescriptor()
+                                        fields:fields
+                                    fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
+                                   storageSize:sizeof(GetPlayerMessage_PlayerLocale__storage_)
                                          flags:0];
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;

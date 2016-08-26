@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "InventorySettings.pbobjc.h"
+ #import "POGOProtos/Settings/InventorySettings.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

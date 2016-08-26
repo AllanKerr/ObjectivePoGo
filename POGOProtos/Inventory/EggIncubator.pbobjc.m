@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EggIncubator.pbobjc.h"
- #import "ItemId.pbobjc.h"
- #import "EggIncubatorType.pbobjc.h"
+ #import "POGOProtos/Inventory/EggIncubator.pbobjc.h"
+ #import "POGOProtos/Inventory/Item/ItemId.pbobjc.h"
+ #import "POGOProtos/Inventory/EggIncubatorType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

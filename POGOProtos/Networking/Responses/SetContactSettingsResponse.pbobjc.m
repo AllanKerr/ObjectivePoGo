@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "SetContactSettingsResponse.pbobjc.h"
- #import "PlayerData.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/SetContactSettingsResponse.pbobjc.h"
+ #import "POGOProtos/Data/PlayerData.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

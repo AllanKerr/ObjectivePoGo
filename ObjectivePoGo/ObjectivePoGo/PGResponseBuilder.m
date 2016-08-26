@@ -123,6 +123,14 @@
             return [UseItemGymResponse class];
         case RequestType_SetContactSettings:
             return [SetContactSettingsResponse class];
+        case RequestType_SetBuddyPokemon:
+            return [SetBuddyPokemonResponse class];
+        case RequestType_GetBuddyWalked:
+            return [GetBuddyWalkedResponse class];
+        case RequestType_CheckChallenge:
+            return [CheckChallengeResponse class];
+        case RequestType_VerifyChallenge:
+            return [VerifyChallengeResponse class];
         case RequestType_ItemUse:
         case RequestType_UseItemFlee:
         case RequestType_TradeSearch:
@@ -148,6 +156,7 @@
             NSAssert1(NO, @"Invalid request type:%i", type);
             return nil;
     }
+    return nil;
 }
 
 - (instancetype)init {

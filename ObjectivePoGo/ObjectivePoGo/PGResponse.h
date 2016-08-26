@@ -61,6 +61,10 @@
 #import "UseItemPotionResponse.pbobjc.h"
 #import "UseItemReviveResponse.pbobjc.h"
 #import "UseItemXpBoostResponse.pbobjc.h"
+#import "SetBuddyPokemonResponse.pbobjc.h"
+#import "GetBuddyWalkedResponse.pbobjc.h"
+#import "CheckChallengeResponse.pbobjc.h"
+#import "VerifyChallengeResponse.pbobjc.h"
 
 @interface PGResponse : NSObject
 @property (readonly, nonatomic, strong) GPBMessage *message;

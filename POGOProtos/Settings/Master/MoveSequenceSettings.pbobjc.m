@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "MoveSequenceSettings.pbobjc.h"
+ #import "POGOProtos/Settings/Master/MoveSequenceSettings.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

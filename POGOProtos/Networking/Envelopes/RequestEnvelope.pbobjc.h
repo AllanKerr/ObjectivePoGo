@@ -54,10 +54,10 @@ typedef GPB_ENUM(RequestEnvelope_FieldNumber) {
   RequestEnvelope_FieldNumber_Unknown6Array = 6,
   RequestEnvelope_FieldNumber_Latitude = 7,
   RequestEnvelope_FieldNumber_Longitude = 8,
-  RequestEnvelope_FieldNumber_Altitude = 9,
+  RequestEnvelope_FieldNumber_Accuracy = 9,
   RequestEnvelope_FieldNumber_AuthInfo = 10,
   RequestEnvelope_FieldNumber_AuthTicket = 11,
-  RequestEnvelope_FieldNumber_Unknown12 = 12,
+  RequestEnvelope_FieldNumber_MsSinceLastLocationfix = 12,
 };
 
 @interface RequestEnvelope : GPBMessage
@@ -80,7 +80,7 @@ typedef GPB_ENUM(RequestEnvelope_FieldNumber) {
 
 @property(nonatomic, readwrite) double longitude;
 
-@property(nonatomic, readwrite) double altitude;
+@property(nonatomic, readwrite) double accuracy;
 
 @property(nonatomic, readwrite, strong, null_resettable) RequestEnvelope_AuthInfo *authInfo;
 /// Test to see if @c authInfo has been set.
@@ -90,7 +90,7 @@ typedef GPB_ENUM(RequestEnvelope_FieldNumber) {
 /// Test to see if @c authTicket has been set.
 @property(nonatomic, readwrite) BOOL hasAuthTicket;
 
-@property(nonatomic, readwrite) int64_t unknown12;
+@property(nonatomic, readwrite) int64_t msSinceLastLocationfix;
 
 @end
 

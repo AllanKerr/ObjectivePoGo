@@ -76,6 +76,7 @@ typedef GPB_ENUM(PokemonData_FieldNumber) {
   PokemonData_FieldNumber_Favorite = 29,
   PokemonData_FieldNumber_Nickname = 30,
   PokemonData_FieldNumber_FromFort = 31,
+  PokemonData_FieldNumber_BuddyCandyAwarded = 32,
 };
 
 @interface PokemonData : GPBMessage
@@ -139,6 +140,8 @@ typedef GPB_ENUM(PokemonData_FieldNumber) {
 @property(nonatomic, readwrite, copy, null_resettable) NSString *nickname;
 
 @property(nonatomic, readwrite) int32_t fromFort;
+
+@property(nonatomic, readwrite) int32_t buddyCandyAwarded;
 
 @end
 

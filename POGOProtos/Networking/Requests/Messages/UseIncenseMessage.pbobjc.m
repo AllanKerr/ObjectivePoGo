@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "UseIncenseMessage.pbobjc.h"
- #import "ItemId.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/UseIncenseMessage.pbobjc.h"
+ #import "POGOProtos/Inventory/Item/ItemId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GymLevelSettings.pbobjc.h"
+ #import "POGOProtos/Settings/Master/GymLevelSettings.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

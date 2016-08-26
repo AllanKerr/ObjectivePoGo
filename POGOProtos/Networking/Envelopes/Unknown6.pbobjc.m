@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Unknown6.pbobjc.h"
+ #import "POGOProtos/Networking/Envelopes/Unknown6.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

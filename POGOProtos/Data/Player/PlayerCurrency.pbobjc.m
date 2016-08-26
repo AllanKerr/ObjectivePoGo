@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PlayerCurrency.pbobjc.h"
+ #import "POGOProtos/Data/Player/PlayerCurrency.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

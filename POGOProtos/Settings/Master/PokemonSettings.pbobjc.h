@@ -34,6 +34,25 @@ GPB_ENUM_FWD_DECLARE(PokemonType);
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - Enum PokemonSettings_BuddySize
+
+typedef GPB_ENUM(PokemonSettings_BuddySize) {
+  /// Value used if any message's field encounters a value that is not defined
+  /// by this enum. The message will also have C functions to get/set the rawValue
+  /// of the field.
+  PokemonSettings_BuddySize_GPBUnrecognizedEnumeratorValue = kGPBUnrecognizedEnumeratorValue,
+  PokemonSettings_BuddySize_BuddyMedium = 0,
+  PokemonSettings_BuddySize_BuddyShoulder = 1,
+  PokemonSettings_BuddySize_BuddyBig = 2,
+  PokemonSettings_BuddySize_BuddyFlying = 3,
+};
+
+GPBEnumDescriptor *PokemonSettings_BuddySize_EnumDescriptor(void);
+
+/// Checks to see if the given value is defined by the enum or was not known at
+/// the time this source was generated.
+BOOL PokemonSettings_BuddySize_IsValidValue(int32_t value);
+
 #pragma mark - PokemonSettingsRoot
 
 /// Exposes the extension registry for this file.
@@ -71,6 +90,8 @@ typedef GPB_ENUM(PokemonSettings_FieldNumber) {
   PokemonSettings_FieldNumber_KmDistanceToHatch = 20,
   PokemonSettings_FieldNumber_FamilyId = 21,
   PokemonSettings_FieldNumber_CandyToEvolve = 22,
+  PokemonSettings_FieldNumber_KmBuddyDistance = 23,
+  PokemonSettings_FieldNumber_BuddySize = 24,
 };
 
 @interface PokemonSettings : GPBMessage
@@ -134,6 +155,10 @@ typedef GPB_ENUM(PokemonSettings_FieldNumber) {
 
 @property(nonatomic, readwrite) int32_t candyToEvolve;
 
+@property(nonatomic, readwrite) float kmBuddyDistance;
+
+@property(nonatomic, readwrite) PokemonSettings_BuddySize buddySize;
+
 @end
 
 /// Fetches the raw value of a @c PokemonSettings's @c pokemonId property, even
@@ -183,6 +208,14 @@ int32_t PokemonSettings_FamilyId_RawValue(PokemonSettings *message);
 /// it to be set to a value that was not defined by the enum at the time the code
 /// was generated.
 void SetPokemonSettings_FamilyId_RawValue(PokemonSettings *message, int32_t value);
+
+/// Fetches the raw value of a @c PokemonSettings's @c buddySize property, even
+/// if the value was not defined by the enum at the time the code was generated.
+int32_t PokemonSettings_BuddySize_RawValue(PokemonSettings *message);
+/// Sets the raw value of an @c PokemonSettings's @c buddySize property, allowing
+/// it to be set to a value that was not defined by the enum at the time the code
+/// was generated.
+void SetPokemonSettings_BuddySize_RawValue(PokemonSettings *message, int32_t value);
 
 NS_ASSUME_NONNULL_END
 

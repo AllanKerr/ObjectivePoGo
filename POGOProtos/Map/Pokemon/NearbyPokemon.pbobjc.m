@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "NearbyPokemon.pbobjc.h"
- #import "PokemonId.pbobjc.h"
+ #import "POGOProtos/Map/Pokemon/NearbyPokemon.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -59,11 +59,15 @@ static GPBFileDescriptor *NearbyPokemonRoot_FileDescriptor(void) {
 @dynamic pokemonId;
 @dynamic distanceInMeters;
 @dynamic encounterId;
+@dynamic fortId;
+@dynamic fortImageURL;
 
 typedef struct NearbyPokemon__storage_ {
   uint32_t _has_storage_[1];
   PokemonId pokemonId;
   float distanceInMeters;
+  NSString *fortId;
+  NSString *fortImageURL;
   uint64_t encounterId;
 } NearbyPokemon__storage_;
 
@@ -100,6 +104,24 @@ typedef struct NearbyPokemon__storage_ {
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFixed64,
       },
+      {
+        .name = "fortId",
+        .dataTypeSpecific.className = NULL,
+        .number = NearbyPokemon_FieldNumber_FortId,
+        .hasIndex = 3,
+        .offset = (uint32_t)offsetof(NearbyPokemon__storage_, fortId),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeString,
+      },
+      {
+        .name = "fortImageURL",
+        .dataTypeSpecific.className = NULL,
+        .number = NearbyPokemon_FieldNumber_FortImageURL,
+        .hasIndex = 4,
+        .offset = (uint32_t)offsetof(NearbyPokemon__storage_, fortImageURL),
+        .flags = GPBFieldOptional | GPBFieldTextFormatNameCustom,
+        .dataType = GPBDataTypeString,
+      },
     };
     GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[NearbyPokemon class]
@@ -109,6 +131,11 @@ typedef struct NearbyPokemon__storage_ {
                                     fieldCount:(uint32_t)(sizeof(fields) / sizeof(GPBMessageFieldDescription))
                                    storageSize:sizeof(NearbyPokemon__storage_)
                                          flags:0];
+#if !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
+    static const char *extraTextFormatInfo =
+        "\001\005\004\245\241!!\000";
+    [localDescriptor setupExtraTextInfo:extraTextFormatInfo];
+#endif  // !GPBOBJC_SKIP_MESSAGE_TEXTFORMAT_EXTRAS
     NSAssert(descriptor == nil, @"Startup recursed!");
     descriptor = localDescriptor;
   }

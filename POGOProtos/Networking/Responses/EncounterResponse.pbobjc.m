@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EncounterResponse.pbobjc.h"
- #import "CaptureProbability.pbobjc.h"
- #import "WildPokemon.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/EncounterResponse.pbobjc.h"
+ #import "POGOProtos/Data/Capture/CaptureProbability.pbobjc.h"
+ #import "POGOProtos/Map/Pokemon/WildPokemon.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

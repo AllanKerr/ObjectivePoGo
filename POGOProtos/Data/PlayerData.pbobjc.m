@@ -13,14 +13,15 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PlayerData.pbobjc.h"
- #import "TutorialState.pbobjc.h"
- #import "PlayerAvatar.pbobjc.h"
- #import "DailyBonus.pbobjc.h"
- #import "EquippedBadge.pbobjc.h"
- #import "ContactSettings.pbobjc.h"
- #import "Currency.pbobjc.h"
- #import "TeamColor.pbobjc.h"
+ #import "POGOProtos/Data/PlayerData.pbobjc.h"
+ #import "POGOProtos/Enums/TutorialState.pbobjc.h"
+ #import "POGOProtos/Data/Player/PlayerAvatar.pbobjc.h"
+ #import "POGOProtos/Data/Player/DailyBonus.pbobjc.h"
+ #import "POGOProtos/Data/Player/EquippedBadge.pbobjc.h"
+ #import "POGOProtos/Data/Player/ContactSettings.pbobjc.h"
+ #import "POGOProtos/Data/Player/Currency.pbobjc.h"
+ #import "POGOProtos/Data/BuddyPokemon.pbobjc.h"
+ #import "POGOProtos/Enums/TeamColor.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -43,6 +44,7 @@
     [registry addExtensions:[EquippedBadgeRoot extensionRegistry]];
     [registry addExtensions:[ContactSettingsRoot extensionRegistry]];
     [registry addExtensions:[CurrencyRoot extensionRegistry]];
+    [registry addExtensions:[BuddyPokemonRoot extensionRegistry]];
     [registry addExtensions:[TeamColorRoot extensionRegistry]];
   }
   return registry;
@@ -79,12 +81,15 @@ static GPBFileDescriptor *PlayerDataRoot_FileDescriptor(void) {
 @dynamic hasEquippedBadge, equippedBadge;
 @dynamic hasContactSettings, contactSettings;
 @dynamic currenciesArray, currenciesArray_Count;
+@dynamic remainingCodenameClaims;
+@dynamic hasBuddyPokemon, buddyPokemon;
 
 typedef struct PlayerData__storage_ {
   uint32_t _has_storage_[1];
   TeamColor team;
   int32_t maxPokemonStorage;
   int32_t maxItemStorage;
+  int32_t remainingCodenameClaims;
   NSString *username;
   GPBEnumArray *tutorialStateArray;
   PlayerAvatar *avatar;
@@ -92,6 +97,7 @@ typedef struct PlayerData__storage_ {
   EquippedBadge *equippedBadge;
   ContactSettings *contactSettings;
   NSMutableArray *currenciesArray;
+  BuddyPokemon *buddyPokemon;
   int64_t creationTimestampMs;
 } PlayerData__storage_;
 
@@ -198,6 +204,24 @@ typedef struct PlayerData__storage_ {
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(PlayerData__storage_, currenciesArray),
         .flags = GPBFieldRepeated,
+        .dataType = GPBDataTypeMessage,
+      },
+      {
+        .name = "remainingCodenameClaims",
+        .dataTypeSpecific.className = NULL,
+        .number = PlayerData_FieldNumber_RemainingCodenameClaims,
+        .hasIndex = 9,
+        .offset = (uint32_t)offsetof(PlayerData__storage_, remainingCodenameClaims),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeInt32,
+      },
+      {
+        .name = "buddyPokemon",
+        .dataTypeSpecific.className = GPBStringifySymbol(BuddyPokemon),
+        .number = PlayerData_FieldNumber_BuddyPokemon,
+        .hasIndex = 10,
+        .offset = (uint32_t)offsetof(PlayerData__storage_, buddyPokemon),
+        .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },
     };

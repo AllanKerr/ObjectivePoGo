@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "TypeEffectiveSettings.pbobjc.h"
- #import "PokemonType.pbobjc.h"
+ #import "POGOProtos/Settings/Master/TypeEffectiveSettings.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

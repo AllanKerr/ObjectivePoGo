@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GetIncensePokemonResponse.pbobjc.h"
- #import "PokemonId.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/GetIncensePokemonResponse.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

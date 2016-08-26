@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "MapPokemon.pbobjc.h"
- #import "PokemonId.pbobjc.h"
+ #import "POGOProtos/Map/Pokemon/MapPokemon.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

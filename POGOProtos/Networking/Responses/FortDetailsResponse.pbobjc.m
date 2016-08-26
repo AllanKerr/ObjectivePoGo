@@ -13,11 +13,11 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "FortDetailsResponse.pbobjc.h"
- #import "PokemonData.pbobjc.h"
- #import "TeamColor.pbobjc.h"
- #import "FortType.pbobjc.h"
- #import "FortModifier.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/FortDetailsResponse.pbobjc.h"
+ #import "POGOProtos/Data/PokemonData.pbobjc.h"
+ #import "POGOProtos/Enums/TeamColor.pbobjc.h"
+ #import "POGOProtos/Map/Fort/FortType.pbobjc.h"
+ #import "POGOProtos/Map/Fort/FortModifier.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

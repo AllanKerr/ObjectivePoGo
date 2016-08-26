@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EggIncubators.pbobjc.h"
- #import "EggIncubator.pbobjc.h"
+ #import "POGOProtos/Inventory/EggIncubators.pbobjc.h"
+ #import "POGOProtos/Inventory/EggIncubator.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

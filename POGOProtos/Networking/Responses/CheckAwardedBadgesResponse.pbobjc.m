@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "CheckAwardedBadgesResponse.pbobjc.h"
- #import "BadgeType.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/CheckAwardedBadgesResponse.pbobjc.h"
+ #import "POGOProtos/Enums/BadgeType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

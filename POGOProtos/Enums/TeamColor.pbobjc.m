@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "TeamColor.pbobjc.h"
+ #import "POGOProtos/Enums/TeamColor.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

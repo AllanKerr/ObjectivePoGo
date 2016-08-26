@@ -34,8 +34,8 @@ typedef GPB_ENUM(BattleType) {
   /// of the field.
   BattleType_GPBUnrecognizedEnumeratorValue = kGPBUnrecognizedEnumeratorValue,
   BattleType_BattleTypeUnset = 0,
-  BattleType_Normal = 1,
-  BattleType_Training = 2,
+  BattleType_BattleTypeNormal = 1,
+  BattleType_BattleTypeTraining = 2,
 };
 
 GPBEnumDescriptor *BattleType_EnumDescriptor(void);

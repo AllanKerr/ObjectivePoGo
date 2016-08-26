@@ -56,9 +56,10 @@ typedef GPB_ENUM(Signature_FieldNumber) {
   Signature_FieldNumber_ActivityStatus = 9,
   Signature_FieldNumber_LocationHash1 = 10,
   Signature_FieldNumber_LocationHash2 = 20,
-  Signature_FieldNumber_Unk22 = 22,
+  Signature_FieldNumber_SessionHash = 22,
   Signature_FieldNumber_Timestamp = 23,
   Signature_FieldNumber_RequestHashArray = 24,
+  Signature_FieldNumber_Unknown25 = 25,
 };
 
 @interface Signature : GPBMessage
@@ -86,22 +87,25 @@ typedef GPB_ENUM(Signature_FieldNumber) {
 /// Test to see if @c activityStatus has been set.
 @property(nonatomic, readwrite) BOOL hasActivityStatus;
 
-/// Location1 hashed based on the auth_token - xxHash32
-@property(nonatomic, readwrite) uint32_t locationHash1;
+/// Location1 hashed signed based on the auth_token or auth_info - xxHash32
+@property(nonatomic, readwrite) uint64_t locationHash1;
 
-/// Location2 hashed based on the auth_token - xxHash32
-@property(nonatomic, readwrite) uint32_t locationHash2;
+/// Location2 hashed (unsigned) - xxHash32
+@property(nonatomic, readwrite) uint64_t locationHash2;
 
-/// possibly replay check. Generation unknown but pointed to by 0001B8614
-@property(nonatomic, readwrite, copy, null_resettable) NSData *unk22;
+/// 16 bytes, unique per session
+@property(nonatomic, readwrite, copy, null_resettable) NSData *sessionHash;
 
 /// epoch timestamp in ms
 @property(nonatomic, readwrite) uint64_t timestamp;
 
-/// hashes of each request message in a hashArray - xxhash64
+/// hashes of each request message in a hashArray signed based on the auth_token or auth_info - xxhash64
 @property(nonatomic, readwrite, strong, null_resettable) GPBUInt64Array *requestHashArray;
 /// The number of items in @c requestHashArray without causing the array to be created.
 @property(nonatomic, readonly) NSUInteger requestHashArray_Count;
+
+/// for 0.33 its static -8537042734809897855 or 0x898654dd2753a481, generated via xxHash64("\\"b8fa9757195897aae92c53dbcf8a60fb3d86d745\\"".ToByteArray(), 0x88533787)
+@property(nonatomic, readwrite) int64_t unknown25;
 
 @end
 
@@ -109,11 +113,11 @@ typedef GPB_ENUM(Signature_FieldNumber) {
 
 typedef GPB_ENUM(Signature_LocationFix_FieldNumber) {
   Signature_LocationFix_FieldNumber_Provider = 1,
-  Signature_LocationFix_FieldNumber_TimestampSinceStart = 2,
+  Signature_LocationFix_FieldNumber_TimestampSnapshot = 2,
   Signature_LocationFix_FieldNumber_Latitude = 13,
   Signature_LocationFix_FieldNumber_Longitude = 14,
-  Signature_LocationFix_FieldNumber_HorizontalAccuracy = 20,
-  Signature_LocationFix_FieldNumber_Altitude = 21,
+  Signature_LocationFix_FieldNumber_Unknown20 = 20,
+  Signature_LocationFix_FieldNumber_HorizontalAccuracy = 21,
   Signature_LocationFix_FieldNumber_VerticalAccuracy = 22,
   Signature_LocationFix_FieldNumber_ProviderStatus = 26,
   Signature_LocationFix_FieldNumber_Floor = 27,
@@ -125,8 +129,8 @@ typedef GPB_ENUM(Signature_LocationFix_FieldNumber) {
 /// "network", "gps", "fused", possibly others
 @property(nonatomic, readwrite, copy, null_resettable) NSString *provider;
 
-/// in ms
-@property(nonatomic, readwrite) uint64_t timestampSinceStart;
+/// in ms since start
+@property(nonatomic, readwrite) uint64_t timestampSnapshot;
 
 @property(nonatomic, readwrite) float latitude;
 
@@ -135,9 +139,10 @@ typedef GPB_ENUM(Signature_LocationFix_FieldNumber) {
 /// ??? shows up in struct, dunno where these go
 /// float device_speed;
 /// float device_course;
-@property(nonatomic, readwrite) float horizontalAccuracy;
+@property(nonatomic, readwrite) float unknown20;
 
-@property(nonatomic, readwrite) float altitude;
+/// in meters, both on Android and iOS
+@property(nonatomic, readwrite) float horizontalAccuracy;
 
 /// iOS only? (range seems to be ~10-12)
 @property(nonatomic, readwrite) float verticalAccuracy;
@@ -158,9 +163,9 @@ typedef GPB_ENUM(Signature_LocationFix_FieldNumber) {
 typedef GPB_ENUM(Signature_AndroidGpsInfo_FieldNumber) {
   Signature_AndroidGpsInfo_FieldNumber_TimeToFix = 1,
   Signature_AndroidGpsInfo_FieldNumber_SatellitesPrnArray = 2,
-  Signature_AndroidGpsInfo_FieldNumber_SnrArray = 3,
-  Signature_AndroidGpsInfo_FieldNumber_AzimuthArray = 4,
-  Signature_AndroidGpsInfo_FieldNumber_ElevationArray = 5,
+  Signature_AndroidGpsInfo_FieldNumber_AzimuthArray = 3,
+  Signature_AndroidGpsInfo_FieldNumber_ElevationArray = 4,
+  Signature_AndroidGpsInfo_FieldNumber_SnrArray = 5,
   Signature_AndroidGpsInfo_FieldNumber_HasAlmanacArray = 6,
   Signature_AndroidGpsInfo_FieldNumber_HasEphemerisArray = 7,
   Signature_AndroidGpsInfo_FieldNumber_UsedInFixArray = 8,
@@ -175,10 +180,6 @@ typedef GPB_ENUM(Signature_AndroidGpsInfo_FieldNumber) {
 /// The number of items in @c satellitesPrnArray without causing the array to be created.
 @property(nonatomic, readonly) NSUInteger satellitesPrnArray_Count;
 
-@property(nonatomic, readwrite, strong, null_resettable) GPBFloatArray *snrArray;
-/// The number of items in @c snrArray without causing the array to be created.
-@property(nonatomic, readonly) NSUInteger snrArray_Count;
-
 @property(nonatomic, readwrite, strong, null_resettable) GPBFloatArray *azimuthArray;
 /// The number of items in @c azimuthArray without causing the array to be created.
 @property(nonatomic, readonly) NSUInteger azimuthArray_Count;
@@ -186,6 +187,10 @@ typedef GPB_ENUM(Signature_AndroidGpsInfo_FieldNumber) {
 @property(nonatomic, readwrite, strong, null_resettable) GPBFloatArray *elevationArray;
 /// The number of items in @c elevationArray without causing the array to be created.
 @property(nonatomic, readonly) NSUInteger elevationArray_Count;
+
+@property(nonatomic, readwrite, strong, null_resettable) GPBFloatArray *snrArray;
+/// The number of items in @c snrArray without causing the array to be created.
+@property(nonatomic, readonly) NSUInteger snrArray_Count;
 
 @property(nonatomic, readwrite, strong, null_resettable) GPBBoolArray *hasAlmanacArray;
 /// The number of items in @c hasAlmanacArray without causing the array to be created.
@@ -225,7 +230,7 @@ typedef GPB_ENUM(Signature_SensorInfo_FieldNumber) {
 
 @interface Signature_SensorInfo : GPBMessage
 
-/// in ms
+/// in ms since start
 @property(nonatomic, readwrite) uint64_t timestampSnapshot;
 
 @property(nonatomic, readwrite) double magnetometerX;
@@ -336,6 +341,7 @@ typedef GPB_ENUM(Signature_ActivityStatus_FieldNumber) {
   Signature_ActivityStatus_FieldNumber_Status = 9,
 };
 
+/// Only used in iOS - Android just sends an empty version
 @interface Signature_ActivityStatus : GPBMessage
 
 /// all of these had 1 as their value

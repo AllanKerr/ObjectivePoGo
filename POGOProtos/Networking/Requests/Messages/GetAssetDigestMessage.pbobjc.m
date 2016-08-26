@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GetAssetDigestMessage.pbobjc.h"
- #import "Platform.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/GetAssetDigestMessage.pbobjc.h"
+ #import "POGOProtos/Enums/Platform.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

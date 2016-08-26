@@ -13,10 +13,10 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "FortDeployPokemonResponse.pbobjc.h"
- #import "PokemonData.pbobjc.h"
- #import "GymState.pbobjc.h"
- #import "FortDetailsResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/FortDeployPokemonResponse.pbobjc.h"
+ #import "POGOProtos/Data/PokemonData.pbobjc.h"
+ #import "POGOProtos/Data/Gym/GymState.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/FortDetailsResponse.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -154,7 +154,7 @@ GPBEnumDescriptor *FortDeployPokemonResponse_Result_EnumDescriptor(void) {
         "onOnFort\000ErrorOpposingTeamOwnsFort\000Error"
         "FortIsFull\000ErrorNotInRange\000ErrorPlayerHa"
         "sNoTeam\000ErrorPokemonNotFullHp\000ErrorPlaye"
-        "rBelowMinimumLevel\000";
+        "rBelowMinimumLevel\000ErrorPokemonIsBuddy\000";
     static const int32_t values[] = {
         FortDeployPokemonResponse_Result_NoResultSet,
         FortDeployPokemonResponse_Result_Success,
@@ -165,6 +165,7 @@ GPBEnumDescriptor *FortDeployPokemonResponse_Result_EnumDescriptor(void) {
         FortDeployPokemonResponse_Result_ErrorPlayerHasNoTeam,
         FortDeployPokemonResponse_Result_ErrorPokemonNotFullHp,
         FortDeployPokemonResponse_Result_ErrorPlayerBelowMinimumLevel,
+        FortDeployPokemonResponse_Result_ErrorPokemonIsBuddy,
     };
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(FortDeployPokemonResponse_Result)
@@ -190,6 +191,7 @@ BOOL FortDeployPokemonResponse_Result_IsValidValue(int32_t value__) {
     case FortDeployPokemonResponse_Result_ErrorPlayerHasNoTeam:
     case FortDeployPokemonResponse_Result_ErrorPokemonNotFullHp:
     case FortDeployPokemonResponse_Result_ErrorPlayerBelowMinimumLevel:
+    case FortDeployPokemonResponse_Result_ErrorPokemonIsBuddy:
       return YES;
     default:
       return NO;

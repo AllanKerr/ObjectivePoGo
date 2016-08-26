@@ -56,6 +56,7 @@ typedef GPB_ENUM(GymBattleSettings_FieldNumber) {
   GymBattleSettings_FieldNumber_DodgeDurationMs = 12,
   GymBattleSettings_FieldNumber_MinimumPlayerLevel = 13,
   GymBattleSettings_FieldNumber_SwapDurationMs = 14,
+  GymBattleSettings_FieldNumber_DodgeDamageReductionPercent = 15,
 };
 
 @interface GymBattleSettings : GPBMessage
@@ -87,6 +88,8 @@ typedef GPB_ENUM(GymBattleSettings_FieldNumber) {
 @property(nonatomic, readwrite) int32_t minimumPlayerLevel;
 
 @property(nonatomic, readwrite) int32_t swapDurationMs;
+
+@property(nonatomic, readwrite) float dodgeDamageReductionPercent;
 
 @end
 

@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "UseItemCaptureResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/UseItemCaptureResponse.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

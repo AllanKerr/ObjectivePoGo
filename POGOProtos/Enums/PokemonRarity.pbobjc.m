@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PokemonRarity.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonRarity.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -31,11 +31,12 @@ GPBEnumDescriptor *PokemonRarity_EnumDescriptor(void) {
   static GPBEnumDescriptor *descriptor = NULL;
   if (!descriptor) {
     static const char *valueNames =
-        "Normal\000Legendary\000Mythic\000";
+        "PokemonRarityNormal\000PokemonRarityLegenda"
+        "ry\000PokemonRarityMythic\000";
     static const int32_t values[] = {
-        PokemonRarity_Normal,
-        PokemonRarity_Legendary,
-        PokemonRarity_Mythic,
+        PokemonRarity_PokemonRarityNormal,
+        PokemonRarity_PokemonRarityLegendary,
+        PokemonRarity_PokemonRarityMythic,
     };
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(PokemonRarity)
@@ -52,9 +53,9 @@ GPBEnumDescriptor *PokemonRarity_EnumDescriptor(void) {
 
 BOOL PokemonRarity_IsValidValue(int32_t value__) {
   switch (value__) {
-    case PokemonRarity_Normal:
-    case PokemonRarity_Legendary:
-    case PokemonRarity_Mythic:
+    case PokemonRarity_PokemonRarityNormal:
+    case PokemonRarity_PokemonRarityLegendary:
+    case PokemonRarity_PokemonRarityMythic:
       return YES;
     default:
       return NO;

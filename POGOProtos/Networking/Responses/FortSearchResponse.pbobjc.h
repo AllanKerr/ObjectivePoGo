@@ -41,6 +41,7 @@ typedef GPB_ENUM(FortSearchResponse_Result) {
   FortSearchResponse_Result_OutOfRange = 2,
   FortSearchResponse_Result_InCooldownPeriod = 3,
   FortSearchResponse_Result_InventoryFull = 4,
+  FortSearchResponse_Result_ExceededDailyLimit = 5,
 };
 
 GPBEnumDescriptor *FortSearchResponse_Result_EnumDescriptor(void);

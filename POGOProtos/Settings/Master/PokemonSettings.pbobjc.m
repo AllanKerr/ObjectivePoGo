@@ -13,15 +13,15 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PokemonSettings.pbobjc.h"
- #import "PokemonId.pbobjc.h"
- #import "PokemonRarity.pbobjc.h"
- #import "PokemonType.pbobjc.h"
- #import "PokemonMove.pbobjc.h"
- #import "PokemonFamilyId.pbobjc.h"
- #import "StatsAttributes.pbobjc.h"
- #import "CameraAttributes.pbobjc.h"
- #import "EncounterAttributes.pbobjc.h"
+ #import "POGOProtos/Settings/Master/PokemonSettings.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonId.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonRarity.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonType.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonMove.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonFamilyId.pbobjc.h"
+ #import "POGOProtos/Settings/Master/Pokemon/StatsAttributes.pbobjc.h"
+ #import "POGOProtos/Settings/Master/Pokemon/CameraAttributes.pbobjc.h"
+ #import "POGOProtos/Settings/Master/Pokemon/EncounterAttributes.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -91,6 +91,8 @@ static GPBFileDescriptor *PokemonSettingsRoot_FileDescriptor(void) {
 @dynamic kmDistanceToHatch;
 @dynamic familyId;
 @dynamic candyToEvolve;
+@dynamic kmBuddyDistance;
+@dynamic buddySize;
 
 typedef struct PokemonSettings__storage_ {
   uint32_t _has_storage_[1];
@@ -108,6 +110,8 @@ typedef struct PokemonSettings__storage_ {
   float kmDistanceToHatch;
   PokemonFamilyId familyId;
   int32_t candyToEvolve;
+  float kmBuddyDistance;
+  PokemonSettings_BuddySize buddySize;
   CameraAttributes *camera;
   EncounterAttributes *encounter;
   StatsAttributes *stats;
@@ -312,6 +316,24 @@ typedef struct PokemonSettings__storage_ {
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeInt32,
       },
+      {
+        .name = "kmBuddyDistance",
+        .dataTypeSpecific.className = NULL,
+        .number = PokemonSettings_FieldNumber_KmBuddyDistance,
+        .hasIndex = 17,
+        .offset = (uint32_t)offsetof(PokemonSettings__storage_, kmBuddyDistance),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeFloat,
+      },
+      {
+        .name = "buddySize",
+        .dataTypeSpecific.enumDescFunc = PokemonSettings_BuddySize_EnumDescriptor,
+        .number = PokemonSettings_FieldNumber_BuddySize,
+        .hasIndex = 18,
+        .offset = (uint32_t)offsetof(PokemonSettings__storage_, buddySize),
+        .flags = GPBFieldOptional | GPBFieldHasEnumDescriptor,
+        .dataType = GPBDataTypeEnum,
+      },
     };
     GPBDescriptor *localDescriptor =
         [GPBDescriptor allocDescriptorForClass:[PokemonSettings class]
@@ -404,6 +426,57 @@ void SetPokemonSettings_FamilyId_RawValue(PokemonSettings *message, int32_t valu
   GPBDescriptor *descriptor = [PokemonSettings descriptor];
   GPBFieldDescriptor *field = [descriptor fieldWithNumber:PokemonSettings_FieldNumber_FamilyId];
   GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+}
+
+int32_t PokemonSettings_BuddySize_RawValue(PokemonSettings *message) {
+  GPBDescriptor *descriptor = [PokemonSettings descriptor];
+  GPBFieldDescriptor *field = [descriptor fieldWithNumber:PokemonSettings_FieldNumber_BuddySize];
+  return GPBGetMessageInt32Field(message, field);
+}
+
+void SetPokemonSettings_BuddySize_RawValue(PokemonSettings *message, int32_t value) {
+  GPBDescriptor *descriptor = [PokemonSettings descriptor];
+  GPBFieldDescriptor *field = [descriptor fieldWithNumber:PokemonSettings_FieldNumber_BuddySize];
+  GPBSetInt32IvarWithFieldInternal(message, field, value, descriptor.file.syntax);
+}
+
+#pragma mark - Enum PokemonSettings_BuddySize
+
+GPBEnumDescriptor *PokemonSettings_BuddySize_EnumDescriptor(void) {
+  static GPBEnumDescriptor *descriptor = NULL;
+  if (!descriptor) {
+    static const char *valueNames =
+        "BuddyMedium\000BuddyShoulder\000BuddyBig\000Buddy"
+        "Flying\000";
+    static const int32_t values[] = {
+        PokemonSettings_BuddySize_BuddyMedium,
+        PokemonSettings_BuddySize_BuddyShoulder,
+        PokemonSettings_BuddySize_BuddyBig,
+        PokemonSettings_BuddySize_BuddyFlying,
+    };
+    GPBEnumDescriptor *worker =
+        [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(PokemonSettings_BuddySize)
+                                       valueNames:valueNames
+                                           values:values
+                                            count:(uint32_t)(sizeof(values) / sizeof(int32_t))
+                                     enumVerifier:PokemonSettings_BuddySize_IsValidValue];
+    if (!OSAtomicCompareAndSwapPtrBarrier(nil, worker, (void * volatile *)&descriptor)) {
+      [worker release];
+    }
+  }
+  return descriptor;
+}
+
+BOOL PokemonSettings_BuddySize_IsValidValue(int32_t value__) {
+  switch (value__) {
+    case PokemonSettings_BuddySize_BuddyMedium:
+    case PokemonSettings_BuddySize_BuddyShoulder:
+    case PokemonSettings_BuddySize_BuddyBig:
+    case PokemonSettings_BuddySize_BuddyFlying:
+      return YES;
+    default:
+      return NO;
+  }
 }
 
 

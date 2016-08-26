@@ -24,6 +24,8 @@
 
 CF_EXTERN_C_BEGIN
 
+@class GetPlayerMessage_PlayerLocale;
+
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - GetPlayerMessageRoot
@@ -42,13 +44,29 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - GetPlayerMessage
 
 typedef GPB_ENUM(GetPlayerMessage_FieldNumber) {
-  GetPlayerMessage_FieldNumber_AppVersion = 1,
+  GetPlayerMessage_FieldNumber_PlayerLocale = 1,
 };
 
 @interface GetPlayerMessage : GPBMessage
 
-/// Human readable app version, e.g. "0.31.1"
-@property(nonatomic, readwrite, copy, null_resettable) NSString *appVersion;
+@property(nonatomic, readwrite, strong, null_resettable) GetPlayerMessage_PlayerLocale *playerLocale;
+/// Test to see if @c playerLocale has been set.
+@property(nonatomic, readwrite) BOOL hasPlayerLocale;
+
+@end
+
+#pragma mark - GetPlayerMessage_PlayerLocale
+
+typedef GPB_ENUM(GetPlayerMessage_PlayerLocale_FieldNumber) {
+  GetPlayerMessage_PlayerLocale_FieldNumber_Country = 1,
+  GetPlayerMessage_PlayerLocale_FieldNumber_Language = 2,
+};
+
+@interface GetPlayerMessage_PlayerLocale : GPBMessage
+
+@property(nonatomic, readwrite, copy, null_resettable) NSString *country;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSString *language;
 
 @end
 

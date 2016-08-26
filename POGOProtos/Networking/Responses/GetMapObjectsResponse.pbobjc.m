@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GetMapObjectsResponse.pbobjc.h"
- #import "MapCell.pbobjc.h"
- #import "MapObjectsStatus.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/GetMapObjectsResponse.pbobjc.h"
+ #import "POGOProtos/Map/MapCell.pbobjc.h"
+ #import "POGOProtos/Map/MapObjectsStatus.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

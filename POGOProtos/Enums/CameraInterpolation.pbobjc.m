@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "CameraInterpolation.pbobjc.h"
+ #import "POGOProtos/Enums/CameraInterpolation.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

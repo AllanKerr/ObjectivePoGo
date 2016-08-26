@@ -13,7 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "ClaimCodenameResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/ClaimCodenameResponse.pbobjc.h"
+ #import "POGOProtos/Data/PlayerData.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -22,6 +23,18 @@
 #pragma mark - ClaimCodenameResponseRoot
 
 @implementation ClaimCodenameResponseRoot
+
++ (GPBExtensionRegistry*)extensionRegistry {
+  // This is called by +initialize so there is no need to worry
+  // about thread safety and initialization of registry.
+  static GPBExtensionRegistry* registry = nil;
+  if (!registry) {
+    GPBDebugCheckRuntimeVersion();
+    registry = [[GPBExtensionRegistry alloc] init];
+    [registry addExtensions:[PlayerDataRoot extensionRegistry]];
+  }
+  return registry;
+}
 
 @end
 
@@ -47,12 +60,14 @@ static GPBFileDescriptor *ClaimCodenameResponseRoot_FileDescriptor(void) {
 @dynamic userMessage;
 @dynamic isAssignable;
 @dynamic status;
+@dynamic hasUpdatedPlayer, updatedPlayer;
 
 typedef struct ClaimCodenameResponse__storage_ {
   uint32_t _has_storage_[1];
   ClaimCodenameResponse_Status status;
   NSString *codename;
   NSString *userMessage;
+  PlayerData *updatedPlayer;
 } ClaimCodenameResponse__storage_;
 
 // This method is threadsafe because it is initially called
@@ -96,6 +111,15 @@ typedef struct ClaimCodenameResponse__storage_ {
         .offset = (uint32_t)offsetof(ClaimCodenameResponse__storage_, status),
         .flags = GPBFieldOptional | GPBFieldHasEnumDescriptor,
         .dataType = GPBDataTypeEnum,
+      },
+      {
+        .name = "updatedPlayer",
+        .dataTypeSpecific.className = GPBStringifySymbol(PlayerData),
+        .number = ClaimCodenameResponse_FieldNumber_UpdatedPlayer,
+        .hasIndex = 5,
+        .offset = (uint32_t)offsetof(ClaimCodenameResponse__storage_, updatedPlayer),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeMessage,
       },
     };
     GPBDescriptor *localDescriptor =

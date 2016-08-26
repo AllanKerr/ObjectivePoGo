@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "WildPokemon.pbobjc.h"
- #import "PokemonData.pbobjc.h"
+ #import "POGOProtos/Map/Pokemon/WildPokemon.pbobjc.h"
+ #import "POGOProtos/Data/PokemonData.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PlayerUpdateResponse.pbobjc.h"
- #import "FortData.pbobjc.h"
- #import "WildPokemon.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/PlayerUpdateResponse.pbobjc.h"
+ #import "POGOProtos/Map/Fort/FortData.pbobjc.h"
+ #import "POGOProtos/Map/Pokemon/WildPokemon.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "RequestType.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/RequestType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -50,15 +50,16 @@ GPBEnumDescriptor *RequestType_EnumDescriptor(void) {
         "ncounter\000AddFortModifier\000DiskEncounter\000C"
         "ollectDailyDefenderBonus\000UpgradePokemon\000"
         "SetFavoritePokemon\000NicknamePokemon\000Equip"
-        "Badge\000SetContactSettings\000GetAssetDigest\000"
-        "GetDownloadUrls\000GetSuggestedCodenames\000Ch"
-        "eckCodenameAvailable\000ClaimCodename\000SetAv"
-        "atar\000SetPlayerTeam\000MarkTutorialComplete\000"
-        "LoadSpawnPoints\000Echo\000DebugUpdateInventor"
-        "y\000DebugDeletePlayer\000SfidaRegistration\000Sf"
-        "idaActionLog\000SfidaCertification\000SfidaUpd"
-        "ate\000SfidaAction\000SfidaDowser\000SfidaCapture"
-        "\000";
+        "Badge\000SetContactSettings\000SetBuddyPokemon"
+        "\000GetBuddyWalked\000GetAssetDigest\000GetDownlo"
+        "adUrls\000GetSuggestedCodenames\000CheckCodena"
+        "meAvailable\000ClaimCodename\000SetAvatar\000SetP"
+        "layerTeam\000MarkTutorialComplete\000LoadSpawn"
+        "Points\000CheckChallenge\000VerifyChallenge\000Ec"
+        "ho\000DebugUpdateInventory\000DebugDeletePlaye"
+        "r\000SfidaRegistration\000SfidaActionLog\000Sfida"
+        "Certification\000SfidaUpdate\000SfidaAction\000Sf"
+        "idaDowser\000SfidaCapture\000";
     static const int32_t values[] = {
         RequestType_MethodUnset,
         RequestType_PlayerUpdate,
@@ -112,6 +113,8 @@ GPBEnumDescriptor *RequestType_EnumDescriptor(void) {
         RequestType_NicknamePokemon,
         RequestType_EquipBadge,
         RequestType_SetContactSettings,
+        RequestType_SetBuddyPokemon,
+        RequestType_GetBuddyWalked,
         RequestType_GetAssetDigest,
         RequestType_GetDownloadUrls,
         RequestType_GetSuggestedCodenames,
@@ -121,6 +124,8 @@ GPBEnumDescriptor *RequestType_EnumDescriptor(void) {
         RequestType_SetPlayerTeam,
         RequestType_MarkTutorialComplete,
         RequestType_LoadSpawnPoints,
+        RequestType_CheckChallenge,
+        RequestType_VerifyChallenge,
         RequestType_Echo,
         RequestType_DebugUpdateInventory,
         RequestType_DebugDeletePlayer,
@@ -199,6 +204,8 @@ BOOL RequestType_IsValidValue(int32_t value__) {
     case RequestType_NicknamePokemon:
     case RequestType_EquipBadge:
     case RequestType_SetContactSettings:
+    case RequestType_SetBuddyPokemon:
+    case RequestType_GetBuddyWalked:
     case RequestType_GetAssetDigest:
     case RequestType_GetDownloadUrls:
     case RequestType_GetSuggestedCodenames:
@@ -208,6 +215,8 @@ BOOL RequestType_IsValidValue(int32_t value__) {
     case RequestType_SetPlayerTeam:
     case RequestType_MarkTutorialComplete:
     case RequestType_LoadSpawnPoints:
+    case RequestType_CheckChallenge:
+    case RequestType_VerifyChallenge:
     case RequestType_Echo:
     case RequestType_DebugUpdateInventory:
     case RequestType_DebugDeletePlayer:

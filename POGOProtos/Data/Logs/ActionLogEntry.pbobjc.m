@@ -13,9 +13,10 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "ActionLogEntry.pbobjc.h"
- #import "CatchPokemonLogEntry.pbobjc.h"
- #import "FortSearchLogEntry.pbobjc.h"
+ #import "POGOProtos/Data/Logs/ActionLogEntry.pbobjc.h"
+ #import "POGOProtos/Data/Logs/CatchPokemonLogEntry.pbobjc.h"
+ #import "POGOProtos/Data/Logs/FortSearchLogEntry.pbobjc.h"
+ #import "POGOProtos/Data/Logs/BuddyPokemonLogEntry.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -35,6 +36,7 @@
     registry = [[GPBExtensionRegistry alloc] init];
     [registry addExtensions:[CatchPokemonLogEntryRoot extensionRegistry]];
     [registry addExtensions:[FortSearchLogEntryRoot extensionRegistry]];
+    [registry addExtensions:[BuddyPokemonLogEntryRoot extensionRegistry]];
   }
   return registry;
 }
@@ -64,11 +66,13 @@ static GPBFileDescriptor *ActionLogEntryRoot_FileDescriptor(void) {
 @dynamic sfida;
 @dynamic catchPokemon;
 @dynamic fortSearch;
+@dynamic buddyPokemon;
 
 typedef struct ActionLogEntry__storage_ {
   uint32_t _has_storage_[2];
   CatchPokemonLogEntry *catchPokemon;
   FortSearchLogEntry *fortSearch;
+  BuddyPokemonLogEntry *buddyPokemon;
   int64_t timestampMs;
 } ActionLogEntry__storage_;
 
@@ -111,6 +115,15 @@ typedef struct ActionLogEntry__storage_ {
         .number = ActionLogEntry_FieldNumber_FortSearch,
         .hasIndex = -1,
         .offset = (uint32_t)offsetof(ActionLogEntry__storage_, fortSearch),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeMessage,
+      },
+      {
+        .name = "buddyPokemon",
+        .dataTypeSpecific.className = GPBStringifySymbol(BuddyPokemonLogEntry),
+        .number = ActionLogEntry_FieldNumber_BuddyPokemon,
+        .hasIndex = -1,
+        .offset = (uint32_t)offsetof(ActionLogEntry__storage_, buddyPokemon),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeMessage,
       },

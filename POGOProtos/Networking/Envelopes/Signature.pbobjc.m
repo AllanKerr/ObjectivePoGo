@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Signature.pbobjc.h"
+ #import "POGOProtos/Networking/Envelopes/Signature.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -33,7 +33,7 @@ static GPBFileDescriptor *SignatureRoot_FileDescriptor(void) {
   static GPBFileDescriptor *descriptor = NULL;
   if (!descriptor) {
     GPBDebugCheckRuntimeVersion();
-    descriptor = [[GPBFileDescriptor alloc] initWithPackage:@"POGOProtos.Networking.Signature"
+    descriptor = [[GPBFileDescriptor alloc] initWithPackage:@"POGOProtos.Networking.Envelopes"
                                                      syntax:GPBFileSyntaxProto3];
   }
   return descriptor;
@@ -51,23 +51,25 @@ static GPBFileDescriptor *SignatureRoot_FileDescriptor(void) {
 @dynamic hasActivityStatus, activityStatus;
 @dynamic locationHash1;
 @dynamic locationHash2;
-@dynamic unk22;
+@dynamic sessionHash;
 @dynamic timestamp;
 @dynamic requestHashArray, requestHashArray_Count;
+@dynamic unknown25;
 
 typedef struct Signature__storage_ {
   uint32_t _has_storage_[1];
-  uint32_t locationHash1;
-  uint32_t locationHash2;
   NSMutableArray *locationFixArray;
   Signature_AndroidGpsInfo *gpsInfo;
   Signature_SensorInfo *sensorInfo;
   Signature_DeviceInfo *deviceInfo;
   Signature_ActivityStatus *activityStatus;
-  NSData *unk22;
+  NSData *sessionHash;
   GPBUInt64Array *requestHashArray;
   uint64_t timestampSinceStart;
+  uint64_t locationHash1;
+  uint64_t locationHash2;
   uint64_t timestamp;
+  int64_t unknown25;
 } Signature__storage_;
 
 // This method is threadsafe because it is initially called
@@ -137,7 +139,7 @@ typedef struct Signature__storage_ {
         .hasIndex = 5,
         .offset = (uint32_t)offsetof(Signature__storage_, locationHash1),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
+        .dataType = GPBDataTypeUInt64,
       },
       {
         .name = "locationHash2",
@@ -146,14 +148,14 @@ typedef struct Signature__storage_ {
         .hasIndex = 6,
         .offset = (uint32_t)offsetof(Signature__storage_, locationHash2),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt32,
+        .dataType = GPBDataTypeUInt64,
       },
       {
-        .name = "unk22",
+        .name = "sessionHash",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_FieldNumber_Unk22,
+        .number = Signature_FieldNumber_SessionHash,
         .hasIndex = 7,
-        .offset = (uint32_t)offsetof(Signature__storage_, unk22),
+        .offset = (uint32_t)offsetof(Signature__storage_, sessionHash),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBytes,
       },
@@ -174,6 +176,15 @@ typedef struct Signature__storage_ {
         .offset = (uint32_t)offsetof(Signature__storage_, requestHashArray),
         .flags = GPBFieldRepeated | GPBFieldPacked,
         .dataType = GPBDataTypeUInt64,
+      },
+      {
+        .name = "unknown25",
+        .dataTypeSpecific.className = NULL,
+        .number = Signature_FieldNumber_Unknown25,
+        .hasIndex = 9,
+        .offset = (uint32_t)offsetof(Signature__storage_, unknown25),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeInt64,
       },
     };
     GPBDescriptor *localDescriptor =
@@ -197,11 +208,11 @@ typedef struct Signature__storage_ {
 @implementation Signature_LocationFix
 
 @dynamic provider;
-@dynamic timestampSinceStart;
+@dynamic timestampSnapshot;
 @dynamic latitude;
 @dynamic longitude;
+@dynamic unknown20;
 @dynamic horizontalAccuracy;
-@dynamic altitude;
 @dynamic verticalAccuracy;
 @dynamic providerStatus;
 @dynamic floor;
@@ -211,12 +222,12 @@ typedef struct Signature_LocationFix__storage_ {
   uint32_t _has_storage_[1];
   float latitude;
   float longitude;
+  float unknown20;
   float horizontalAccuracy;
-  float altitude;
   float verticalAccuracy;
   uint32_t floor;
   NSString *provider;
-  uint64_t timestampSinceStart;
+  uint64_t timestampSnapshot;
   uint64_t providerStatus;
   uint64_t locationType;
 } Signature_LocationFix__storage_;
@@ -237,11 +248,11 @@ typedef struct Signature_LocationFix__storage_ {
         .dataType = GPBDataTypeString,
       },
       {
-        .name = "timestampSinceStart",
+        .name = "timestampSnapshot",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_LocationFix_FieldNumber_TimestampSinceStart,
+        .number = Signature_LocationFix_FieldNumber_TimestampSnapshot,
         .hasIndex = 1,
-        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, timestampSinceStart),
+        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, timestampSnapshot),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt64,
       },
@@ -264,20 +275,20 @@ typedef struct Signature_LocationFix__storage_ {
         .dataType = GPBDataTypeFloat,
       },
       {
-        .name = "horizontalAccuracy",
+        .name = "unknown20",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_LocationFix_FieldNumber_HorizontalAccuracy,
+        .number = Signature_LocationFix_FieldNumber_Unknown20,
         .hasIndex = 4,
-        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, horizontalAccuracy),
+        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, unknown20),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFloat,
       },
       {
-        .name = "altitude",
+        .name = "horizontalAccuracy",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_LocationFix_FieldNumber_Altitude,
+        .number = Signature_LocationFix_FieldNumber_HorizontalAccuracy,
         .hasIndex = 5,
-        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, altitude),
+        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, horizontalAccuracy),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFloat,
       },
@@ -340,9 +351,9 @@ typedef struct Signature_LocationFix__storage_ {
 
 @dynamic timeToFix;
 @dynamic satellitesPrnArray, satellitesPrnArray_Count;
-@dynamic snrArray, snrArray_Count;
 @dynamic azimuthArray, azimuthArray_Count;
 @dynamic elevationArray, elevationArray_Count;
+@dynamic snrArray, snrArray_Count;
 @dynamic hasAlmanacArray, hasAlmanacArray_Count;
 @dynamic hasEphemerisArray, hasEphemerisArray_Count;
 @dynamic usedInFixArray, usedInFixArray_Count;
@@ -350,9 +361,9 @@ typedef struct Signature_LocationFix__storage_ {
 typedef struct Signature_AndroidGpsInfo__storage_ {
   uint32_t _has_storage_[1];
   GPBInt32Array *satellitesPrnArray;
-  GPBFloatArray *snrArray;
   GPBFloatArray *azimuthArray;
   GPBFloatArray *elevationArray;
+  GPBFloatArray *snrArray;
   GPBBoolArray *hasAlmanacArray;
   GPBBoolArray *hasEphemerisArray;
   GPBBoolArray *usedInFixArray;
@@ -384,15 +395,6 @@ typedef struct Signature_AndroidGpsInfo__storage_ {
         .dataType = GPBDataTypeInt32,
       },
       {
-        .name = "snrArray",
-        .dataTypeSpecific.className = NULL,
-        .number = Signature_AndroidGpsInfo_FieldNumber_SnrArray,
-        .hasIndex = GPBNoHasBit,
-        .offset = (uint32_t)offsetof(Signature_AndroidGpsInfo__storage_, snrArray),
-        .flags = GPBFieldRepeated | GPBFieldPacked,
-        .dataType = GPBDataTypeFloat,
-      },
-      {
         .name = "azimuthArray",
         .dataTypeSpecific.className = NULL,
         .number = Signature_AndroidGpsInfo_FieldNumber_AzimuthArray,
@@ -407,6 +409,15 @@ typedef struct Signature_AndroidGpsInfo__storage_ {
         .number = Signature_AndroidGpsInfo_FieldNumber_ElevationArray,
         .hasIndex = GPBNoHasBit,
         .offset = (uint32_t)offsetof(Signature_AndroidGpsInfo__storage_, elevationArray),
+        .flags = GPBFieldRepeated | GPBFieldPacked,
+        .dataType = GPBDataTypeFloat,
+      },
+      {
+        .name = "snrArray",
+        .dataTypeSpecific.className = NULL,
+        .number = Signature_AndroidGpsInfo_FieldNumber_SnrArray,
+        .hasIndex = GPBNoHasBit,
+        .offset = (uint32_t)offsetof(Signature_AndroidGpsInfo__storage_, snrArray),
         .flags = GPBFieldRepeated | GPBFieldPacked,
         .dataType = GPBDataTypeFloat,
       },

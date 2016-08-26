@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EvolvePokemonMessage.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/EvolvePokemonMessage.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

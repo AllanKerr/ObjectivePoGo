@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "DownloadRemoteConfigVersionMessage.pbobjc.h"
- #import "Platform.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/DownloadRemoteConfigVersionMessage.pbobjc.h"
+ #import "POGOProtos/Enums/Platform.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

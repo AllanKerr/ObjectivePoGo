@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GetGymDetailsResponse.pbobjc.h"
- #import "GymState.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/GetGymDetailsResponse.pbobjc.h"
+ #import "POGOProtos/Data/Gym/GymState.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

@@ -38,6 +38,7 @@ typedef GPB_ENUM(ReleasePokemonResponse_Result) {
   ReleasePokemonResponse_Result_PokemonDeployed = 2,
   ReleasePokemonResponse_Result_Failed = 3,
   ReleasePokemonResponse_Result_ErrorPokemonIsEgg = 4,
+  ReleasePokemonResponse_Result_ErrorPokemonIsBuddy = 5,
 };
 
 GPBEnumDescriptor *ReleasePokemonResponse_Result_EnumDescriptor(void);

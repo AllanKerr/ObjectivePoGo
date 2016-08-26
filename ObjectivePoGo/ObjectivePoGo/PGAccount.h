@@ -44,6 +44,7 @@ typedef void(^PGAcceptTermsOfServiceCompletion)(NSError *error);
 @property (readonly, nonatomic, strong) NSArray *locationFixes;
 @property (readonly, nonatomic, strong) PGSensorInfo *sensorInfo;
 @property (readonly, nonatomic, strong) PGDeviceInfo *deviceInfo;
+@property (readonly, nonatomic, strong) NSData *sessionHash;
 + (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo completion:(PGAccountCompletion)completion;
 - (void)getMapObjectsForCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 - (void)getMapObjectsForCellId:(uint64_t)cellId coordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
@@ -51,3 +52,5 @@ typedef void(^PGAcceptTermsOfServiceCompletion)(NSError *error);
 - (void)acceptTermsOfServiceWithCompletion:(PGAcceptTermsOfServiceCompletion)completion;
 - (CLLocationDistance)distanceFromCoordinate:(CLLocationCoordinate2D)coordinate;
 @end
+
+

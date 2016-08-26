@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "IapItemDisplay.pbobjc.h"
- #import "IapItemCategory.pbobjc.h"
- #import "ItemId.pbobjc.h"
+ #import "POGOProtos/Settings/Master/IapItemDisplay.pbobjc.h"
+ #import "POGOProtos/Enums/IapItemCategory.pbobjc.h"
+ #import "POGOProtos/Inventory/Item/ItemId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

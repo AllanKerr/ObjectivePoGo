@@ -63,7 +63,7 @@ typedef GPB_ENUM(PlayerStats_FieldNumber) {
   PlayerStats_FieldNumber_PrestigeRaisedTotal = 19,
   PlayerStats_FieldNumber_PrestigeDroppedTotal = 20,
   PlayerStats_FieldNumber_PokemonDeployed = 21,
-  PlayerStats_FieldNumber_PokemonCaughtByType = 22,
+  PlayerStats_FieldNumber_PokemonCaughtByTypeArray = 22,
   PlayerStats_FieldNumber_SmallRattataCaught = 23,
 };
 
@@ -111,8 +111,9 @@ typedef GPB_ENUM(PlayerStats_FieldNumber) {
 
 @property(nonatomic, readwrite) int32_t pokemonDeployed;
 
-/// TODO: repeated PokemonType ??
-@property(nonatomic, readwrite, copy, null_resettable) NSData *pokemonCaughtByType;
+@property(nonatomic, readwrite, strong, null_resettable) GPBInt32Array *pokemonCaughtByTypeArray;
+/// The number of items in @c pokemonCaughtByTypeArray without causing the array to be created.
+@property(nonatomic, readonly) NSUInteger pokemonCaughtByTypeArray_Count;
 
 @property(nonatomic, readwrite) int32_t smallRattataCaught;
 

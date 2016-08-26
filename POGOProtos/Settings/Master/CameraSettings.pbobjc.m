@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "CameraSettings.pbobjc.h"
- #import "CameraTarget.pbobjc.h"
- #import "CameraInterpolation.pbobjc.h"
+ #import "POGOProtos/Settings/Master/CameraSettings.pbobjc.h"
+ #import "POGOProtos/Enums/CameraTarget.pbobjc.h"
+ #import "POGOProtos/Enums/CameraInterpolation.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

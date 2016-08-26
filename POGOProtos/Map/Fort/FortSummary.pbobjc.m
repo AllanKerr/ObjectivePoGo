@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "FortSummary.pbobjc.h"
+ #import "POGOProtos/Map/Fort/FortSummary.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

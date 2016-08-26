@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "ReleasePokemonResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/ReleasePokemonResponse.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -112,13 +112,14 @@ GPBEnumDescriptor *ReleasePokemonResponse_Result_EnumDescriptor(void) {
   if (!descriptor) {
     static const char *valueNames =
         "Unset\000Success\000PokemonDeployed\000Failed\000Err"
-        "orPokemonIsEgg\000";
+        "orPokemonIsEgg\000ErrorPokemonIsBuddy\000";
     static const int32_t values[] = {
         ReleasePokemonResponse_Result_Unset,
         ReleasePokemonResponse_Result_Success,
         ReleasePokemonResponse_Result_PokemonDeployed,
         ReleasePokemonResponse_Result_Failed,
         ReleasePokemonResponse_Result_ErrorPokemonIsEgg,
+        ReleasePokemonResponse_Result_ErrorPokemonIsBuddy,
     };
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(ReleasePokemonResponse_Result)
@@ -140,6 +141,7 @@ BOOL ReleasePokemonResponse_Result_IsValidValue(int32_t value__) {
     case ReleasePokemonResponse_Result_PokemonDeployed:
     case ReleasePokemonResponse_Result_Failed:
     case ReleasePokemonResponse_Result_ErrorPokemonIsEgg:
+    case ReleasePokemonResponse_Result_ErrorPokemonIsBuddy:
       return YES;
     default:
       return NO;

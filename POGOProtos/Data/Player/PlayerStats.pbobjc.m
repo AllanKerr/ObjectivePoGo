@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PlayerStats.pbobjc.h"
+ #import "POGOProtos/Data/Player/PlayerStats.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -64,7 +64,7 @@ static GPBFileDescriptor *PlayerStatsRoot_FileDescriptor(void) {
 @dynamic prestigeRaisedTotal;
 @dynamic prestigeDroppedTotal;
 @dynamic pokemonDeployed;
-@dynamic pokemonCaughtByType;
+@dynamic pokemonCaughtByTypeArray, pokemonCaughtByTypeArray_Count;
 @dynamic smallRattataCaught;
 
 typedef struct PlayerStats__storage_ {
@@ -88,7 +88,7 @@ typedef struct PlayerStats__storage_ {
   int32_t prestigeDroppedTotal;
   int32_t pokemonDeployed;
   int32_t smallRattataCaught;
-  NSData *pokemonCaughtByType;
+  GPBInt32Array *pokemonCaughtByTypeArray;
   int64_t experience;
   int64_t prevLevelXp;
   int64_t nextLevelXp;
@@ -290,19 +290,19 @@ typedef struct PlayerStats__storage_ {
         .dataType = GPBDataTypeInt32,
       },
       {
-        .name = "pokemonCaughtByType",
+        .name = "pokemonCaughtByTypeArray",
         .dataTypeSpecific.className = NULL,
-        .number = PlayerStats_FieldNumber_PokemonCaughtByType,
-        .hasIndex = 21,
-        .offset = (uint32_t)offsetof(PlayerStats__storage_, pokemonCaughtByType),
-        .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
+        .number = PlayerStats_FieldNumber_PokemonCaughtByTypeArray,
+        .hasIndex = GPBNoHasBit,
+        .offset = (uint32_t)offsetof(PlayerStats__storage_, pokemonCaughtByTypeArray),
+        .flags = GPBFieldRepeated | GPBFieldPacked,
+        .dataType = GPBDataTypeInt32,
       },
       {
         .name = "smallRattataCaught",
         .dataTypeSpecific.className = NULL,
         .number = PlayerStats_FieldNumber_SmallRattataCaught,
-        .hasIndex = 22,
+        .hasIndex = 21,
         .offset = (uint32_t)offsetof(PlayerStats__storage_, smallRattataCaught),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeInt32,

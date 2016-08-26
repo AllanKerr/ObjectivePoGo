@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "SetAvatarMessage.pbobjc.h"
- #import "PlayerAvatar.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/SetAvatarMessage.pbobjc.h"
+ #import "POGOProtos/Data/Player/PlayerAvatar.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

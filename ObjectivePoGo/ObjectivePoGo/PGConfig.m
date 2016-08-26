@@ -19,3 +19,6 @@ const float PGConfigBaseTravelRate = 16.6667;
 
 // The base altitude above sea level that altitude is randomized around
 const float PGConfigBaseAltitude = 93;
+
+NSString *const PGConfigLanguage = @"en";
+NSString *const PGConfigCountry = @"CA";

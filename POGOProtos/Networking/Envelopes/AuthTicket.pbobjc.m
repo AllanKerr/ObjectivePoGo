@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "AuthTicket.pbobjc.h"
+ #import "POGOProtos/Networking/Envelopes/AuthTicket.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

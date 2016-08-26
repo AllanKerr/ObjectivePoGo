@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EncounterMessage.pbobjc.h"
+ #import "POGOProtos/Networking/Requests/Messages/EncounterMessage.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

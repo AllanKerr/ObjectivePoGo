@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "RecycleInventoryItemResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/RecycleInventoryItemResponse.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

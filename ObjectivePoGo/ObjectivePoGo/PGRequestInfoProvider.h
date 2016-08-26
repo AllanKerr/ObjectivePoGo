@@ -23,6 +23,8 @@
 @property (readonly, nonatomic, strong) NSArray *locationFixes;
 @property (readonly, nonatomic, strong) PGSensorInfo *sensorInfo;
 @property (readonly, nonatomic, strong) PGDeviceInfo *deviceInfo;
+@property (readonly, nonatomic, strong) NSData *sessionHash;
 - (void)updateTicket:(AuthTicket *)ticket;
 - (void)updateApiURL:(NSString *)apiURL;
+- (void)updateSessionHash:(NSData *)sessionHash;
 @end

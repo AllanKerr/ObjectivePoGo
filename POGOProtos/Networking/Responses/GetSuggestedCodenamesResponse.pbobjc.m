@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "GetSuggestedCodenamesResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/GetSuggestedCodenamesResponse.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

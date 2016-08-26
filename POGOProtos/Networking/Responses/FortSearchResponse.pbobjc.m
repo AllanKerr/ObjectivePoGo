@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "FortSearchResponse.pbobjc.h"
- #import "PokemonData.pbobjc.h"
- #import "ItemAward.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/FortSearchResponse.pbobjc.h"
+ #import "POGOProtos/Data/PokemonData.pbobjc.h"
+ #import "POGOProtos/Inventory/Item/ItemAward.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -182,13 +182,15 @@ GPBEnumDescriptor *FortSearchResponse_Result_EnumDescriptor(void) {
   if (!descriptor) {
     static const char *valueNames =
         "NoResultSet\000Success\000OutOfRange\000InCooldow"
-        "nPeriod\000InventoryFull\000";
+        "nPeriod\000InventoryFull\000ExceededDailyLimit"
+        "\000";
     static const int32_t values[] = {
         FortSearchResponse_Result_NoResultSet,
         FortSearchResponse_Result_Success,
         FortSearchResponse_Result_OutOfRange,
         FortSearchResponse_Result_InCooldownPeriod,
         FortSearchResponse_Result_InventoryFull,
+        FortSearchResponse_Result_ExceededDailyLimit,
     };
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(FortSearchResponse_Result)
@@ -210,6 +212,7 @@ BOOL FortSearchResponse_Result_IsValidValue(int32_t value__) {
     case FortSearchResponse_Result_OutOfRange:
     case FortSearchResponse_Result_InCooldownPeriod:
     case FortSearchResponse_Result_InventoryFull:
+    case FortSearchResponse_Result_ExceededDailyLimit:
       return YES;
     default:
       return NO;

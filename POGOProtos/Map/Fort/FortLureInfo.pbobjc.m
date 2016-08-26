@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "FortLureInfo.pbobjc.h"
- #import "PokemonId.pbobjc.h"
+ #import "POGOProtos/Map/Fort/FortLureInfo.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

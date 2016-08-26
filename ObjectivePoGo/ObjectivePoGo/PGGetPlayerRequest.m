@@ -8,6 +8,7 @@
 
 #import "PGGetPlayerRequest.h"
 #import "PGConstants.h"
+#import "PGConfig.h"
 #import "GetPlayerMessage.pbobjc.h"
 
 @implementation PGGetPlayerRequest
@@ -15,6 +16,10 @@
 - (instancetype)init {
     if (self = [super initWithType:RequestType_GetPlayer]) {
         GetPlayerMessage *message = [GetPlayerMessage message];
+        GetPlayerMessage_PlayerLocale *locale = [GetPlayerMessage_PlayerLocale message];
+        locale.language = PGConfigLanguage;
+        locale.country = PGConfigCountry;
+        message.playerLocale = locale;
         self.rawRequest.requestMessage = message.data;
     }
     return self;

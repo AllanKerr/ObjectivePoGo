@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "EquippedBadgeSettings.pbobjc.h"
+ #import "POGOProtos/Settings/Master/EquippedBadgeSettings.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

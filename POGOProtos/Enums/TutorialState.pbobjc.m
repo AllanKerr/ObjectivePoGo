@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "TutorialState.pbobjc.h"
+ #import "POGOProtos/Enums/TutorialState.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

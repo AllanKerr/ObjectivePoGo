@@ -46,6 +46,7 @@ typedef GPB_ENUM(FortDeployPokemonResponse_Result) {
   FortDeployPokemonResponse_Result_ErrorPlayerHasNoTeam = 6,
   FortDeployPokemonResponse_Result_ErrorPokemonNotFullHp = 7,
   FortDeployPokemonResponse_Result_ErrorPlayerBelowMinimumLevel = 8,
+  FortDeployPokemonResponse_Result_ErrorPokemonIsBuddy = 9,
 };
 
 GPBEnumDescriptor *FortDeployPokemonResponse_Result_EnumDescriptor(void);

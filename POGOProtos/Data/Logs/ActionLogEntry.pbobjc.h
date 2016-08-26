@@ -24,6 +24,7 @@
 
 CF_EXTERN_C_BEGIN
 
+@class BuddyPokemonLogEntry;
 @class CatchPokemonLogEntry;
 @class FortSearchLogEntry;
 
@@ -49,12 +50,14 @@ typedef GPB_ENUM(ActionLogEntry_FieldNumber) {
   ActionLogEntry_FieldNumber_Sfida = 2,
   ActionLogEntry_FieldNumber_CatchPokemon = 3,
   ActionLogEntry_FieldNumber_FortSearch = 4,
+  ActionLogEntry_FieldNumber_BuddyPokemon = 5,
 };
 
 typedef GPB_ENUM(ActionLogEntry_Action_OneOfCase) {
   ActionLogEntry_Action_OneOfCase_GPBUnsetOneOfCase = 0,
   ActionLogEntry_Action_OneOfCase_CatchPokemon = 3,
   ActionLogEntry_Action_OneOfCase_FortSearch = 4,
+  ActionLogEntry_Action_OneOfCase_BuddyPokemon = 5,
 };
 
 @interface ActionLogEntry : GPBMessage
@@ -68,6 +71,8 @@ typedef GPB_ENUM(ActionLogEntry_Action_OneOfCase) {
 @property(nonatomic, readwrite, strong, null_resettable) CatchPokemonLogEntry *catchPokemon;
 
 @property(nonatomic, readwrite, strong, null_resettable) FortSearchLogEntry *fortSearch;
+
+@property(nonatomic, readwrite, strong, null_resettable) BuddyPokemonLogEntry *buddyPokemon;
 
 @end
 

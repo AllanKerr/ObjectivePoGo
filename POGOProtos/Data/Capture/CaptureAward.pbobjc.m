@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "CaptureAward.pbobjc.h"
- #import "ActivityType.pbobjc.h"
+ #import "POGOProtos/Data/Capture/CaptureAward.pbobjc.h"
+ #import "POGOProtos/Enums/ActivityType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

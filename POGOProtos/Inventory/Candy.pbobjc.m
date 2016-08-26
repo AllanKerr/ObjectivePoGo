@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "Candy.pbobjc.h"
- #import "PokemonFamilyId.pbobjc.h"
+ #import "POGOProtos/Inventory/Candy.pbobjc.h"
+ #import "POGOProtos/Enums/PokemonFamilyId.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

@@ -78,24 +78,6 @@ typedef GPB_ENUM(ResponseEnvelope_FieldNumber) {
 
 @end
 
-#pragma mark - ResponseEnvelope_Unknown7
-
-typedef GPB_ENUM(ResponseEnvelope_Unknown7_FieldNumber) {
-  ResponseEnvelope_Unknown7_FieldNumber_Unknown71 = 1,
-  ResponseEnvelope_Unknown7_FieldNumber_Unknown72 = 2,
-  ResponseEnvelope_Unknown7_FieldNumber_Unknown73 = 3,
-};
-
-@interface ResponseEnvelope_Unknown7 : GPBMessage
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *unknown71;
-
-@property(nonatomic, readwrite) int64_t unknown72;
-
-@property(nonatomic, readwrite, copy, null_resettable) NSData *unknown73;
-
-@end
-
 NS_ASSUME_NONNULL_END
 
 CF_EXTERN_C_END

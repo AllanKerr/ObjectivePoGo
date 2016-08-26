@@ -13,8 +13,8 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "FortSearchLogEntry.pbobjc.h"
- #import "ItemData.pbobjc.h"
+ #import "POGOProtos/Data/Logs/FortSearchLogEntry.pbobjc.h"
+ #import "POGOProtos/Inventory/Item/ItemData.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

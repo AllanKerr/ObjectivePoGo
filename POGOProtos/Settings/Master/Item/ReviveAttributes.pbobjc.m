@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "ReviveAttributes.pbobjc.h"
+ #import "POGOProtos/Settings/Master/Item/ReviveAttributes.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

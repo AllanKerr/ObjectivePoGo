@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "CollectDailyBonusResponse.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/CollectDailyBonusResponse.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

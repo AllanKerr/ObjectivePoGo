@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "PokemonUpgradeSettings.pbobjc.h"
+ #import "POGOProtos/Settings/Master/PokemonUpgradeSettings.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

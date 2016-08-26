@@ -24,6 +24,8 @@
 
 CF_EXTERN_C_BEGIN
 
+@class PlayerData;
+
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Enum ClaimCodenameResponse_Status
@@ -67,9 +69,9 @@ typedef GPB_ENUM(ClaimCodenameResponse_FieldNumber) {
   ClaimCodenameResponse_FieldNumber_UserMessage = 2,
   ClaimCodenameResponse_FieldNumber_IsAssignable = 3,
   ClaimCodenameResponse_FieldNumber_Status = 4,
+  ClaimCodenameResponse_FieldNumber_UpdatedPlayer = 5,
 };
 
-/// TODO: Might be incorrect, please test.
 @interface ClaimCodenameResponse : GPBMessage
 
 @property(nonatomic, readwrite, copy, null_resettable) NSString *codename;
@@ -79,6 +81,10 @@ typedef GPB_ENUM(ClaimCodenameResponse_FieldNumber) {
 @property(nonatomic, readwrite) BOOL isAssignable;
 
 @property(nonatomic, readwrite) ClaimCodenameResponse_Status status;
+
+@property(nonatomic, readwrite, strong, null_resettable) PlayerData *updatedPlayer;
+/// Test to see if @c updatedPlayer has been set.
+@property(nonatomic, readwrite) BOOL hasUpdatedPlayer;
 
 @end
 

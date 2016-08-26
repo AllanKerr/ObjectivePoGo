@@ -47,6 +47,8 @@ typedef GPB_ENUM(NearbyPokemon_FieldNumber) {
   NearbyPokemon_FieldNumber_PokemonId = 1,
   NearbyPokemon_FieldNumber_DistanceInMeters = 2,
   NearbyPokemon_FieldNumber_EncounterId = 3,
+  NearbyPokemon_FieldNumber_FortId = 4,
+  NearbyPokemon_FieldNumber_FortImageURL = 5,
 };
 
 @interface NearbyPokemon : GPBMessage
@@ -56,6 +58,10 @@ typedef GPB_ENUM(NearbyPokemon_FieldNumber) {
 @property(nonatomic, readwrite) float distanceInMeters;
 
 @property(nonatomic, readwrite) uint64_t encounterId;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSString *fortId;
+
+@property(nonatomic, readwrite, copy, null_resettable) NSString *fortImageURL;
 
 @end
 

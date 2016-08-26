@@ -7,6 +7,7 @@
 //
 
 #import "PGConstants.h"
+#import "xxhash.h"
 
 NSString *const PGErrorDomain = @"PKErrorDomain";
 
@@ -23,6 +24,8 @@ NSString *const PGPokemonApiService = @"ptc";
 NSString *const PGPokemonApiClientSig = @"321187995bc7cdc2b5fc91b11a96e2baa8602c62";
 
 const uint32_t PGHashSeed = 0x1B845238;
+const uint32_t PGUnknown25HashSeed = 0x88533787;
+const void *PGUnknown25HashData = "0f15301fe1d0e824738ef5d93355e56a6fb910d4";
 
 const uint64_t PGRequestIdBase = 100000000;
 const uint64_t PGRequestIdRange = 899999999;

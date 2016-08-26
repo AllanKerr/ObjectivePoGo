@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "BattleType.pbobjc.h"
+ #import "POGOProtos/Data/Battle/BattleType.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
@@ -31,11 +31,12 @@ GPBEnumDescriptor *BattleType_EnumDescriptor(void) {
   static GPBEnumDescriptor *descriptor = NULL;
   if (!descriptor) {
     static const char *valueNames =
-        "BattleTypeUnset\000Normal\000Training\000";
+        "BattleTypeUnset\000BattleTypeNormal\000BattleT"
+        "ypeTraining\000";
     static const int32_t values[] = {
         BattleType_BattleTypeUnset,
-        BattleType_Normal,
-        BattleType_Training,
+        BattleType_BattleTypeNormal,
+        BattleType_BattleTypeTraining,
     };
     GPBEnumDescriptor *worker =
         [GPBEnumDescriptor allocDescriptorForName:GPBNSStringifySymbol(BattleType)
@@ -53,8 +54,8 @@ GPBEnumDescriptor *BattleType_EnumDescriptor(void) {
 BOOL BattleType_IsValidValue(int32_t value__) {
   switch (value__) {
     case BattleType_BattleTypeUnset:
-    case BattleType_Normal:
-    case BattleType_Training:
+    case BattleType_BattleTypeNormal:
+    case BattleType_BattleTypeTraining:
       return YES;
     default:
       return NO;

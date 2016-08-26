@@ -13,9 +13,9 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "DiskEncounterResponse.pbobjc.h"
- #import "PokemonData.pbobjc.h"
- #import "CaptureProbability.pbobjc.h"
+ #import "POGOProtos/Networking/Responses/DiskEncounterResponse.pbobjc.h"
+ #import "POGOProtos/Data/PokemonData.pbobjc.h"
+ #import "POGOProtos/Data/Capture/CaptureProbability.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push

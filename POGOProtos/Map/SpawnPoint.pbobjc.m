@@ -13,7 +13,7 @@
  #import "GPBProtocolBuffers_RuntimeSupport.h"
 #endif
 
- #import "SpawnPoint.pbobjc.h"
+ #import "POGOProtos/Map/SpawnPoint.pbobjc.h"
 // @@protoc_insertion_point(imports)
 
 #pragma clang diagnostic push
