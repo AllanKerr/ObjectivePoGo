@@ -32,6 +32,10 @@
     if (self = [super init]) {
         self.responseBuilder = [[PGResponseBuilder alloc] init];
         self.infoProvider = infoProvider;
+        if (self.infoProvider.sessionHash == nil) {
+            NSData *sessionHash = [self uRandom:16];
+            [self.infoProvider updateSessionHash:sessionHash];
+        }
         self.completion = completion;
         [self _buildRequestEnvelope];
     }
@@ -72,7 +76,7 @@
     RequestEnvelope_AuthInfo *authInfo = [RequestEnvelope_AuthInfo message];
     authInfo.provider = PGPokemonApiService;
     authInfo.token.contents = self.infoProvider.accessToken;
-    authInfo.token.unknown2 = 59;
+    authInfo.token.unknown2 = 10800;
     self.requestEnvelope.authInfo = authInfo;
 }
 
@@ -110,7 +114,7 @@
         self.requestEnvelope.msSinceLastLocationfix = timeSinceStart - locationFix.timestampSnapshot;
         [signature.locationFixArray addObjectsFromArray:self.infoProvider.locationFixes];
     } else {
-        self.requestEnvelope.msSinceLastLocationfix = 989;
+        self.requestEnvelope.msSinceLastLocationfix = 1065;
     }
     PGSensorInfo *sensorInfo = self.infoProvider.sensorInfo;
     Signature_SensorInfo *sigSensorInfo = [Signature_SensorInfo message];
@@ -150,10 +154,6 @@
     for (Request *request in self.requestEnvelope.requestsArray) {
         uint64_t hash = [self generateRequestHash:request authTicket:authData];
         [signature.requestHashArray addValue:hash];
-    }
-    if (self.infoProvider.sessionHash == nil) {
-        NSData *sessionHash = [self uRandom:16];
-        [self.infoProvider updateSessionHash:sessionHash];
     }
     signature.sessionHash = self.infoProvider.sessionHash;
     signature.timestamp = currentTime;
@@ -276,29 +276,31 @@
 }
 
 - (void)_recievedResponse:(ResponseEnvelope *)responseEnvelope {
-    if (responseEnvelope.apiURL.length > 0) {
-        NSString *apiURL = [NSString stringWithFormat:@"https://%@/rpc", responseEnvelope.apiURL];
-        [self.infoProvider updateApiURL:apiURL];
-    }
     if (responseEnvelope.hasAuthTicket) {
         [self.infoProvider updateTicket:responseEnvelope.authTicket];
+    }
+    if (responseEnvelope.apiURL.length > 0 && ![self.infoProvider.apiURL containsString:responseEnvelope.apiURL]) {
+        NSString *apiURL = [NSString stringWithFormat:@"https://%@/rpc", responseEnvelope.apiURL];
+        [self.infoProvider updateApiURL:apiURL];
+        
         NSMutableArray *requestsArray = self.requestEnvelope.requestsArray;
-        RequestEnvelope *envelope = self.requestEnvelope;
         [self _buildRequestEnvelope];
         [self.requestEnvelope.requestsArray addObjectsFromArray:requestsArray];
-        self.requestEnvelope.requestId = envelope.requestId;
+        self.requestEnvelope.requestId = self.requestEnvelope.requestId;
         [self start];
-    } else if (responseEnvelope.statusCode == 102) {
-        self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeExpiredAuthTicket userInfo:nil]);
-    } else if (responseEnvelope.statusCode == 1 || responseEnvelope.statusCode == 2) {
-        NSArray *responses = [self.responseBuilder buildFromEnvelope:responseEnvelope];
-        self.completion(responses, nil);
-    } else if (responseEnvelope.statusCode == 3){
-        NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"%@ may be banned", self.infoProvider.username]};
-        self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeBanned userInfo:userInfo]);
     } else {
-        NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%i", responseEnvelope.statusCode]};
-        self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo]);
+        if (responseEnvelope.statusCode == 102) {
+            self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeExpiredAuthTicket userInfo:nil]);
+        } else if (responseEnvelope.statusCode == 1 || responseEnvelope.statusCode == 2) {
+            NSArray *responses = [self.responseBuilder buildFromEnvelope:responseEnvelope];
+            self.completion(responses, nil);
+        } else if (responseEnvelope.statusCode == 3){
+            NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"%@ may be banned", self.infoProvider.username]};
+            self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeBanned userInfo:userInfo]);
+        } else {
+            NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"status code:%i", responseEnvelope.statusCode]};
+            self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo]);
+        }
     }
 }
 
