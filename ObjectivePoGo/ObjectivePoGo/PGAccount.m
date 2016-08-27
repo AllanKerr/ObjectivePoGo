@@ -97,7 +97,11 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 }
 
 + (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo completion:(PGAccountCompletion)completion {
-    PGAccount *account = [[PGAccount alloc] initWithAccountInfo:accountInfo deviceInfo:deviceInfo];
+    [self loginWithAccountInfo:accountInfo deviceInfo:deviceInfo atCoordinate:kCLLocationCoordinate2DInvalid completion:completion];
+}
+
++ (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo atCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGAccountCompletion)completion {
+    PGAccount *account = [[PGAccount alloc] initWithAccountInfo:accountInfo deviceInfo:deviceInfo coordinate:coordinate];
     [account prepareLoginPtcWithCompletion:^(NSString *lt, NSString *execution, NSError *error){
         if (error == nil) {
             [account getTicketWithUsername:accountInfo.username password:accountInfo.password lt:lt execution:execution completion:^(NSString *ticket, NSError *error){
@@ -133,7 +137,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     }];
 }
 
-- (instancetype)initWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo {
+- (instancetype)initWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo coordinate:(CLLocationCoordinate2D)coordinate {
     if (self = [super init]) {
         self.accountInfo = accountInfo;
         self.minUpdateInterval = PGConfigQueryInterval;
@@ -148,6 +152,10 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         self.apiURL = PGPokemonApiUrl;
         self.maxLocationFixCount = 5;
         self.deviceInfo = deviceInfo;
+        
+        if (CLLocationCoordinate2DIsValid(coordinate)) {
+            [self _updateLocationWithCoordinate:coordinate];
+        }
     }
     return self;
 }

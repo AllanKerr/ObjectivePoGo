@@ -13,7 +13,8 @@
 @interface PGAccountManager : NSObject
 @property (readonly, nonatomic) NSUInteger activeAccountsCount;
 + (PGAccountManager *)sharedInstance;
-- (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo completion:(PGAccountCompletion)completion;
+- (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo completion:(PGAccountCompletion)completion __deprecated_msg("use 'loginWithAccountInfo:atCoordinate:completion:' instead");
+- (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo atCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGAccountCompletion)completion;
 - (void)queryMapWithCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 - (void)queryMapWithCellId:(uint64_t)cellId coordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 @end

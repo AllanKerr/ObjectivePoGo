@@ -11,6 +11,7 @@
 #import "PGDeviceInfo.h"
 #import <CoreLocation/CoreLocation.h>
 #import <CoreMotion/CoreMotion.h>
+#import "PGUtil.h"
 
 typedef void(^PMFetchAccountCompletion)(PGAccount *, NSError *);
 
@@ -119,6 +120,10 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
 }
 
 - (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo completion:(PGAccountCompletion)completion {
+    [self loginWithAccountInfo:accountInfo atCoordinate:kCLLocationCoordinate2DInvalid completion:completion];
+}
+
+- (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo atCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGAccountCompletion)completion {
     PGAccount *account = [self.activeAccountsDict objectForKey:accountInfo];
     if (account != nil) {
         return completion(account, nil);
@@ -128,7 +133,7 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
     
     PGDeviceInfo *deviceInfo = [self _fetchDeviceInfoForUsername:accountInfo.username];
     NSLog(@"%@ signing in...", accountInfo.username);
-    [PGAccount loginWithAccountInfo:accountInfo deviceInfo:deviceInfo completion:^(PGAccount *account, NSError *error){
+    [PGAccount loginWithAccountInfo:accountInfo deviceInfo:deviceInfo atCoordinate:coordinate completion:^(PGAccount *account, NSError *error){
         if (error == nil) {
             NSLog(@"Sign in succeeded: %@", accountInfo.username);
             [self.activeAccountsDict setObject:account forKey:accountInfo];
@@ -169,7 +174,9 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
     if (optimalAccount != nil) {
         completion(optimalAccount, nil);
         if (currentAccountBuffer < self.minAccountBuffer) {
-            [self _performLoginForNextAccount:^(PGAccount *account, NSError *error){}];
+            CLLocationDegrees latitude = [PGUtil applyNoise:coordinate.latitude magnitude:0.0005];
+            CLLocationDegrees longitude = [PGUtil applyNoise:coordinate.longitude magnitude:0.0005];
+            [self _performNextLoginAtCoordinate:CLLocationCoordinate2DMake(latitude, longitude) completion:^(PGAccount *account, NSError *error){}];
         } else {
             for (NSInteger j = self.bufferAccounts.count - 1; self.bufferAccounts.count > self.maxAccountBuffer && j >= 0; j--) {
                 PGAccount *account = [self.bufferAccounts objectAtIndex:j];
@@ -178,18 +185,18 @@ NSString *const PGDeviceInfosFilename = @"DeviceInfo.plist";
             }
         }
     } else  {
-        [self _performLoginForNextAccount:completion];
+        [self _performNextLoginAtCoordinate:coordinate completion:completion];
     }
 }
 
-- (void)_performLoginForNextAccount:(PGAccountCompletion)completion {
+- (void)_performNextLoginAtCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGAccountCompletion)completion {
     if (self.isPerformingLogin) {
         completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeSigningIn userInfo:nil]);
         return;
     }
     PGAccountInfo *accountInfo = [self.inactiveAccounts firstObject];
     if (accountInfo != nil) {
-        [self loginWithAccountInfo:accountInfo completion:completion];
+        [self loginWithAccountInfo:accountInfo atCoordinate:coordinate completion:completion];
     } else {
         completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeNoInactiveAccounts userInfo:nil]);
     }

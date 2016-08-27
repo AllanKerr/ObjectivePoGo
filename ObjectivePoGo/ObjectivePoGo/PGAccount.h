@@ -45,7 +45,8 @@ typedef void(^PGGetProfileCompletion)(GetPlayerResponse *playerProfile, NSError 
 @property (readonly, nonatomic, strong) PGSensorInfo *sensorInfo;
 @property (readonly, nonatomic, strong) PGDeviceInfo *deviceInfo;
 @property (readonly, nonatomic, strong) NSData *sessionHash;
-+ (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo completion:(PGAccountCompletion)completion;
++ (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo completion:(PGAccountCompletion)completion __deprecated_msg("use 'loginWithAccountInfo:deviceInfo:atCoordinate:completion:' instead");
++ (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo atCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGAccountCompletion)completion;
 - (void)getMapObjectsForCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 - (void)getMapObjectsForCellId:(uint64_t)cellId coordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 - (void)getProfileWithCompletion:(PGGetProfileCompletion)completion;
