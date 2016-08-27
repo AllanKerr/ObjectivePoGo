@@ -7,8 +7,7 @@
 //
 
 #import "PGSensorInfo.h"
-
-#define ARC4RANDOM_MAX 0x100000000
+#import "PGUtil.h"
 
 @interface PGSensorInfo ()
 @property (readwrite, nonatomic) double magnetometerX;
@@ -126,25 +125,21 @@
 
 - (void)averageWithSensorData:(PGSensorInfo *)sensorInfo weight:(double)weight {
     double myWeight = 1 - weight;
-    self.magnetometerX = [self applyNoise:(myWeight * self.magnetometerX) + (weight * sensorInfo.magnetometerX) magnitude:0.25];
-    self.magnetometerY = [self applyNoise:(myWeight * self.magnetometerY) + (weight * sensorInfo.magnetometerY) magnitude:0.25];
-    self.magnetometerZ = [self applyNoise:(myWeight * self.magnetometerZ) + (weight * sensorInfo.magnetometerZ) magnitude:0.25];
+    self.magnetometerX = [PGUtil applyNoise:(myWeight * self.magnetometerX) + (weight * sensorInfo.magnetometerX) magnitude:0.25];
+    self.magnetometerY = [PGUtil applyNoise:(myWeight * self.magnetometerY) + (weight * sensorInfo.magnetometerY) magnitude:0.25];
+    self.magnetometerZ = [PGUtil applyNoise:(myWeight * self.magnetometerZ) + (weight * sensorInfo.magnetometerZ) magnitude:0.25];
     
-    self.angleNormalizedX = round([self applyNoise:(myWeight * self.angleNormalizedX) + (weight * sensorInfo.angleNormalizedX) magnitude:1.25] * 4.0) / 4.0;
-    self.angleNormalizedY = round([self applyNoise:(myWeight * self.angleNormalizedY) + (weight * sensorInfo.angleNormalizedY) magnitude:1.25] * 4.0) / 4.0;
-    self.angleNormalizedZ = round([self applyNoise:(myWeight * self.angleNormalizedZ) + (weight * sensorInfo.angleNormalizedZ) magnitude:1.25] * 4.0) / 4.0;
+    self.angleNormalizedX = round([PGUtil applyNoise:(myWeight * self.angleNormalizedX) + (weight * sensorInfo.angleNormalizedX) magnitude:1.25] * 4.0) / 4.0;
+    self.angleNormalizedY = round([PGUtil applyNoise:(myWeight * self.angleNormalizedY) + (weight * sensorInfo.angleNormalizedY) magnitude:1.25] * 4.0) / 4.0;
+    self.angleNormalizedZ = round([PGUtil applyNoise:(myWeight * self.angleNormalizedZ) + (weight * sensorInfo.angleNormalizedZ) magnitude:1.25] * 4.0) / 4.0;
     
-    self.accelRawX = [self applyNoise:(myWeight * self.accelRawX) + (weight * sensorInfo.accelRawX) magnitude:0.1];
-    self.accelRawY = [self applyNoise:(myWeight * self.accelRawY) + (weight * sensorInfo.accelRawY) magnitude:0.1];
-    self.accelRawZ = [self applyNoise:(myWeight * self.accelRawZ) + (weight * sensorInfo.accelRawZ) magnitude:0.1];
+    self.accelRawX = [PGUtil applyNoise:(myWeight * self.accelRawX) + (weight * sensorInfo.accelRawX) magnitude:0.1];
+    self.accelRawY = [PGUtil applyNoise:(myWeight * self.accelRawY) + (weight * sensorInfo.accelRawY) magnitude:0.1];
+    self.accelRawZ = [PGUtil applyNoise:(myWeight * self.accelRawZ) + (weight * sensorInfo.accelRawZ) magnitude:0.1];
     
-    self.gyroscopeRawX = [self applyNoise:(myWeight * self.gyroscopeRawX) + (weight * sensorInfo.gyroscopeRawX) magnitude:0.25];
-    self.gyroscopeRawY = [self applyNoise:(myWeight * self.gyroscopeRawY) + (weight * sensorInfo.gyroscopeRawY) magnitude:0.25];
-    self.gyroscopeRawZ = [self applyNoise:(myWeight * self.gyroscopeRawZ) + (weight * sensorInfo.gyroscopeRawZ) magnitude:0.25];
-}
-
-- (double)applyNoise:(double)value magnitude:(double)magnitude {
-    return value + ((CLLocationDegrees)arc4random() / ARC4RANDOM_MAX) * (2 * magnitude) - magnitude;
+    self.gyroscopeRawX = [PGUtil applyNoise:(myWeight * self.gyroscopeRawX) + (weight * sensorInfo.gyroscopeRawX) magnitude:0.25];
+    self.gyroscopeRawY = [PGUtil applyNoise:(myWeight * self.gyroscopeRawY) + (weight * sensorInfo.gyroscopeRawY) magnitude:0.25];
+    self.gyroscopeRawZ = [PGUtil applyNoise:(myWeight * self.gyroscopeRawZ) + (weight * sensorInfo.gyroscopeRawZ) magnitude:0.25];
 }
 
 @end

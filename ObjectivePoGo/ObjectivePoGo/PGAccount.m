@@ -23,6 +23,7 @@
 #import "PGSetAvatarRequest.h"
 #import "PGEncounterTutorialCompleteRequest.h"
 #import "PGClaimCodenameRequest.h"
+#import "PGUtil.h"
 
 #import "GetPlayerResponse.pbobjc.h"
 #import "GetMapObjectsResponse.pbobjc.h"
@@ -34,8 +35,6 @@
 #import "MapSettings.pbobjc.h"
 #import "PlayerData.pbobjc.h"
 #import "TutorialState.pbobjc.h"
-
-#define ARC4RANDOM_MAX 0x100000000
 
 #define DEGREES_TO_RADIANS(degrees)((M_PI * degrees)/180)
 #define RADIANS_TO_DEGREES(radians)((180 * radians)/M_PI)
@@ -555,10 +554,6 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     self.sessionHash = sessionHash;
 }
 
-- (double)applyNoise:(double)value magnitude:(double)magnitude {
-    return value + ((CLLocationDegrees)arc4random() / ARC4RANDOM_MAX) * (2 * magnitude) - magnitude;
-}
-
 - (void)_updateLocationWithCoordinate:(CLLocationCoordinate2D)coordinate {
     CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate altitude:0 horizontalAccuracy:PGConfigHorizontalAccuracy verticalAccuracy:PGConfigVerticalAccuracy timestamp:[NSDate date]];
     self.lastLocation = self.location;
@@ -576,15 +571,15 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         CLLocationCoordinate2D currentCoordinate = self.location.coordinate;
         CLLocationDistance maxDistance = [self.location distanceFromLocation:self.lastLocation];
 
-        NSTimeInterval timeOffset = [self applyNoise:2.5 magnitude:0.35];
+        NSTimeInterval timeOffset = [PGUtil applyNoise:2.5 magnitude:0.35];
         uint64_t timeSinceStart = ([[NSDate date] timeIntervalSince1970] * 1000 - self.startTime) - (timeOffset * 1000);
         uint64_t lastTimeSinceStart = self.lastQueryTime * 1000 - self.startTime;
         
         NSMutableArray *locationFixes = [NSMutableArray arrayWithCapacity:self.maxLocationFixCount];
         for (int i = 0; i < self.maxLocationFixCount && timeSinceStart > lastTimeSinceStart; i++) {
-            double travelRate = [self applyNoise:self.baseTravelRate magnitude:1.5];
+            double travelRate = [PGUtil applyNoise:self.baseTravelRate magnitude:1.5];
             CLLocationDistance distance = (timeOffset * travelRate) / 1000;
-            CLLocationDirection heading = [self applyNoise:[self _getHeadingBetweenCoordinate:lastCoordinate coordinate:currentCoordinate] magnitude:2.5];
+            CLLocationDirection heading = [PGUtil applyNoise:[self _getHeadingBetweenCoordinate:lastCoordinate coordinate:currentCoordinate] magnitude:2.5];
             CLLocationCoordinate2D coordinate = [self _getCoordinateWithDistance:distance direction:heading fromCoordinate:currentCoordinate];
             timeSinceStart -= timeOffset;
             
@@ -605,7 +600,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
             [locationFixes addObject:locationFix];
       
             currentCoordinate = coordinate;
-            timeOffset = [self applyNoise:2.5 magnitude:0.35];
+            timeOffset = [PGUtil applyNoise:2.5 magnitude:0.35];
             timeSinceStart -= timeOffset * 1000;
         }
         self.locationFixes = locationFixes;
