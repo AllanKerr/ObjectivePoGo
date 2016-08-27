@@ -283,8 +283,10 @@
     if (responseEnvelope.hasAuthTicket) {
         [self.infoProvider updateTicket:responseEnvelope.authTicket];
         NSMutableArray *requestsArray = self.requestEnvelope.requestsArray;
+        RequestEnvelope *envelope = self.requestEnvelope;
         [self _buildRequestEnvelope];
         [self.requestEnvelope.requestsArray addObjectsFromArray:requestsArray];
+        self.requestEnvelope.requestId = envelope.requestId;
         [self start];
     } else if (responseEnvelope.statusCode == 102) {
         self.completion(nil, [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeExpiredAuthTicket userInfo:nil]);

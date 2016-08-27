@@ -22,6 +22,7 @@
 #import "PGCheckChallengeRequest.h"
 #import "PGSetAvatarRequest.h"
 #import "PGEncounterTutorialCompleteRequest.h"
+#import "PGClaimCodenameRequest.h"
 
 #import "GetPlayerResponse.pbobjc.h"
 #import "GetMapObjectsResponse.pbobjc.h"
@@ -105,15 +106,15 @@ typedef void(^PGAsyncCompletion)(NSError *error);
                         if (error == nil) {
                             [account getProfileWithCompletion:^(GetPlayerResponse *response, NSError *error){
                                 if (error == nil) {
-                                    // Not entirely happy with this solution, without the delayed dispatch the
-                                    // requests are occasionally rate limited causing the login flow to fail
-                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                                        [account getPlayerDataWithCompletion:^(NSError *error){
-                                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                                    [account completeTutorialWithCompletion:^(NSError *error){
+                                        if (error == nil) {
+                                            [account getRemoteConfig:^(NSError *error){
                                                 completion(account, error);
-                                            });
-                                        }];
-                                    });
+                                            }];
+                                        } else {
+                                            completion(nil, error);
+                                        }
+                                    }];
                                 } else {
                                     completion(nil, error);
                                 }
@@ -262,13 +263,12 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     [group start];
 }
 
-- (void)completeTutorial {
+- (void)completeTutorialWithCompletion:(PGAsyncCompletion)completion {
     __block BOOL passedLegalScreen = NO;
     __block BOOL passedAvatarSelection = NO;
     __block BOOL passedPokemonCapture = NO;
     __block BOOL passedNameSelection = NO;
     __block BOOL passedFirstTimeExperience = NO;
-
     [self.playerData.tutorialStateArray enumerateValuesWithBlock:^(int32_t value, NSUInteger idx, BOOL *stop){
         switch (value) {
             case TutorialState_LegalScreen:
@@ -279,33 +279,54 @@ typedef void(^PGAsyncCompletion)(NSError *error);
                 break;
             case TutorialState_PokemonCapture:
                 passedPokemonCapture = YES;
+                break;
             case TutorialState_NameSelection:
                 passedNameSelection = YES;
                 break;
             case TutorialState_FirstTimeExperienceComplete:
                 passedFirstTimeExperience = YES;
+                break;
         }
     }];
-    if (!passedLegalScreen) {
-        [self markTutorialCompleteWithState:TutorialState_LegalScreen completion:^(BOOL success, NSError *error){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        __block TutorialState state;
+        PGBooleanCompletion tutorialCompletionBlock = ^(BOOL success, NSError *error) {
             if (success) {
-                
+                [self.playerData.tutorialStateArray addValue:state];
+                [self completeTutorialWithCompletion:completion];
+            } else {
+                completion(error);
             }
-            [self.playerData.tutorialStateArray addValue:TutorialState_LegalScreen];
-        }];
-    } else if (!passedAvatarSelection) {
-        
-    } else if (!passedPokemonCapture) {
-        
-    } else if (!passedNameSelection) {
-        
-    } else if (!passedFirstTimeExperience) {
-        
-    }
+        };
+        if (!passedLegalScreen) {
+            state = TutorialState_LegalScreen;
+            NSLog(@"%@ accepting terms of service...", self.username);
+            [self markTutorialCompleteWithState:TutorialState_LegalScreen completion:tutorialCompletionBlock];
+        } else if (!passedAvatarSelection) {
+            state = TutorialState_AvatarSelection;
+            NSLog(@"%@ setting avatar...", self.username);
+            [self setAvatarWithCompletion:tutorialCompletionBlock];
+        } else if (!passedPokemonCapture) {
+            NSLog(@"%@ capturing tutorial pokemon...", self.username);
+            state = TutorialState_PokemonCapture;
+            [self completeTutorialEncounterWithCompletion:tutorialCompletionBlock];
+        } else if (!passedNameSelection) {
+            NSLog(@"%@ claiming codename...", self.username);
+            state = TutorialState_NameSelection;
+            [self claimCodenameWithCompletion:tutorialCompletionBlock];
+        } else if (!passedFirstTimeExperience) {
+            NSLog(@"%@ completed tutorial...", self.username);
+            state = TutorialState_FirstTimeExperienceComplete;
+            [self markTutorialCompleteWithState:TutorialState_FirstTimeExperienceComplete completion:tutorialCompletionBlock];
+        } else {
+            completion(nil);
+        }
+    });
 }
 
 - (void)markTutorialCompleteWithState:(TutorialState)state completion:(PGBooleanCompletion)completion {
-    PGCompleteTutorialStateRequest *request = [[PGCompleteTutorialStateRequest alloc] initWithState:TutorialState_LegalScreen];
+    NSLog(@"Updating tutorial state:%i", state);
+    PGCompleteTutorialStateRequest *request = [[PGCompleteTutorialStateRequest alloc] initWithState:state];
     [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
         if (error == nil) {
             MarkTutorialCompleteResponse *message = (MarkTutorialCompleteResponse *)response.message;
@@ -322,13 +343,14 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         if (error == nil) {
             SetAvatarResponse *message = (SetAvatarResponse *)response.message;
             if (message.status == SetAvatarResponse_Status_Success) {
-                [self markTutorialCompleteWithState:TutorialState_AvatarSelection completion:completion];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self markTutorialCompleteWithState:TutorialState_AvatarSelection completion:completion];
+                });
             } else {
-                NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Set avatar received invalid status:%i", message.status]};
+                NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Claim codename received unexpected status:%i", message.status]};
                 NSError *error = [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo];
                 completion(NO, error);
             }
-            completion(message.status == SetAvatarResponse_Status_Success, response.error);
         } else {
             completion(NO, error);
         }
@@ -341,13 +363,88 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         if (error == nil) {
             EncounterTutorialCompleteResponse *message = (EncounterTutorialCompleteResponse *)response.message;
             completion(message.result == EncounterTutorialCompleteResponse_Result_Success, response.error);
+        } else {
+            completion(NO, error);
         }
     }];
 }
 
+- (void)claimCodenameWithCompletion:(PGBooleanCompletion)completion {
+    PGClaimCodenameRequest *request = [[PGClaimCodenameRequest alloc] init];
+    [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
+        if (error == nil) {
+            ClaimCodenameResponse *message = (ClaimCodenameResponse *)response.message;
+            if (message.status == ClaimCodenameResponse_Status_CodenameNotAvailable ||
+                message.status == ClaimCodenameResponse_Status_CodenameNotValid) {
+                NSLog(@"%@ in use or invalid... Trying again...", message.codename);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self claimCodenameWithCompletion:completion];
+                });
+            } else if (message.status == ClaimCodenameResponse_Status_Success) {
+                NSLog(@"%@ claimed codename:%@", self.username, message.codename);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                    [self markTutorialCompleteWithState:TutorialState_NameSelection completion:completion];
+                });
+            } else {
+                NSDictionary *userInfo = @{NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:@"Claim codename received unexpected status:%i", message.status]};
+                NSError *error = [NSError errorWithDomain:PGErrorDomain code:PGErrorCodeRequestFailed userInfo:userInfo];
+                completion(NO, error);
+            }
+        } else {
+            completion(NO, error);
+        }
+    }];
+}
 
+- (void)getRemoteConfig:(PGAsyncCompletion)completion {
+    PGDownloadRemoteConfigVersionRequest *request = [[PGDownloadRemoteConfigVersionRequest alloc] init];
+    [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
+        if (error == nil) {
+            [self receivedResponse:response];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+                completion(nil);
+            });
+        } else {
+            completion(error);
+        }
+    }];
+}
 
+- (void)getMapObjectsForCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion {
+    [self _updateLocationWithCoordinate:coordinate];
+    [self _updateSensorData];
+    self.isFetching = YES;
+    
+    PGGetMapObjectsRequest *request = [[PGGetMapObjectsRequest alloc] initWithCoordinate:coordinate];
+    [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
+        self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
+        self.isFetching = NO;
+        
+        if (error == nil) {
+            completion(self.username, (GetMapObjectsResponse *)response.message, response.error);
+        } else {
+            completion(self.username, nil, error);
+        }
+    }];
+}
 
+- (void)getMapObjectsForCellId:(uint64_t)cellId coordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion {
+    [self _updateLocationWithCoordinate:coordinate];
+    [self _updateSensorData];
+    self.isFetching = YES;
+    
+    PGGetMapObjectsRequest *request = [[PGGetMapObjectsRequest alloc] initWithCoordinate:self.location.coordinate cellId:cellId];
+    [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
+        self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
+        self.isFetching = NO;
+        
+        if (error == nil) {
+            completion(self.username, (GetMapObjectsResponse *)response.message, response.error);
+        } else {
+            completion(self.username, nil, error);
+        }
+    }];
+}
 
 - (void)performRequest:(PGRequest *)request withCompletion:(PGRequestCompletion)completion {
     PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
@@ -373,112 +470,6 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         }
     }];
     [group addRequest:request];
-    [self addPlayerDataRequestsToGroup:group];
-    [group start];
-}
-
-
-
-
-
-
-
-- (void)getPlayerDataWithCompletion:(PGAsyncCompletion)completion {
-    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
-        if (error == nil) {
-            PGResponse *remoteConfigResponse = [responses objectAtIndex:0];
-            PGResponse *challengeResponse = [responses objectAtIndex:1];
-            PGResponse *hatchedEggsResponse = [responses objectAtIndex:2];
-            PGResponse *inventoryResponse = [responses objectAtIndex:3];
-            PGResponse *awardedBadgesResponse = [responses objectAtIndex:4];
-            PGResponse *downloadSettingsResponse = [responses objectAtIndex:5];
-            NSError *challengeError = [self checkChallengeResponse:challengeResponse];
-            if (challengeError != nil) {
-                completion(challengeError);
-            } else {
-                [self receivedResponse:remoteConfigResponse];
-                [self receivedResponse:hatchedEggsResponse];
-                [self receivedInventoryResponse:inventoryResponse];
-                [self receivedResponse:awardedBadgesResponse];
-                [self receivedDownloadSettingsResponse:downloadSettingsResponse];
-                completion(nil);
-            }
-        } else {
-            completion(error);
-        }
-    }];
-    PGDownloadRemoteConfigVersionRequest *remoteConfigRequest = [[PGDownloadRemoteConfigVersionRequest alloc] init];
-    [group addRequest:remoteConfigRequest];
-    [self addPlayerDataRequestsToGroup:group];
-    [group start];
-}
-
-- (void)getMapObjectsForCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion {
-    [self _updateLocationWithCoordinate:coordinate];
-    [self _updateSensorData];
-    self.isFetching = YES;
-    
-    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
-        self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
-        self.isFetching = NO;
-        if (error == nil) {
-            PGResponse *response = [responses objectAtIndex:0];
-            PGResponse *challengeResponse = [responses objectAtIndex:1];
-            PGResponse *hatchedEggsResponse = [responses objectAtIndex:2];
-            PGResponse *inventoryResponse = [responses objectAtIndex:3];
-            PGResponse *awardedBadgesResponse = [responses objectAtIndex:4];
-            PGResponse *downloadSettingsResponse = [responses objectAtIndex:5];
-            NSError *challengeError = [self checkChallengeResponse:challengeResponse];
-            if (challengeError != nil) {
-                completion(self.accountInfo.username, nil, challengeError);
-            } else {
-                [self receivedResponse:hatchedEggsResponse];
-                [self receivedInventoryResponse:inventoryResponse];
-                [self receivedResponse:awardedBadgesResponse];
-                [self receivedDownloadSettingsResponse:downloadSettingsResponse];
-                completion(self.accountInfo.username, (GetMapObjectsResponse *)response.message, response.error);
-            }
-        } else {
-            completion(self.accountInfo.username, nil, error);
-        }
-    }];
-    PGGetMapObjectsRequest *request = [[PGGetMapObjectsRequest alloc] initWithCoordinate:self.location.coordinate];
-    [group addRequest:request];
-    [self addPlayerDataRequestsToGroup:group];
-    [group start];
-}
-
-- (void)getMapObjectsForCellId:(uint64_t)cellId coordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion {
-    [self _updateLocationWithCoordinate:coordinate];
-    [self _updateSensorData];
-    self.isFetching = YES;
-    
-    PGRequestGroup *group = [[PGRequestGroup alloc] initWithInfoProvider:self completion:^(NSArray *responses, NSError *error){
-        self.lastQueryTime = [[NSDate date] timeIntervalSince1970];
-        self.isFetching = NO;
-        if (error == nil) {
-            PGResponse *response = [responses objectAtIndex:0];
-            PGResponse *challengeResponse = [responses objectAtIndex:1];
-            PGResponse *hatchedEggsResponse = [responses objectAtIndex:2];
-            PGResponse *inventoryResponse = [responses objectAtIndex:3];
-            PGResponse *awardedBadgesResponse = [responses objectAtIndex:4];
-            PGResponse *downloadSettingsResponse = [responses objectAtIndex:5];
-            NSError *challengeError = [self checkChallengeResponse:challengeResponse];
-            if (challengeError != nil) {
-                completion(self.accountInfo.username, nil, challengeError);
-            } else {
-                [self receivedResponse:hatchedEggsResponse];
-                [self receivedInventoryResponse:inventoryResponse];
-                [self receivedResponse:awardedBadgesResponse];
-                [self receivedDownloadSettingsResponse:downloadSettingsResponse];
-                completion(self.accountInfo.username, (GetMapObjectsResponse *)response.message, response.error);
-            }
-        } else {
-            completion(self.accountInfo.username, nil, error);
-        }
-    }];
-    PGGetMapObjectsRequest *mapObjectsRequest = [[PGGetMapObjectsRequest alloc] initWithCoordinate:coordinate cellId:cellId];
-    [group addRequest:mapObjectsRequest];
     [self addPlayerDataRequestsToGroup:group];
     [group start];
 }
