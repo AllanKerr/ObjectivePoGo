@@ -42,8 +42,8 @@ FOUNDATION_EXPORT const uint32_t PGHashSeed;
 FOUNDATION_EXPORT const uint32_t PGUnknown25HashSeed;
 FOUNDATION_EXPORT const void *PGUnknown25HashData;
 
-FOUNDATION_EXPORT const uint64_t PGRequestIdBase;
-FOUNDATION_EXPORT const uint64_t PGRequestIdRange;
+FOUNDATION_EXPORT const uint64_t PGRequestID;
+
 
 
 

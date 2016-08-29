@@ -57,6 +57,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 @property (readwrite, nonatomic ,strong) PGAccountInfo *accountInfo;
 @property (readwrite, nonatomic, strong) PGAccuracy *horizontalAccuracy;
 @property (readwrite, nonatomic, strong) PGAccuracy *verticalAccuracy;
+@property (readwrite, nonatomic) uint64_t requestCount;
 
 // PGRequestInfoProvider Properties
 @property (readwrite, nonatomic) uint64_t startTime;
@@ -91,7 +92,13 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 }
 
 - (uint64_t)requestID {
-    return _requestID++;
+    if (self.requestCount == 0) {
+        self.requestCount++;
+        return _requestID;
+    } else {
+        srand((unsigned int)time(NULL));
+        return rand() | self.requestCount;
+    }
 }
 
 - (NSString *)username {
@@ -147,8 +154,8 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         self.horizontalAccuracy = [PGAccuracy horizontalAccuracy];
         self.verticalAccuracy = [PGAccuracy verticalAccuracy];
         
+        self.requestID = PGRequestID;
         self.startTime = [[NSDate date] timeIntervalSince1970] * 1000;
-        self.requestID = PGRequestIdBase + (arc4random() % PGRequestIdRange);
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         sessionConfiguration.HTTPAdditionalHeaders = @{@"User-Agent":PGPokemonApiRequestUserAgent};
         self.sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:sessionConfiguration];

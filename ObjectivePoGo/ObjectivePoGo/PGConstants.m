@@ -27,5 +27,4 @@ const uint32_t PGHashSeed = 0x1B845238;
 const uint32_t PGUnknown25HashSeed = 0x88533787;
 const void *PGUnknown25HashData = "0f15301fe1d0e824738ef5d93355e56a6fb910d4";
 
-const uint64_t PGRequestIdBase = 100000000;
-const uint64_t PGRequestIdRange = 899999999;
+const uint64_t PGRequestID = 72185515343874;
