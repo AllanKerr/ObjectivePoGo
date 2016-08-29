@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		111DE86B1D74BADA00F6C4C0 /* PGAccuracy.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE86A1D74BADA00F6C4C0 /* PGAccuracy.m */; };
+		111DE86E1D74C04000F6C4C0 /* PGWanderingValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE86D1D74C04000F6C4C0 /* PGWanderingValue.m */; };
 		11413D881D64FDE6004F52B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D871D64FDE6004F52B6 /* main.m */; };
 		11413D8B1D64FDE6004F52B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8A1D64FDE6004F52B6 /* AppDelegate.m */; };
 		11413D8E1D64FDE6004F52B6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8D1D64FDE6004F52B6 /* ViewController.m */; };
@@ -311,6 +312,8 @@
 /* Begin PBXFileReference section */
 		111DE8691D74BADA00F6C4C0 /* PGAccuracy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGAccuracy.h; sourceTree = "<group>"; };
 		111DE86A1D74BADA00F6C4C0 /* PGAccuracy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGAccuracy.m; sourceTree = "<group>"; };
+		111DE86C1D74C04000F6C4C0 /* PGWanderingValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGWanderingValue.h; sourceTree = "<group>"; };
+		111DE86D1D74C04000F6C4C0 /* PGWanderingValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGWanderingValue.m; sourceTree = "<group>"; };
 		11413D831D64FDE6004F52B6 /* ObjectivePoGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectivePoGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11413D871D64FDE6004F52B6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11413D891D64FDE6004F52B6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1138,6 +1141,8 @@
 				114140C31D6502E8004F52B6 /* PGAccountInfo.m */,
 				111DE8691D74BADA00F6C4C0 /* PGAccuracy.h */,
 				111DE86A1D74BADA00F6C4C0 /* PGAccuracy.m */,
+				111DE86C1D74C04000F6C4C0 /* PGWanderingValue.h */,
+				111DE86D1D74C04000F6C4C0 /* PGWanderingValue.m */,
 				114140C41D6502E8004F52B6 /* PGAccountManager.h */,
 				114140C51D6502E8004F52B6 /* PGAccountManager.m */,
 				114140D51D6502E8004F52B6 /* PGSensorSpoofer.h */,
@@ -2157,6 +2162,7 @@
 				11A88AC21D70BB4200F486CC /* ResponseEnvelope.pbobjc.m in Sources */,
 				114140DA1D6502E8004F52B6 /* PGAccountManager.m in Sources */,
 				11A88A881D70BB4100F486CC /* EquippedBadge.pbobjc.m in Sources */,
+				111DE86E1D74C04000F6C4C0 /* PGWanderingValue.m in Sources */,
 				11A88A831D70BB4100F486CC /* CatchPokemonLogEntry.pbobjc.m in Sources */,
 				11A88B0C1D70BB4200F486CC /* DownloadSettingsResponse.pbobjc.m in Sources */,
 				11A88B141D70BB4200F486CC /* FortRecallPokemonResponse.pbobjc.m in Sources */,

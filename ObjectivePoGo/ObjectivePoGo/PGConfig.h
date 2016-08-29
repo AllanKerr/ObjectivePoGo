@@ -6,7 +6,7 @@
 //  Copyright © 2016 f6da75852aea28f8213466482daa395c113ec503406009dcaf1659e8139d4e56. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 // The most recent app version used by DownloadRemoteConfigVersionRequest
 FOUNDATION_EXPORT const uint32_t PGConfigAppVersion;
@@ -19,3 +19,8 @@ FOUNDATION_EXPORT const float PGConfigBaseTravelRate;
 
 FOUNDATION_EXPORT NSString *const PGConfigLanguage;
 FOUNDATION_EXPORT NSString *const PGConfigCountry;
+
+FOUNDATION_EXPORT const CLLocationDistance PGConfigMaxAltitude;
+FOUNDATION_EXPORT const CLLocationDistance PGConfigMinAltitude;
+FOUNDATION_EXPORT const CLLocationDistance PGConfigMaxAltitudeDelta;
+FOUNDATION_EXPORT const CLLocationDistance PGConfigMinAltitudeDelta;

@@ -25,6 +25,7 @@
 #import "PGClaimCodenameRequest.h"
 #import "PGUtil.h"
 #import "PGAccuracy.h"
+#import "PGWanderingValue.h"
 
 #import "GetPlayerResponse.pbobjc.h"
 #import "GetMapObjectsResponse.pbobjc.h"
@@ -57,6 +58,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 @property (readwrite, nonatomic ,strong) PGAccountInfo *accountInfo;
 @property (readwrite, nonatomic, strong) PGAccuracy *horizontalAccuracy;
 @property (readwrite, nonatomic, strong) PGAccuracy *verticalAccuracy;
+@property (readwrite, nonatomic, strong) PGWanderingValue *altitude;
 @property (readwrite, nonatomic) uint64_t requestCount;
 
 // PGRequestInfoProvider Properties
@@ -153,6 +155,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         self.baseTravelRate = PGConfigBaseTravelRate;
         self.horizontalAccuracy = [PGAccuracy horizontalAccuracy];
         self.verticalAccuracy = [PGAccuracy verticalAccuracy];
+        self.altitude = [[PGWanderingValue alloc] initWithMax:PGConfigMaxAltitude min:PGConfigMinAltitude minDelta:PGConfigMinAltitudeDelta maxDelta:PGConfigMaxAltitudeDelta];
         
         self.requestID = PGRequestID;
         self.startTime = [[NSDate date] timeIntervalSince1970] * 1000;
@@ -567,7 +570,10 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 }
 
 - (void)_updateLocationWithCoordinate:(CLLocationCoordinate2D)coordinate {
-    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate altitude:0 horizontalAccuracy:self.horizontalAccuracy.accuracy verticalAccuracy:self.verticalAccuracy.accuracy timestamp:[NSDate date]];
+    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate altitude:self.altitude.value
+                                               horizontalAccuracy:self.horizontalAccuracy.accuracy
+                                                 verticalAccuracy:self.verticalAccuracy.accuracy
+                                                        timestamp:[NSDate date]];
     self.lastLocation = self.location;
     self.location = location;
     
@@ -606,6 +612,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         locationFix.timestampSnapshot = timeSinceStart;
         locationFix.latitude = coordinate.latitude;
         locationFix.longitude = coordinate.longitude;
+        locationFix.altitude = self.altitude.value;
         locationFix.horizontalAccuracy = self.horizontalAccuracy.accuracy;
         locationFix.verticalAccuracy = self.verticalAccuracy.accuracy;
         locationFix.providerStatus = 3;

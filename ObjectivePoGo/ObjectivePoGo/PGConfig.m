@@ -19,3 +19,9 @@ const float PGConfigBaseTravelRate = 16.6667;
 
 NSString *const PGConfigLanguage = @"en";
 NSString *const PGConfigCountry = @"CA";
+
+const CLLocationDistance PGConfigMaxAltitude = 519.5455322265625;
+const CLLocationDistance PGConfigMinAltitude = 477.06103515625;
+const CLLocationDistance PGConfigMaxAltitudeDelta = 1.30444336;
+const CLLocationDistance PGConfigMinAltitudeDelta = 0.32507324;
+
