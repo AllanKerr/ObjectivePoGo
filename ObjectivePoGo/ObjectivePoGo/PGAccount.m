@@ -584,7 +584,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     CLLocationCoordinate2D currentCoordinate = self.location.coordinate;
     CLLocationDistance maxDistance = [self.location distanceFromLocation:self.lastLocation];
     
-    NSTimeInterval timeOffset = [PGUtil applyNoise:2.5 magnitude:0.35];
+    NSTimeInterval timeOffset = [PGUtil applyNoise:1.175 magnitude:0.35];
     uint64_t timeSinceStart = ([[NSDate date] timeIntervalSince1970] * 1000 - self.startTime) - (timeOffset * 1000);
     uint64_t lastTimeSinceStart = self.lastQueryTime * 1000 - self.startTime;
     
@@ -613,7 +613,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         [locationFixes addObject:locationFix];
         
         currentCoordinate = coordinate;
-        timeOffset = [PGUtil applyNoise:2.5 magnitude:0.35];
+        timeOffset = [PGUtil applyNoise:1.175 magnitude:0.35];
         timeSinceStart -= timeOffset * 1000;
     }
     self.locationFixes = locationFixes;
