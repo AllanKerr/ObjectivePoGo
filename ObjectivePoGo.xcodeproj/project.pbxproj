@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		111DE86B1D74BADA00F6C4C0 /* PGAccuracy.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE86A1D74BADA00F6C4C0 /* PGAccuracy.m */; };
 		11413D881D64FDE6004F52B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D871D64FDE6004F52B6 /* main.m */; };
 		11413D8B1D64FDE6004F52B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8A1D64FDE6004F52B6 /* AppDelegate.m */; };
 		11413D8E1D64FDE6004F52B6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8D1D64FDE6004F52B6 /* ViewController.m */; };
@@ -308,6 +309,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		111DE8691D74BADA00F6C4C0 /* PGAccuracy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGAccuracy.h; sourceTree = "<group>"; };
+		111DE86A1D74BADA00F6C4C0 /* PGAccuracy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGAccuracy.m; sourceTree = "<group>"; };
 		11413D831D64FDE6004F52B6 /* ObjectivePoGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectivePoGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11413D871D64FDE6004F52B6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11413D891D64FDE6004F52B6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1133,6 +1136,8 @@
 				114140C11D6502E8004F52B6 /* PGAccount.m */,
 				114140C21D6502E8004F52B6 /* PGAccountInfo.h */,
 				114140C31D6502E8004F52B6 /* PGAccountInfo.m */,
+				111DE8691D74BADA00F6C4C0 /* PGAccuracy.h */,
+				111DE86A1D74BADA00F6C4C0 /* PGAccuracy.m */,
 				114140C41D6502E8004F52B6 /* PGAccountManager.h */,
 				114140C51D6502E8004F52B6 /* PGAccountManager.m */,
 				114140D51D6502E8004F52B6 /* PGSensorSpoofer.h */,
@@ -2211,6 +2216,7 @@
 				11A88B281D70BB4200F486CC /* SetAvatarResponse.pbobjc.m in Sources */,
 				11A88AA71D70BB4200F486CC /* EggIncubators.pbobjc.m in Sources */,
 				11A88AA91D70BB4200F486CC /* InventoryDelta.pbobjc.m in Sources */,
+				111DE86B1D74BADA00F6C4C0 /* PGAccuracy.m in Sources */,
 				11A88B091D70BB4200F486CC /* DiskEncounterResponse.pbobjc.m in Sources */,
 				11A88AC91D70BB4200F486CC /* CheckAwardedBadgesMessage.pbobjc.m in Sources */,
 				11A88B3C1D70BB4200F486CC /* InventorySettings.pbobjc.m in Sources */,

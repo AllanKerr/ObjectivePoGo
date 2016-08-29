@@ -17,8 +17,5 @@ const uint32_t PGConfigQueryInterval = 10;
 // The base value travel rate is randomized around in m/s
 const float PGConfigBaseTravelRate = 16.6667;
 
-const float PGConfigHorizontalAccuracy = 50;
-const float PGConfigVerticalAccuracy = 24;
-
 NSString *const PGConfigLanguage = @"en";
 NSString *const PGConfigCountry = @"CA";
