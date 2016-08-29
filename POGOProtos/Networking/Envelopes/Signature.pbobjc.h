@@ -114,9 +114,11 @@ typedef GPB_ENUM(Signature_FieldNumber) {
 typedef GPB_ENUM(Signature_LocationFix_FieldNumber) {
   Signature_LocationFix_FieldNumber_Provider = 1,
   Signature_LocationFix_FieldNumber_TimestampSnapshot = 2,
+  Signature_LocationFix_FieldNumber_Altitude = 4,
   Signature_LocationFix_FieldNumber_Latitude = 13,
   Signature_LocationFix_FieldNumber_Longitude = 14,
-  Signature_LocationFix_FieldNumber_Unknown20 = 20,
+  Signature_LocationFix_FieldNumber_Speed = 18,
+  Signature_LocationFix_FieldNumber_Course = 20,
   Signature_LocationFix_FieldNumber_HorizontalAccuracy = 21,
   Signature_LocationFix_FieldNumber_VerticalAccuracy = 22,
   Signature_LocationFix_FieldNumber_ProviderStatus = 26,
@@ -132,19 +134,23 @@ typedef GPB_ENUM(Signature_LocationFix_FieldNumber) {
 /// in ms since start
 @property(nonatomic, readwrite) uint64_t timestampSnapshot;
 
+/// Confirmed on android/ios
+@property(nonatomic, readwrite) float altitude;
+
 @property(nonatomic, readwrite) float latitude;
 
 @property(nonatomic, readwrite) float longitude;
 
-/// ??? shows up in struct, dunno where these go
-/// float device_speed;
-/// float device_course;
-@property(nonatomic, readwrite) float unknown20;
+/// possibly the two floats above?
+@property(nonatomic, readwrite) float speed;
+
+/// iOS only (range seems to be -1 for not reading, and 0 to 360 for reading) confirmed by \@marcel
+@property(nonatomic, readwrite) float course;
 
 /// in meters, both on Android and iOS
 @property(nonatomic, readwrite) float horizontalAccuracy;
 
-/// iOS only? (range seems to be ~10-12)
+/// iOS only 
 @property(nonatomic, readwrite) float verticalAccuracy;
 
 /// Usually 3 (possibly GPS status: 1 = no fix, 2 = acquiring/inaccurate, 3 = fix acquired)

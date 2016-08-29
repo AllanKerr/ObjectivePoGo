@@ -209,9 +209,11 @@ typedef struct Signature__storage_ {
 
 @dynamic provider;
 @dynamic timestampSnapshot;
+@dynamic altitude;
 @dynamic latitude;
 @dynamic longitude;
-@dynamic unknown20;
+@dynamic speed;
+@dynamic course;
 @dynamic horizontalAccuracy;
 @dynamic verticalAccuracy;
 @dynamic providerStatus;
@@ -220,9 +222,11 @@ typedef struct Signature__storage_ {
 
 typedef struct Signature_LocationFix__storage_ {
   uint32_t _has_storage_[1];
+  float altitude;
   float latitude;
   float longitude;
-  float unknown20;
+  float speed;
+  float course;
   float horizontalAccuracy;
   float verticalAccuracy;
   uint32_t floor;
@@ -257,10 +261,19 @@ typedef struct Signature_LocationFix__storage_ {
         .dataType = GPBDataTypeUInt64,
       },
       {
+        .name = "altitude",
+        .dataTypeSpecific.className = NULL,
+        .number = Signature_LocationFix_FieldNumber_Altitude,
+        .hasIndex = 2,
+        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, altitude),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeFloat,
+      },
+      {
         .name = "latitude",
         .dataTypeSpecific.className = NULL,
         .number = Signature_LocationFix_FieldNumber_Latitude,
-        .hasIndex = 2,
+        .hasIndex = 3,
         .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, latitude),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFloat,
@@ -269,17 +282,26 @@ typedef struct Signature_LocationFix__storage_ {
         .name = "longitude",
         .dataTypeSpecific.className = NULL,
         .number = Signature_LocationFix_FieldNumber_Longitude,
-        .hasIndex = 3,
+        .hasIndex = 4,
         .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, longitude),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFloat,
       },
       {
-        .name = "unknown20",
+        .name = "speed",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_LocationFix_FieldNumber_Unknown20,
-        .hasIndex = 4,
-        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, unknown20),
+        .number = Signature_LocationFix_FieldNumber_Speed,
+        .hasIndex = 5,
+        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, speed),
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeFloat,
+      },
+      {
+        .name = "course",
+        .dataTypeSpecific.className = NULL,
+        .number = Signature_LocationFix_FieldNumber_Course,
+        .hasIndex = 6,
+        .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, course),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFloat,
       },
@@ -287,7 +309,7 @@ typedef struct Signature_LocationFix__storage_ {
         .name = "horizontalAccuracy",
         .dataTypeSpecific.className = NULL,
         .number = Signature_LocationFix_FieldNumber_HorizontalAccuracy,
-        .hasIndex = 5,
+        .hasIndex = 7,
         .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, horizontalAccuracy),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFloat,
@@ -296,7 +318,7 @@ typedef struct Signature_LocationFix__storage_ {
         .name = "verticalAccuracy",
         .dataTypeSpecific.className = NULL,
         .number = Signature_LocationFix_FieldNumber_VerticalAccuracy,
-        .hasIndex = 6,
+        .hasIndex = 8,
         .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, verticalAccuracy),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeFloat,
@@ -305,7 +327,7 @@ typedef struct Signature_LocationFix__storage_ {
         .name = "providerStatus",
         .dataTypeSpecific.className = NULL,
         .number = Signature_LocationFix_FieldNumber_ProviderStatus,
-        .hasIndex = 7,
+        .hasIndex = 9,
         .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, providerStatus),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt64,
@@ -314,7 +336,7 @@ typedef struct Signature_LocationFix__storage_ {
         .name = "floor",
         .dataTypeSpecific.className = NULL,
         .number = Signature_LocationFix_FieldNumber_Floor,
-        .hasIndex = 8,
+        .hasIndex = 10,
         .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, floor),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt32,
@@ -323,7 +345,7 @@ typedef struct Signature_LocationFix__storage_ {
         .name = "locationType",
         .dataTypeSpecific.className = NULL,
         .number = Signature_LocationFix_FieldNumber_LocationType,
-        .hasIndex = 9,
+        .hasIndex = 11,
         .offset = (uint32_t)offsetof(Signature_LocationFix__storage_, locationType),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeUInt64,
