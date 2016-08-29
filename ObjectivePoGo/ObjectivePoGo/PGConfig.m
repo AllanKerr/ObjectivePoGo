@@ -14,9 +14,6 @@ const uint32_t PGConfigAppVersion = 3500;
 // The query interval before the server begins to rate limit requests
 const uint32_t PGConfigQueryInterval = 10;
 
-// The base value travel rate is randomized around in m/s
-const float PGConfigBaseTravelRate = 16.6667;
-
 NSString *const PGConfigLanguage = @"en";
 NSString *const PGConfigCountry = @"CA";
 
@@ -25,3 +22,7 @@ const CLLocationDistance PGConfigMinAltitude = 477.06103515625;
 const CLLocationDistance PGConfigMaxAltitudeDelta = 1.30444336;
 const CLLocationDistance PGConfigMinAltitudeDelta = 0.32507324;
 
+const CLLocationSpeed PGConfigMaxSpeed = 17.329999923706055;
+const CLLocationSpeed PGConfigMinSpeed = 10.569999694824219;
+const CLLocationSpeed PGConfigMaxSpeedDelta = 0.34000015;
+const CLLocationSpeed PGConfigMinSpeedDelta = 0.03000069;

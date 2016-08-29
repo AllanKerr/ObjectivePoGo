@@ -52,13 +52,13 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 @property (readwrite, nonatomic) BOOL isFetching;
 @property (readwrite, nonatomic) NSTimeInterval lastQueryTime;
 @property (readwrite, nonatomic) NSTimeInterval minUpdateInterval;
-@property (readwrite, nonatomic) double baseTravelRate;
 @property (readwrite, nonatomic) int64_t inventoryTimeStamp;
 @property (readwrite, nonatomic, strong) NSString *downloadSettingsHash;
 @property (readwrite, nonatomic ,strong) PGAccountInfo *accountInfo;
 @property (readwrite, nonatomic, strong) PGAccuracy *horizontalAccuracy;
 @property (readwrite, nonatomic, strong) PGAccuracy *verticalAccuracy;
 @property (readwrite, nonatomic, strong) PGWanderingValue *altitude;
+@property (readwrite, nonatomic, strong) PGWanderingValue *speed;
 @property (readwrite, nonatomic) uint64_t requestCount;
 
 // PGRequestInfoProvider Properties
@@ -152,10 +152,10 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     if (self = [super init]) {
         self.accountInfo = accountInfo;
         self.minUpdateInterval = PGConfigQueryInterval;
-        self.baseTravelRate = PGConfigBaseTravelRate;
         self.horizontalAccuracy = [PGAccuracy horizontalAccuracy];
         self.verticalAccuracy = [PGAccuracy verticalAccuracy];
         self.altitude = [[PGWanderingValue alloc] initWithMax:PGConfigMaxAltitude min:PGConfigMinAltitude minDelta:PGConfigMinAltitudeDelta maxDelta:PGConfigMaxAltitudeDelta];
+        self.speed = [[PGWanderingValue alloc] initWithMax:PGConfigMaxSpeed min:PGConfigMinSpeed minDelta:PGConfigMinSpeedDelta maxDelta:PGConfigMaxSpeedDelta];
         
         self.requestID = PGRequestID;
         self.startTime = [[NSDate date] timeIntervalSince1970] * 1000;
@@ -596,7 +596,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     
     NSMutableArray *locationFixes = [NSMutableArray arrayWithCapacity:self.maxLocationFixCount];
     for (int i = 0; i < self.maxLocationFixCount && timeSinceStart > lastTimeSinceStart; i++) {
-        double travelRate = [PGUtil applyNoise:self.baseTravelRate magnitude:1.5];
+        double travelRate = self.speed.value;
         CLLocationDistance distance = (timeOffset * travelRate) / 1000;
         CLLocationDirection heading = [PGUtil applyNoise:[self _getHeadingBetweenCoordinate:lastCoordinate coordinate:currentCoordinate] magnitude:2.5];
         CLLocationCoordinate2D coordinate = [self _getCoordinateWithDistance:distance direction:heading fromCoordinate:currentCoordinate];
@@ -615,6 +615,8 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         locationFix.altitude = self.altitude.value;
         locationFix.horizontalAccuracy = self.horizontalAccuracy.accuracy;
         locationFix.verticalAccuracy = self.verticalAccuracy.accuracy;
+        locationFix.speed = travelRate;
+        locationFix.course = heading;
         locationFix.providerStatus = 3;
         locationFix.locationType = 1;
         [locationFixes addObject:locationFix];
@@ -666,8 +668,9 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     if (self.lastQueryTime == 0) {
         return 0;
     } else {
+        double averageSpeed = (PGConfigMaxSpeed + PGConfigMinSpeed) / 2;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-        return fmax([self.location distanceFromLocation:location] - (self.baseTravelRate * self.timeSinceQuery), 0);
+        return fmax([self.location distanceFromLocation:location] - (averageSpeed * self.timeSinceQuery), 0);
     }
 }
 

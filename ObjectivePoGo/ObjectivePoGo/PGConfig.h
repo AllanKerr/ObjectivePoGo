@@ -14,9 +14,6 @@ FOUNDATION_EXPORT const uint32_t PGConfigAppVersion;
 // The query interval before the server begins to rate limit requests
 FOUNDATION_EXPORT const uint32_t PGConfigQueryInterval;
 
-// The base value travel rate is randomized around in m/s
-FOUNDATION_EXPORT const float PGConfigBaseTravelRate;
-
 FOUNDATION_EXPORT NSString *const PGConfigLanguage;
 FOUNDATION_EXPORT NSString *const PGConfigCountry;
 
@@ -24,3 +21,8 @@ FOUNDATION_EXPORT const CLLocationDistance PGConfigMaxAltitude;
 FOUNDATION_EXPORT const CLLocationDistance PGConfigMinAltitude;
 FOUNDATION_EXPORT const CLLocationDistance PGConfigMaxAltitudeDelta;
 FOUNDATION_EXPORT const CLLocationDistance PGConfigMinAltitudeDelta;
+
+FOUNDATION_EXPORT const CLLocationSpeed PGConfigMaxSpeed;
+FOUNDATION_EXPORT const CLLocationSpeed PGConfigMinSpeed;
+FOUNDATION_EXPORT const CLLocationSpeed PGConfigMaxSpeedDelta;
+FOUNDATION_EXPORT const CLLocationSpeed PGConfigMinSpeedDelta;
