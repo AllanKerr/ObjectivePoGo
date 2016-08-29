@@ -39,11 +39,5 @@ FOUNDATION_EXPORT NSString *const PGPokemonApiService;
 FOUNDATION_EXPORT NSString *const PGPokemonApiClientSig;
 
 FOUNDATION_EXPORT const uint32_t PGHashSeed;
-FOUNDATION_EXPORT const uint32_t PGUnknown25HashSeed;
-FOUNDATION_EXPORT const void *PGUnknown25HashData;
-
+FOUNDATION_EXPORT const int64_t PGUnknown25;
 FOUNDATION_EXPORT const uint64_t PGRequestID;
-
-
-
-

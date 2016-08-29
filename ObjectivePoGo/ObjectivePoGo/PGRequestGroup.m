@@ -158,7 +158,7 @@
     signature.sessionHash = self.infoProvider.sessionHash;
     signature.timestamp = currentTime;
     signature.timestampSinceStart = timeSinceStart;
-    signature.unknown25 = 7363665268261373700;
+    signature.unknown25 = PGUnknown25;
     return signature;
 }
 
