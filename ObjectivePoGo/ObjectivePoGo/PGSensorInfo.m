@@ -69,9 +69,9 @@
         self.magnetometerY = magneticField.y / 128;
         self.magnetometerZ = magneticField.z / 128;
         
-        self.angleNormalizedX = round((heading.x * 4.0))/4.0;
-        self.angleNormalizedY = round((heading.y * 4.0))/4.0;
-        self.angleNormalizedZ = round((heading.z * 4.0))/4.0;
+        self.angleNormalizedX = heading.x;
+        self.angleNormalizedY = heading.y;
+        self.angleNormalizedZ = heading.z;
 
         self.accelRawX = acceleration.x;
         self.accelRawY = acceleration.y;
@@ -129,9 +129,9 @@
     self.magnetometerY = [PGUtil applyNoise:(myWeight * self.magnetometerY) + (weight * sensorInfo.magnetometerY) magnitude:0.25];
     self.magnetometerZ = [PGUtil applyNoise:(myWeight * self.magnetometerZ) + (weight * sensorInfo.magnetometerZ) magnitude:0.25];
     
-    self.angleNormalizedX = round([PGUtil applyNoise:(myWeight * self.angleNormalizedX) + (weight * sensorInfo.angleNormalizedX) magnitude:1.25] * 4.0) / 4.0;
-    self.angleNormalizedY = round([PGUtil applyNoise:(myWeight * self.angleNormalizedY) + (weight * sensorInfo.angleNormalizedY) magnitude:1.25] * 4.0) / 4.0;
-    self.angleNormalizedZ = round([PGUtil applyNoise:(myWeight * self.angleNormalizedZ) + (weight * sensorInfo.angleNormalizedZ) magnitude:1.25] * 4.0) / 4.0;
+    self.angleNormalizedX = [PGUtil applyNoise:(myWeight * self.angleNormalizedX) + (weight * sensorInfo.angleNormalizedX) magnitude:1.25];
+    self.angleNormalizedY = [PGUtil applyNoise:(myWeight * self.angleNormalizedY) + (weight * sensorInfo.angleNormalizedY) magnitude:1.25];
+    self.angleNormalizedZ = [PGUtil applyNoise:(myWeight * self.angleNormalizedZ) + (weight * sensorInfo.angleNormalizedZ) magnitude:1.25];
     
     self.accelRawX = [PGUtil applyNoise:(myWeight * self.accelRawX) + (weight * sensorInfo.accelRawX) magnitude:0.1];
     self.accelRawY = [PGUtil applyNoise:(myWeight * self.accelRawY) + (weight * sensorInfo.accelRawY) magnitude:0.1];
