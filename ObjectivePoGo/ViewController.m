@@ -51,7 +51,7 @@
     // Other requests can easily be added by subclassing PGRequest and adding it to PGAccount
     
     PGAccountInfo *info = [[PGAccountInfo alloc] initWithUsername:@"username" password:@"password"];
-    [[PGAccountManager sharedInstance] loginWithAccountInfo:info completion:^(PGAccount *account, NSError *error){
+    [[PGAccountManager sharedInstance] loginWithAccountInfo:info atCoordinate:CLLocationCoordinate2DMake(40.752812, -73.982620) completion:^(PGAccount *account, NSError *error){
         if (error == nil) {
             [account getProfileWithCompletion:^(GetPlayerResponse *response, NSError *error){
                 NSLog(@"%@", response);
@@ -59,9 +59,6 @@
         } else {
             NSLog(@"%@", error);
         }
-        /*[account acceptTermsOfServiceWithCompletion:^(NSError *error){
-            // successful if error == nil
-        }];*/
     }];
 }
 

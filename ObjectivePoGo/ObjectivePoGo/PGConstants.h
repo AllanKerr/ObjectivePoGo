@@ -33,11 +33,9 @@ FOUNDATION_EXPORT NSString *const PGPokemonApiLoginOauth;
 FOUNDATION_EXPORT NSString *const PGPokemonApiRequestUserAgent;
 
 FOUNDATION_EXPORT NSString *const PGPokemonApiAppId;
-FOUNDATION_EXPORT NSString *const PGPokemonApiAndroidId;
 FOUNDATION_EXPORT NSString *const PGPokemonApiClientSecret;
 FOUNDATION_EXPORT NSString *const PGPokemonApiService;
 FOUNDATION_EXPORT NSString *const PGPokemonApiClientSig;
 
 FOUNDATION_EXPORT const uint32_t PGHashSeed;
 FOUNDATION_EXPORT const int64_t PGUnknown25;
-FOUNDATION_EXPORT const uint64_t PGRequestID;

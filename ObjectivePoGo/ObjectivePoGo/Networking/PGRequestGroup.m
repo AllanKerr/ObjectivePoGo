@@ -257,7 +257,7 @@
     [request setValue:PGPokemonApiRequestUserAgent forHTTPHeaderField:@"User-Agent"];
     request.HTTPBody = self.requestEnvelope.data;
     request.HTTPMethod = @"POST";
-    
+        
     NSThread *currentThread = [NSThread currentThread];
     NSURLSession *session = [self.infoProvider.sessionManager session];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -290,9 +290,10 @@
         [self.infoProvider updateApiURL:apiURL];
         
         NSMutableArray *requestsArray = self.requestEnvelope.requestsArray;
+        uint64_t requestId = self.requestEnvelope.requestId;
         [self _buildRequestEnvelope];
         [self.requestEnvelope.requestsArray addObjectsFromArray:requestsArray];
-        self.requestEnvelope.requestId = self.requestEnvelope.requestId;
+        self.requestEnvelope.requestId = requestId;
         [self start];
     } else {
         if (responseEnvelope.statusCode == 102) {

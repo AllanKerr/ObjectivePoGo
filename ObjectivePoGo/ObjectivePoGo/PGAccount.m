@@ -63,7 +63,6 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 
 // PGRequestInfoProvider Properties
 @property (readwrite, nonatomic) uint64_t startTime;
-@property (readwrite, nonatomic) uint64_t requestID;
 @property (readwrite, nonatomic, strong) AFHTTPSessionManager *sessionManager;
 @property (readwrite, nonatomic, strong) NSString *apiURL;
 @property (readwrite, nonatomic, strong) AuthTicket *ticket;
@@ -81,6 +80,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 @dynamic isReadyForQuery;
 @dynamic timeSinceQuery;
 @dynamic username;
+@dynamic requestID;
 
 - (BOOL)isReadyForQuery {
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
@@ -93,13 +93,9 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 }
 
 - (uint64_t)requestID {
-    if (self.requestCount == 0) {
-        self.requestCount++;
-        return _requestID;
-    } else {
-        srand((unsigned int)time(NULL));
-        return rand() | self.requestCount;
-    }
+    uint64_t r = (((unsigned long) rand() | ((self.requestCount + 1) >> 31)) << 32) | (self.requestCount + 1);
+    self.requestCount++;
+    return r;
 }
 
 - (NSString *)username {
@@ -156,7 +152,8 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         self.altitude = [[PGWanderingValue alloc] initWithMax:PGConfigMaxAltitude min:PGConfigMinAltitude minDelta:PGConfigMinAltitudeDelta maxDelta:PGConfigMaxAltitudeDelta];
         self.speed = [[PGWanderingValue alloc] initWithMax:PGConfigMaxSpeed min:PGConfigMinSpeed minDelta:PGConfigMinSpeedDelta maxDelta:PGConfigMaxSpeedDelta];
         
-        self.requestID = PGRequestID;
+        //self.requestID = PGRequestID;
+        self.requestCount = 1;
         self.startTime = [[NSDate date] timeIntervalSince1970] * 1000;
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         sessionConfiguration.HTTPAdditionalHeaders = @{@"User-Agent":PGPokemonApiRequestUserAgent};
