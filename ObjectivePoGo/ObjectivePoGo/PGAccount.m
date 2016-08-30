@@ -587,7 +587,6 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         locationFixes = [self _createStationaryLocationFixes];
     }
     self.locationFixes = locationFixes;
-    NSLog(@"%@", self.locationFixes);
 }
 
 - (NSArray *)_createMovingLocationFixes {

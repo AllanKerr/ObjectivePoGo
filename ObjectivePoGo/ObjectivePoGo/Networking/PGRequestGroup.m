@@ -164,9 +164,7 @@
     signature.sessionHash = self.infoProvider.sessionHash;
     signature.timestamp = currentTime;
     signature.timestampSinceStart = timeSinceStart;
-    signature.unknown25 = PGUnknown25;
-    
-    NSLog(@"%@\n%@", self.requestEnvelope, signature);
+    signature.unknown25 = PGUnknown25;    
     return signature;
 }
 
