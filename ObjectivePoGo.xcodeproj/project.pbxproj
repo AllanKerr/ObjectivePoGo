@@ -36,9 +36,10 @@
 		111DE8CA1D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8C01D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		111DE8CB1D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8C21D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		111DE8CC1D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8C41D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8CE1D75606900F6C4C0 /* Accounts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 111DE8CD1D75606900F6C4C0 /* Accounts.plist */; };
+		111DE8D11D7563D500F6C4C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8D01D7563D500F6C4C0 /* ViewController.m */; };
 		11413D881D64FDE6004F52B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D871D64FDE6004F52B6 /* main.m */; };
 		11413D8B1D64FDE6004F52B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8A1D64FDE6004F52B6 /* AppDelegate.m */; };
-		11413D8E1D64FDE6004F52B6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8D1D64FDE6004F52B6 /* ViewController.m */; };
 		11413D911D64FDE6004F52B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11413D8F1D64FDE6004F52B6 /* Main.storyboard */; };
 		11413D931D64FDE6004F52B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11413D921D64FDE6004F52B6 /* Assets.xcassets */; };
 		11413D961D64FDE6004F52B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11413D941D64FDE6004F52B6 /* LaunchScreen.storyboard */; };
@@ -77,7 +78,6 @@
 		114140DA1D6502E8004F52B6 /* PGAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140C51D6502E8004F52B6 /* PGAccountManager.m */; };
 		114140DB1D6502E8004F52B6 /* PGConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 114140C71D6502E8004F52B6 /* PGConstants.m */; };
 		114140E41D650470004F52B6 /* SensorData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 114140E31D650470004F52B6 /* SensorData.plist */; };
-		114140E61D650507004F52B6 /* Accounts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 114140E51D650507004F52B6 /* Accounts.plist */; };
 		114141451D68F5A2004F52B6 /* PGConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 114141441D68F5A2004F52B6 /* PGConfig.m */; };
 		11A88A721D70BB4100F486CC /* AssetDigestEntry.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8888D1D70BB4100F486CC /* AssetDigestEntry.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11A88A731D70BB4100F486CC /* BattleAction.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A888901D70BB4100F486CC /* BattleAction.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -375,12 +375,13 @@
 		111DE8C21D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStoreItemsResponse.pbobjc.m; sourceTree = "<group>"; };
 		111DE8C31D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendEncryptedSignatureResponse.pbobjc.h; sourceTree = "<group>"; };
 		111DE8C41D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendEncryptedSignatureResponse.pbobjc.m; sourceTree = "<group>"; };
+		111DE8CD1D75606900F6C4C0 /* Accounts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Accounts.plist; sourceTree = "<group>"; };
+		111DE8CF1D7563D500F6C4C0 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		111DE8D01D7563D500F6C4C0 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		11413D831D64FDE6004F52B6 /* ObjectivePoGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectivePoGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11413D871D64FDE6004F52B6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11413D891D64FDE6004F52B6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		11413D8A1D64FDE6004F52B6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		11413D8C1D64FDE6004F52B6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		11413D8D1D64FDE6004F52B6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		11413D901D64FDE6004F52B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11413D921D64FDE6004F52B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11413D951D64FDE6004F52B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -466,7 +467,6 @@
 		114140C61D6502E8004F52B6 /* PGConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConstants.h; sourceTree = "<group>"; };
 		114140C71D6502E8004F52B6 /* PGConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConstants.m; sourceTree = "<group>"; };
 		114140E31D650470004F52B6 /* SensorData.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = SensorData.plist; sourceTree = "<group>"; };
-		114140E51D650507004F52B6 /* Accounts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Accounts.plist; sourceTree = "<group>"; };
 		114141431D68F5A2004F52B6 /* PGConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGConfig.h; sourceTree = "<group>"; };
 		114141441D68F5A2004F52B6 /* PGConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGConfig.m; sourceTree = "<group>"; };
 		11A8888C1D70BB4100F486CC /* AssetDigestEntry.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDigestEntry.pbobjc.h; sourceTree = "<group>"; };
@@ -1089,13 +1089,13 @@
 				114140BD1D6502E8004F52B6 /* ObjectivePoGo */,
 				11413D891D64FDE6004F52B6 /* AppDelegate.h */,
 				11413D8A1D64FDE6004F52B6 /* AppDelegate.m */,
-				11413D8C1D64FDE6004F52B6 /* ViewController.h */,
-				11413D8D1D64FDE6004F52B6 /* ViewController.m */,
+				111DE8CF1D7563D500F6C4C0 /* ViewController.h */,
+				111DE8D01D7563D500F6C4C0 /* ViewController.m */,
 				11413D8F1D64FDE6004F52B6 /* Main.storyboard */,
 				11413D921D64FDE6004F52B6 /* Assets.xcassets */,
 				11413D941D64FDE6004F52B6 /* LaunchScreen.storyboard */,
 				11413D971D64FDE6004F52B6 /* Info.plist */,
-				114140E51D650507004F52B6 /* Accounts.plist */,
+				111DE8CD1D75606900F6C4C0 /* Accounts.plist */,
 				114140E31D650470004F52B6 /* SensorData.plist */,
 				11413D861D64FDE6004F52B6 /* Supporting Files */,
 			);
@@ -1983,7 +1983,7 @@
 			files = (
 				11413D961D64FDE6004F52B6 /* LaunchScreen.storyboard in Resources */,
 				11413D931D64FDE6004F52B6 /* Assets.xcassets in Resources */,
-				114140E61D650507004F52B6 /* Accounts.plist in Resources */,
+				111DE8CE1D75606900F6C4C0 /* Accounts.plist in Resources */,
 				114140E41D650470004F52B6 /* SensorData.plist in Resources */,
 				11413D911D64FDE6004F52B6 /* Main.storyboard in Resources */,
 			);
@@ -2062,6 +2062,7 @@
 				11A88AF81D70BB4200F486CC /* UseItemEggIncubatorMessage.pbobjc.m in Sources */,
 				11A88AB81D70BB4200F486CC /* FortSummary.pbobjc.m in Sources */,
 				11A88B301D70BB4200F486CC /* UseIncenseResponse.pbobjc.m in Sources */,
+				111DE8D11D7563D500F6C4C0 /* ViewController.m in Sources */,
 				11A88B4D1D70BB4200F486CC /* InventoryUpgradeAttributes.pbobjc.m in Sources */,
 				11A88AEC1D70BB4200F486CC /* RecycleInventoryItemMessage.pbobjc.m in Sources */,
 				114140B61D6501E0004F52B6 /* xxhash.c in Sources */,
@@ -2148,7 +2149,6 @@
 				11A88B4C1D70BB4200F486CC /* IncenseAttributes.pbobjc.m in Sources */,
 				11A88AF51D70BB4200F486CC /* UpgradePokemonMessage.pbobjc.m in Sources */,
 				111DE8921D74F73300F6C4C0 /* PGRequestGroup.m in Sources */,
-				11413D8E1D64FDE6004F52B6 /* ViewController.m in Sources */,
 				11A88AF41D70BB4200F486CC /* StartGymBattleMessage.pbobjc.m in Sources */,
 				11A88AFC1D70BB4200F486CC /* UseItemXpBoostMessage.pbobjc.m in Sources */,
 				11A88A8D1D70BB4100F486CC /* PlayerStats.pbobjc.m in Sources */,
