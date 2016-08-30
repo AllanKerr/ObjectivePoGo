@@ -582,52 +582,35 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 }
 
 - (void)_updateLocationFixes {
-    int emptyCoordinateCount = 0;
-    NSTimeInterval timeOffset = [PGUtil applyNoise:1.002 magnitude:0.175];
-    uint64_t timeSinceStart = ([[NSDate date] timeIntervalSince1970] * 1000 - self.startTime) - (timeOffset * 1000);
+    NSArray *locationFixes = [self _createMovingLocationFixes];
+    if (locationFixes.count == 0) {
+        locationFixes = [self _createStationaryLocationFixes];
+    }
+    self.locationFixes = locationFixes;
+    NSLog(@"%@", self.locationFixes);
+}
+
+- (NSArray *)_createMovingLocationFixes {
     NSMutableArray *locationFixes = [NSMutableArray arrayWithCapacity:PGConfigMaxLocationFixCount];
-    if (self.lastLocation == nil && self.location != nil) {
-        CLLocationCoordinate2D coordinate = self.location.coordinate;
-        for (int i = 0; i < PGConfigMaxLocationFixCount; i++) {
-            Signature_LocationFix *locationFix = [Signature_LocationFix message];
-            locationFix.provider = @"gps";
-            locationFix.timestampSnapshot = timeSinceStart;
-            if (emptyCoordinateCount == 0) {
-                locationFix.latitude = [PGUtil applyNoise:coordinate.latitude magnitude:0.00000763];
-                locationFix.longitude = [PGUtil applyNoise:coordinate.longitude magnitude:0.00000763];
-                emptyCoordinateCount = (arc4random() % 2);
-            } else {
-                locationFix.latitude = 360;
-                locationFix.longitude = -360;
-                emptyCoordinateCount--;
-            }
-            locationFix.altitude = self.altitude.value;
-            locationFix.horizontalAccuracy = self.horizontalAccuracy.accuracy;
-            locationFix.verticalAccuracy = self.verticalAccuracy.accuracy;
-            locationFix.speed = -1;
-            locationFix.course = -1;
-            locationFix.providerStatus = 3;
-            locationFix.locationType = 1;
-            [locationFixes insertObject:locationFix atIndex:0];
-        }
-    } else {
+    if (self.lastLocation != nil) {
         CLLocationCoordinate2D lastCoordinate = self.lastLocation.coordinate;
         CLLocationCoordinate2D currentCoordinate = self.location.coordinate;
         CLLocationDistance maxDistance = [self.location distanceFromLocation:self.lastLocation];
         
         NSTimeInterval timeOffset = [PGUtil applyNoise:1.002 magnitude:0.175];
-        uint64_t lastTimeSinceStart = self.lastQueryTime * 1000 - self.startTime;
+        int64_t lastTimeSinceStart = fmax(self.lastQueryTime * 1000 - self.startTime, 0);
+        int64_t timeSinceStart = ([[NSDate date] timeIntervalSince1970] * 1000 - self.startTime) - (timeOffset * 1000);
         
+        int emptyCoordinateCount = 0;
         for (int i = 0; i < PGConfigMaxLocationFixCount && timeSinceStart > lastTimeSinceStart; i++) {
             double travelRate = self.speed.value;
             CLLocationDistance distance = (timeOffset * travelRate) / 1000;
             CLLocationDirection heading = [PGUtil applyNoise:[self _getHeadingBetweenCoordinate:lastCoordinate coordinate:currentCoordinate] magnitude:2.5];
             CLLocationCoordinate2D coordinate = [self _getCoordinateWithDistance:distance direction:heading fromCoordinate:currentCoordinate];
-            timeSinceStart -= timeOffset;
             
             CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
             CLLocationDistance currentDistance = [currentLocation distanceFromLocation:self.location];
-            if (currentDistance >= maxDistance) {
+            if (currentDistance >= maxDistance || timeSinceStart <= 0) {
                 break;
             }
             Signature_LocationFix *locationFix = [Signature_LocationFix message];
@@ -656,7 +639,43 @@ typedef void(^PGAsyncCompletion)(NSError *error);
             timeSinceStart -= timeOffset * 1000;
         }
     }
-    self.locationFixes = locationFixes;
+    return locationFixes;
+}
+
+- (NSArray *)_createStationaryLocationFixes {
+    NSMutableArray *locationFixes = [NSMutableArray arrayWithCapacity:PGConfigMaxLocationFixCount];
+    if (self.location != nil) {
+        int emptyCoordinateCount = 0;
+        CLLocationCoordinate2D coordinate = self.location.coordinate;
+        NSTimeInterval timeOffset = [PGUtil applyNoise:0.2 magnitude:0.175];
+        int64_t timeSinceStart = ([[NSDate date] timeIntervalSince1970] * 1000 - self.startTime) - (timeOffset * 1000);
+        for (int i = 0; i < PGConfigMaxLocationFixCount && timeSinceStart > 0; i++) {
+            Signature_LocationFix *locationFix = [Signature_LocationFix message];
+            locationFix.provider = @"gps";
+            locationFix.timestampSnapshot = timeSinceStart;
+            if (emptyCoordinateCount == 0) {
+                locationFix.latitude = [PGUtil applyNoise:coordinate.latitude magnitude:0.00000763];
+                locationFix.longitude = [PGUtil applyNoise:coordinate.longitude magnitude:0.00000763];
+                emptyCoordinateCount = (arc4random() % 2);
+            } else {
+                locationFix.latitude = 360;
+                locationFix.longitude = -360;
+                emptyCoordinateCount--;
+            }
+            locationFix.altitude = self.altitude.value;
+            locationFix.horizontalAccuracy = self.horizontalAccuracy.accuracy;
+            locationFix.verticalAccuracy = self.verticalAccuracy.accuracy;
+            locationFix.speed = -1;
+            locationFix.course = -1;
+            locationFix.providerStatus = 3;
+            locationFix.locationType = 1;
+            [locationFixes insertObject:locationFix atIndex:0];
+            
+            timeOffset = [PGUtil applyNoise:1.002 magnitude:0.175];
+            timeSinceStart -= timeOffset * 1000;
+        }
+    }
+    return locationFixes;
 }
 
 - (void)_updateSensorData {

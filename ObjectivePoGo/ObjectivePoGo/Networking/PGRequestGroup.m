@@ -110,16 +110,18 @@
     
     uint64_t currentTime = [[NSDate date] timeIntervalSince1970] * 1000;
     uint64_t timeSinceStart = currentTime - self.infoProvider.startTime;
-    if (self.infoProvider.locationFixes != nil) {
+    if (self.infoProvider.locationFixes != nil && self.infoProvider.locationFixes.count != 0) {
         Signature_LocationFix *locationFix = [self.infoProvider.locationFixes lastObject];
         self.requestEnvelope.msSinceLastLocationfix = timeSinceStart - locationFix.timestampSnapshot;
         [signature.locationFixArray addObjectsFromArray:self.infoProvider.locationFixes];
     } else {
-        self.requestEnvelope.msSinceLastLocationfix = 1065;
+        // TODO: Randomized time offset shouldn't be hardcoded here, this could be cleaned up
+        self.requestEnvelope.msSinceLastLocationfix = timeSinceStart - ((arc4random() % 200) + 50);
     }
     PGSensorInfo *sensorInfo = self.infoProvider.sensorInfo;
     Signature_SensorInfo *sigSensorInfo = [Signature_SensorInfo message];
-    sigSensorInfo.timestampSnapshot = timeSinceStart - 504;
+    // TODO: Randomized time offset shouldn't be hardcoded here, this could be cleaned up
+    sigSensorInfo.timestampSnapshot = timeSinceStart - ((arc4random() % 100) + 50);
     sigSensorInfo.magneticFieldX = sensorInfo.magnetometerX;
     sigSensorInfo.magneticFieldY = sensorInfo.magnetometerY;
     sigSensorInfo.magneticFieldZ = sensorInfo.magnetometerZ;
@@ -164,7 +166,7 @@
     signature.timestampSinceStart = timeSinceStart;
     signature.unknown25 = PGUnknown25;
     
-    NSLog(@"%@", signature);
+    NSLog(@"%@\n%@", self.requestEnvelope, signature);
     return signature;
 }
 
