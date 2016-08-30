@@ -26,3 +26,5 @@ FOUNDATION_EXPORT const CLLocationSpeed PGConfigMaxSpeed;
 FOUNDATION_EXPORT const CLLocationSpeed PGConfigMinSpeed;
 FOUNDATION_EXPORT const CLLocationSpeed PGConfigMaxSpeedDelta;
 FOUNDATION_EXPORT const CLLocationSpeed PGConfigMinSpeedDelta;
+
+FOUNDATION_EXPORT const NSInteger PGConfigMaxLocationFixCount;

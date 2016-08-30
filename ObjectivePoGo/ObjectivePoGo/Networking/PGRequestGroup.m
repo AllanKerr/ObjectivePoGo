@@ -12,12 +12,13 @@
 #import "AuthTicket.pbobjc.h"
 #import "Request.pbobjc.h"
 #import "Signature.pbobjc.h"
-#import "Unknown6.pbobjc.h"
 #import "xxhash.h"
 #import "encrypt.h"
 #import "PGSensorSpoofer.h"
 #import "PGResponseBuilder.h"
 #import "PGConstants.h"
+#import "PlatformRequestType.pbobjc.h"
+#import "SendEncryptedSignatureRequest.pbobjc.h"
 
 @interface PGRequestGroup ()
 @property (nonatomic, strong) id <PGRequestInfoProvider>infoProvider;
@@ -87,15 +88,15 @@
     } else {
         authData = self.requestEnvelope.authInfo.data;
     }
-    Unknown6 *unknown6 = [Unknown6 new];
-    unknown6.requestType = 6;
+    RequestEnvelope_PlatformRequest *unknown6 = [RequestEnvelope_PlatformRequest message];
+    unknown6.type = PlatformRequestType_SendEncryptedSignature;
         
-    Unknown6_Unknown2 *unknown6Unknown2 = [Unknown6_Unknown2 new];
+    SendEncryptedSignatureRequest *unknown6Unknown2 = [SendEncryptedSignatureRequest message];
     Signature *signature = [self buildSignature:authData];
     unknown6Unknown2.encryptedSignature = [self generateSignatureData:signature];
-    unknown6.unknown2 = unknown6Unknown2;
+    unknown6.requestMessage = [unknown6Unknown2 data];
         
-    [self.requestEnvelope.unknown6Array addObject:unknown6];
+    [self.requestEnvelope.platformRequestsArray addObject:unknown6];
 }
 
 - (Signature *)buildSignature:(NSData *)authData {
@@ -118,22 +119,22 @@
     }
     PGSensorInfo *sensorInfo = self.infoProvider.sensorInfo;
     Signature_SensorInfo *sigSensorInfo = [Signature_SensorInfo message];
-    sigSensorInfo.timestampSnapshot = timeSinceStart;
-    sigSensorInfo.magnetometerX = sensorInfo.magnetometerX;
-    sigSensorInfo.magnetometerY = sensorInfo.magnetometerY;
-    sigSensorInfo.magnetometerZ = sensorInfo.magnetometerZ;
-    sigSensorInfo.angleNormalizedX = sensorInfo.angleNormalizedX;
-    sigSensorInfo.angleNormalizedY = sensorInfo.angleNormalizedY;
-    sigSensorInfo.angleNormalizedZ = sensorInfo.angleNormalizedZ;
-    sigSensorInfo.accelRawX = sensorInfo.accelRawX;
-    sigSensorInfo.accelRawY = sensorInfo.accelRawY;
-    sigSensorInfo.accelRawZ = sensorInfo.accelRawZ;
+    sigSensorInfo.timestampSnapshot = timeSinceStart - 504;
+    sigSensorInfo.magneticFieldX = sensorInfo.magnetometerX;
+    sigSensorInfo.magneticFieldY = sensorInfo.magnetometerY;
+    sigSensorInfo.magneticFieldZ = sensorInfo.magnetometerZ;
+    sigSensorInfo.rotationVectorX = sensorInfo.angleNormalizedX;
+    sigSensorInfo.rotationVectorY = sensorInfo.angleNormalizedY;
+    sigSensorInfo.rotationVectorZ = sensorInfo.angleNormalizedZ;
+    sigSensorInfo.linearAccelerationX = sensorInfo.accelRawX;
+    sigSensorInfo.linearAccelerationY = sensorInfo.accelRawY;
+    sigSensorInfo.linearAccelerationZ = sensorInfo.accelRawZ;
     sigSensorInfo.gyroscopeRawX = sensorInfo.gyroscopeRawX;
     sigSensorInfo.gyroscopeRawY = sensorInfo.gyroscopeRawY;
     sigSensorInfo.gyroscopeRawZ = sensorInfo.gyroscopeRawZ;
-    sigSensorInfo.accelNormalizedX = sensorInfo.accelNormalizedX;
-    sigSensorInfo.accelNormalizedY = sensorInfo.accelNormalizedY;
-    sigSensorInfo.accelNormalizedZ = sensorInfo.accelNormalizedZ;
+    sigSensorInfo.gravityX = sensorInfo.accelNormalizedX;
+    sigSensorInfo.gravityY = sensorInfo.accelNormalizedY;
+    sigSensorInfo.gravityZ = sensorInfo.accelNormalizedZ;
     sigSensorInfo.accelerometerAxes = 3;
     signature.sensorInfo = sigSensorInfo;
     
@@ -149,7 +150,10 @@
     sigDeviceInfo.firmwareType = deviceInfo.firmwareType;
     signature.deviceInfo = sigDeviceInfo;
     
-    signature.activityStatus = [Signature_ActivityStatus message];
+    Signature_ActivityStatus *activityStatus = [Signature_ActivityStatus message];
+    activityStatus.stationary = YES;
+    activityStatus.tilting = YES;
+    signature.activityStatus = activityStatus;
     
     for (Request *request in self.requestEnvelope.requestsArray) {
         uint64_t hash = [self generateRequestHash:request authTicket:authData];
@@ -159,6 +163,8 @@
     signature.timestamp = currentTime;
     signature.timestampSinceStart = timeSinceStart;
     signature.unknown25 = PGUnknown25;
+    
+    NSLog(@"%@", signature);
     return signature;
 }
 

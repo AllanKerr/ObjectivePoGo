@@ -88,10 +88,10 @@ typedef GPB_ENUM(Signature_FieldNumber) {
 @property(nonatomic, readwrite) BOOL hasActivityStatus;
 
 /// Location1 hashed signed based on the auth_token or auth_info - xxHash32
-@property(nonatomic, readwrite) uint64_t locationHash1;
+@property(nonatomic, readwrite) uint32_t locationHash1;
 
 /// Location2 hashed (unsigned) - xxHash32
-@property(nonatomic, readwrite) uint64_t locationHash2;
+@property(nonatomic, readwrite) uint32_t locationHash2;
 
 /// 16 bytes, unique per session
 @property(nonatomic, readwrite, copy, null_resettable) NSData *sessionHash;
@@ -141,7 +141,7 @@ typedef GPB_ENUM(Signature_LocationFix_FieldNumber) {
 
 @property(nonatomic, readwrite) float longitude;
 
-/// possibly the two floats above?
+/// iOS only (-1 for no reading available, speed in m/s)
 @property(nonatomic, readwrite) float speed;
 
 /// iOS only (range seems to be -1 for not reading, and 0 to 360 for reading) confirmed by \@marcel
@@ -216,21 +216,21 @@ typedef GPB_ENUM(Signature_AndroidGpsInfo_FieldNumber) {
 
 typedef GPB_ENUM(Signature_SensorInfo_FieldNumber) {
   Signature_SensorInfo_FieldNumber_TimestampSnapshot = 1,
-  Signature_SensorInfo_FieldNumber_MagnetometerX = 3,
-  Signature_SensorInfo_FieldNumber_MagnetometerY = 4,
-  Signature_SensorInfo_FieldNumber_MagnetometerZ = 5,
-  Signature_SensorInfo_FieldNumber_AngleNormalizedX = 6,
-  Signature_SensorInfo_FieldNumber_AngleNormalizedY = 7,
-  Signature_SensorInfo_FieldNumber_AngleNormalizedZ = 8,
-  Signature_SensorInfo_FieldNumber_AccelRawX = 10,
-  Signature_SensorInfo_FieldNumber_AccelRawY = 11,
-  Signature_SensorInfo_FieldNumber_AccelRawZ = 12,
+  Signature_SensorInfo_FieldNumber_LinearAccelerationX = 3,
+  Signature_SensorInfo_FieldNumber_LinearAccelerationY = 4,
+  Signature_SensorInfo_FieldNumber_LinearAccelerationZ = 5,
+  Signature_SensorInfo_FieldNumber_MagneticFieldX = 6,
+  Signature_SensorInfo_FieldNumber_MagneticFieldY = 7,
+  Signature_SensorInfo_FieldNumber_MagneticFieldZ = 8,
+  Signature_SensorInfo_FieldNumber_RotationVectorX = 10,
+  Signature_SensorInfo_FieldNumber_RotationVectorY = 11,
+  Signature_SensorInfo_FieldNumber_RotationVectorZ = 12,
   Signature_SensorInfo_FieldNumber_GyroscopeRawX = 13,
   Signature_SensorInfo_FieldNumber_GyroscopeRawY = 14,
   Signature_SensorInfo_FieldNumber_GyroscopeRawZ = 15,
-  Signature_SensorInfo_FieldNumber_AccelNormalizedX = 16,
-  Signature_SensorInfo_FieldNumber_AccelNormalizedY = 17,
-  Signature_SensorInfo_FieldNumber_AccelNormalizedZ = 18,
+  Signature_SensorInfo_FieldNumber_GravityX = 16,
+  Signature_SensorInfo_FieldNumber_GravityY = 17,
+  Signature_SensorInfo_FieldNumber_GravityZ = 18,
   Signature_SensorInfo_FieldNumber_AccelerometerAxes = 19,
 };
 
@@ -239,23 +239,23 @@ typedef GPB_ENUM(Signature_SensorInfo_FieldNumber) {
 /// in ms since start
 @property(nonatomic, readwrite) uint64_t timestampSnapshot;
 
-@property(nonatomic, readwrite) double magnetometerX;
+@property(nonatomic, readwrite) double linearAccelerationX;
 
-@property(nonatomic, readwrite) double magnetometerY;
+@property(nonatomic, readwrite) double linearAccelerationY;
 
-@property(nonatomic, readwrite) double magnetometerZ;
+@property(nonatomic, readwrite) double linearAccelerationZ;
 
-@property(nonatomic, readwrite) double angleNormalizedX;
+@property(nonatomic, readwrite) double magneticFieldX;
 
-@property(nonatomic, readwrite) double angleNormalizedY;
+@property(nonatomic, readwrite) double magneticFieldY;
 
-@property(nonatomic, readwrite) double angleNormalizedZ;
+@property(nonatomic, readwrite) double magneticFieldZ;
 
-@property(nonatomic, readwrite) double accelRawX;
+@property(nonatomic, readwrite) double rotationVectorX;
 
-@property(nonatomic, readwrite) double accelRawY;
+@property(nonatomic, readwrite) double rotationVectorY;
 
-@property(nonatomic, readwrite) double accelRawZ;
+@property(nonatomic, readwrite) double rotationVectorZ;
 
 @property(nonatomic, readwrite) double gyroscopeRawX;
 
@@ -263,11 +263,11 @@ typedef GPB_ENUM(Signature_SensorInfo_FieldNumber) {
 
 @property(nonatomic, readwrite) double gyroscopeRawZ;
 
-@property(nonatomic, readwrite) double accelNormalizedX;
+@property(nonatomic, readwrite) double gravityX;
 
-@property(nonatomic, readwrite) double accelNormalizedY;
+@property(nonatomic, readwrite) double gravityY;
 
-@property(nonatomic, readwrite) double accelNormalizedZ;
+@property(nonatomic, readwrite) double gravityZ;
 
 /// Always 3
 @property(nonatomic, readwrite) uint64_t accelerometerAxes;
@@ -345,13 +345,14 @@ typedef GPB_ENUM(Signature_ActivityStatus_FieldNumber) {
   Signature_ActivityStatus_FieldNumber_Tilting = 7,
   Signature_ActivityStatus_FieldNumber_Cycling = 8,
   Signature_ActivityStatus_FieldNumber_Status = 9,
+  Signature_ActivityStatus_FieldNumber_Bool10 = 10,
 };
 
 /// Only used in iOS - Android just sends an empty version
 @interface Signature_ActivityStatus : GPBMessage
 
 /// all of these had 1 as their value
-@property(nonatomic, readwrite) uint64_t startTimeMs;
+@property(nonatomic, readwrite) BOOL startTimeMs;
 
 @property(nonatomic, readwrite) BOOL unknownStatus;
 
@@ -367,7 +368,9 @@ typedef GPB_ENUM(Signature_ActivityStatus_FieldNumber) {
 
 @property(nonatomic, readwrite) BOOL cycling;
 
-@property(nonatomic, readwrite, copy, null_resettable) NSData *status;
+@property(nonatomic, readwrite) BOOL status;
+
+@property(nonatomic, readwrite) BOOL bool10;
 
 @end
 

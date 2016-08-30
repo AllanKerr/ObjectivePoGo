@@ -26,3 +26,5 @@ const CLLocationSpeed PGConfigMaxSpeed = 17.329999923706055;
 const CLLocationSpeed PGConfigMinSpeed = 10.569999694824219;
 const CLLocationSpeed PGConfigMaxSpeedDelta = 0.34000015;
 const CLLocationSpeed PGConfigMinSpeedDelta = 0.03000069;
+
+const NSInteger PGConfigMaxLocationFixCount = 6;

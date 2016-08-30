@@ -58,6 +58,8 @@ static GPBFileDescriptor *SignatureRoot_FileDescriptor(void) {
 
 typedef struct Signature__storage_ {
   uint32_t _has_storage_[1];
+  uint32_t locationHash1;
+  uint32_t locationHash2;
   NSMutableArray *locationFixArray;
   Signature_AndroidGpsInfo *gpsInfo;
   Signature_SensorInfo *sensorInfo;
@@ -66,8 +68,6 @@ typedef struct Signature__storage_ {
   NSData *sessionHash;
   GPBUInt64Array *requestHashArray;
   uint64_t timestampSinceStart;
-  uint64_t locationHash1;
-  uint64_t locationHash2;
   uint64_t timestamp;
   int64_t unknown25;
 } Signature__storage_;
@@ -139,7 +139,7 @@ typedef struct Signature__storage_ {
         .hasIndex = 5,
         .offset = (uint32_t)offsetof(Signature__storage_, locationHash1),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
+        .dataType = GPBDataTypeUInt32,
       },
       {
         .name = "locationHash2",
@@ -148,7 +148,7 @@ typedef struct Signature__storage_ {
         .hasIndex = 6,
         .offset = (uint32_t)offsetof(Signature__storage_, locationHash2),
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
+        .dataType = GPBDataTypeUInt32,
       },
       {
         .name = "sessionHash",
@@ -492,41 +492,41 @@ typedef struct Signature_AndroidGpsInfo__storage_ {
 @implementation Signature_SensorInfo
 
 @dynamic timestampSnapshot;
-@dynamic magnetometerX;
-@dynamic magnetometerY;
-@dynamic magnetometerZ;
-@dynamic angleNormalizedX;
-@dynamic angleNormalizedY;
-@dynamic angleNormalizedZ;
-@dynamic accelRawX;
-@dynamic accelRawY;
-@dynamic accelRawZ;
+@dynamic linearAccelerationX;
+@dynamic linearAccelerationY;
+@dynamic linearAccelerationZ;
+@dynamic magneticFieldX;
+@dynamic magneticFieldY;
+@dynamic magneticFieldZ;
+@dynamic rotationVectorX;
+@dynamic rotationVectorY;
+@dynamic rotationVectorZ;
 @dynamic gyroscopeRawX;
 @dynamic gyroscopeRawY;
 @dynamic gyroscopeRawZ;
-@dynamic accelNormalizedX;
-@dynamic accelNormalizedY;
-@dynamic accelNormalizedZ;
+@dynamic gravityX;
+@dynamic gravityY;
+@dynamic gravityZ;
 @dynamic accelerometerAxes;
 
 typedef struct Signature_SensorInfo__storage_ {
   uint32_t _has_storage_[1];
   uint64_t timestampSnapshot;
-  double magnetometerX;
-  double magnetometerY;
-  double magnetometerZ;
-  double angleNormalizedX;
-  double angleNormalizedY;
-  double angleNormalizedZ;
-  double accelRawX;
-  double accelRawY;
-  double accelRawZ;
+  double linearAccelerationX;
+  double linearAccelerationY;
+  double linearAccelerationZ;
+  double magneticFieldX;
+  double magneticFieldY;
+  double magneticFieldZ;
+  double rotationVectorX;
+  double rotationVectorY;
+  double rotationVectorZ;
   double gyroscopeRawX;
   double gyroscopeRawY;
   double gyroscopeRawZ;
-  double accelNormalizedX;
-  double accelNormalizedY;
-  double accelNormalizedZ;
+  double gravityX;
+  double gravityY;
+  double gravityZ;
   uint64_t accelerometerAxes;
 } Signature_SensorInfo__storage_;
 
@@ -546,83 +546,83 @@ typedef struct Signature_SensorInfo__storage_ {
         .dataType = GPBDataTypeUInt64,
       },
       {
-        .name = "magnetometerX",
+        .name = "linearAccelerationX",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_MagnetometerX,
+        .number = Signature_SensorInfo_FieldNumber_LinearAccelerationX,
         .hasIndex = 1,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, magnetometerX),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, linearAccelerationX),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "magnetometerY",
+        .name = "linearAccelerationY",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_MagnetometerY,
+        .number = Signature_SensorInfo_FieldNumber_LinearAccelerationY,
         .hasIndex = 2,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, magnetometerY),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, linearAccelerationY),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "magnetometerZ",
+        .name = "linearAccelerationZ",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_MagnetometerZ,
+        .number = Signature_SensorInfo_FieldNumber_LinearAccelerationZ,
         .hasIndex = 3,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, magnetometerZ),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, linearAccelerationZ),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "angleNormalizedX",
+        .name = "magneticFieldX",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AngleNormalizedX,
+        .number = Signature_SensorInfo_FieldNumber_MagneticFieldX,
         .hasIndex = 4,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, angleNormalizedX),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, magneticFieldX),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "angleNormalizedY",
+        .name = "magneticFieldY",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AngleNormalizedY,
+        .number = Signature_SensorInfo_FieldNumber_MagneticFieldY,
         .hasIndex = 5,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, angleNormalizedY),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, magneticFieldY),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "angleNormalizedZ",
+        .name = "magneticFieldZ",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AngleNormalizedZ,
+        .number = Signature_SensorInfo_FieldNumber_MagneticFieldZ,
         .hasIndex = 6,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, angleNormalizedZ),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, magneticFieldZ),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "accelRawX",
+        .name = "rotationVectorX",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AccelRawX,
+        .number = Signature_SensorInfo_FieldNumber_RotationVectorX,
         .hasIndex = 7,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, accelRawX),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, rotationVectorX),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "accelRawY",
+        .name = "rotationVectorY",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AccelRawY,
+        .number = Signature_SensorInfo_FieldNumber_RotationVectorY,
         .hasIndex = 8,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, accelRawY),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, rotationVectorY),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "accelRawZ",
+        .name = "rotationVectorZ",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AccelRawZ,
+        .number = Signature_SensorInfo_FieldNumber_RotationVectorZ,
         .hasIndex = 9,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, accelRawZ),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, rotationVectorZ),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
@@ -654,29 +654,29 @@ typedef struct Signature_SensorInfo__storage_ {
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "accelNormalizedX",
+        .name = "gravityX",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AccelNormalizedX,
+        .number = Signature_SensorInfo_FieldNumber_GravityX,
         .hasIndex = 13,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, accelNormalizedX),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, gravityX),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "accelNormalizedY",
+        .name = "gravityY",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AccelNormalizedY,
+        .number = Signature_SensorInfo_FieldNumber_GravityY,
         .hasIndex = 14,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, accelNormalizedY),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, gravityY),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
       {
-        .name = "accelNormalizedZ",
+        .name = "gravityZ",
         .dataTypeSpecific.className = NULL,
-        .number = Signature_SensorInfo_FieldNumber_AccelNormalizedZ,
+        .number = Signature_SensorInfo_FieldNumber_GravityZ,
         .hasIndex = 15,
-        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, accelNormalizedZ),
+        .offset = (uint32_t)offsetof(Signature_SensorInfo__storage_, gravityZ),
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeDouble,
       },
@@ -894,11 +894,10 @@ typedef struct Signature_DeviceInfo__storage_ {
 @dynamic tilting;
 @dynamic cycling;
 @dynamic status;
+@dynamic bool10;
 
 typedef struct Signature_ActivityStatus__storage_ {
   uint32_t _has_storage_[1];
-  NSData *status;
-  uint64_t startTimeMs;
 } Signature_ActivityStatus__storage_;
 
 // This method is threadsafe because it is initially called
@@ -912,16 +911,16 @@ typedef struct Signature_ActivityStatus__storage_ {
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_StartTimeMs,
         .hasIndex = 0,
-        .offset = (uint32_t)offsetof(Signature_ActivityStatus__storage_, startTimeMs),
+        .offset = 1,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeUInt64,
+        .dataType = GPBDataTypeBool,
       },
       {
         .name = "unknownStatus",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_UnknownStatus,
-        .hasIndex = 1,
-        .offset = 2,  // Stored in _has_storage_ to save space.
+        .hasIndex = 2,
+        .offset = 3,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
@@ -929,8 +928,8 @@ typedef struct Signature_ActivityStatus__storage_ {
         .name = "walking",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_Walking,
-        .hasIndex = 3,
-        .offset = 4,  // Stored in _has_storage_ to save space.
+        .hasIndex = 4,
+        .offset = 5,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
@@ -938,8 +937,8 @@ typedef struct Signature_ActivityStatus__storage_ {
         .name = "running",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_Running,
-        .hasIndex = 5,
-        .offset = 6,  // Stored in _has_storage_ to save space.
+        .hasIndex = 6,
+        .offset = 7,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
@@ -947,8 +946,8 @@ typedef struct Signature_ActivityStatus__storage_ {
         .name = "stationary",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_Stationary,
-        .hasIndex = 7,
-        .offset = 8,  // Stored in _has_storage_ to save space.
+        .hasIndex = 8,
+        .offset = 9,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
@@ -956,8 +955,8 @@ typedef struct Signature_ActivityStatus__storage_ {
         .name = "automotive",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_Automotive,
-        .hasIndex = 9,
-        .offset = 10,  // Stored in _has_storage_ to save space.
+        .hasIndex = 10,
+        .offset = 11,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
@@ -965,8 +964,8 @@ typedef struct Signature_ActivityStatus__storage_ {
         .name = "tilting",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_Tilting,
-        .hasIndex = 11,
-        .offset = 12,  // Stored in _has_storage_ to save space.
+        .hasIndex = 12,
+        .offset = 13,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
@@ -974,8 +973,8 @@ typedef struct Signature_ActivityStatus__storage_ {
         .name = "cycling",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_Cycling,
-        .hasIndex = 13,
-        .offset = 14,  // Stored in _has_storage_ to save space.
+        .hasIndex = 14,
+        .offset = 15,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
         .dataType = GPBDataTypeBool,
       },
@@ -983,10 +982,19 @@ typedef struct Signature_ActivityStatus__storage_ {
         .name = "status",
         .dataTypeSpecific.className = NULL,
         .number = Signature_ActivityStatus_FieldNumber_Status,
-        .hasIndex = 15,
-        .offset = (uint32_t)offsetof(Signature_ActivityStatus__storage_, status),
+        .hasIndex = 16,
+        .offset = 17,  // Stored in _has_storage_ to save space.
         .flags = GPBFieldOptional,
-        .dataType = GPBDataTypeBytes,
+        .dataType = GPBDataTypeBool,
+      },
+      {
+        .name = "bool10",
+        .dataTypeSpecific.className = NULL,
+        .number = Signature_ActivityStatus_FieldNumber_Bool10,
+        .hasIndex = 18,
+        .offset = 19,  // Stored in _has_storage_ to save space.
+        .flags = GPBFieldOptional,
+        .dataType = GPBDataTypeBool,
       },
     };
     GPBDescriptor *localDescriptor =

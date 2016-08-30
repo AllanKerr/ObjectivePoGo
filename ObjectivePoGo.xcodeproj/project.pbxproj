@@ -28,6 +28,14 @@
 		111DE8AF1D74F80700F6C4C0 /* PGSensorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8A81D74F80700F6C4C0 /* PGSensorInfo.m */; };
 		111DE8B01D74F80700F6C4C0 /* PGSensorSpoofer.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8AA1D74F80700F6C4C0 /* PGSensorSpoofer.m */; };
 		111DE8B11D74F80700F6C4C0 /* PGWanderingValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8AC1D74F80700F6C4C0 /* PGWanderingValue.m */; };
+		111DE8C51D752A9500F6C4C0 /* PlatformRequestType.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8B41D752A9500F6C4C0 /* PlatformRequestType.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8C61D752A9500F6C4C0 /* BuyItemAndroidRequest.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8B71D752A9500F6C4C0 /* BuyItemAndroidRequest.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8C71D752A9500F6C4C0 /* BuyItemPokeCoinsRequest.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8B91D752A9500F6C4C0 /* BuyItemPokeCoinsRequest.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8C81D752A9500F6C4C0 /* SendEncryptedSignatureRequest.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8BB1D752A9500F6C4C0 /* SendEncryptedSignatureRequest.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8C91D752A9500F6C4C0 /* BuyItemAndroidResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8BE1D752A9500F6C4C0 /* BuyItemAndroidResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8CA1D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8C01D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8CB1D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8C21D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		111DE8CC1D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8C41D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11413D881D64FDE6004F52B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D871D64FDE6004F52B6 /* main.m */; };
 		11413D8B1D64FDE6004F52B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8A1D64FDE6004F52B6 /* AppDelegate.m */; };
 		11413D8E1D64FDE6004F52B6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8D1D64FDE6004F52B6 /* ViewController.m */; };
@@ -153,8 +161,6 @@
 		11A88AC11D70BB4200F486CC /* RequestEnvelope.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A889381D70BB4100F486CC /* RequestEnvelope.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11A88AC21D70BB4200F486CC /* ResponseEnvelope.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8893A1D70BB4100F486CC /* ResponseEnvelope.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11A88AC31D70BB4200F486CC /* Signature.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8893C1D70BB4100F486CC /* Signature.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		11A88AC41D70BB4200F486CC /* Unknown6.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8893E1D70BB4100F486CC /* Unknown6.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		11A88AC51D70BB4200F486CC /* Unknown6Response.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A889401D70BB4100F486CC /* Unknown6Response.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11A88AC61D70BB4200F486CC /* AddFortModifierMessage.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A889441D70BB4100F486CC /* AddFortModifierMessage.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11A88AC71D70BB4200F486CC /* AttackGymMessage.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A889461D70BB4100F486CC /* AttackGymMessage.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11A88AC81D70BB4200F486CC /* CatchPokemonMessage.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A889481D70BB4100F486CC /* CatchPokemonMessage.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -353,6 +359,22 @@
 		111DE8AA1D74F80700F6C4C0 /* PGSensorSpoofer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGSensorSpoofer.m; sourceTree = "<group>"; };
 		111DE8AB1D74F80700F6C4C0 /* PGWanderingValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGWanderingValue.h; sourceTree = "<group>"; };
 		111DE8AC1D74F80700F6C4C0 /* PGWanderingValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGWanderingValue.m; sourceTree = "<group>"; };
+		111DE8B31D752A9500F6C4C0 /* PlatformRequestType.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlatformRequestType.pbobjc.h; sourceTree = "<group>"; };
+		111DE8B41D752A9500F6C4C0 /* PlatformRequestType.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlatformRequestType.pbobjc.m; sourceTree = "<group>"; };
+		111DE8B61D752A9500F6C4C0 /* BuyItemAndroidRequest.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyItemAndroidRequest.pbobjc.h; sourceTree = "<group>"; };
+		111DE8B71D752A9500F6C4C0 /* BuyItemAndroidRequest.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyItemAndroidRequest.pbobjc.m; sourceTree = "<group>"; };
+		111DE8B81D752A9500F6C4C0 /* BuyItemPokeCoinsRequest.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyItemPokeCoinsRequest.pbobjc.h; sourceTree = "<group>"; };
+		111DE8B91D752A9500F6C4C0 /* BuyItemPokeCoinsRequest.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyItemPokeCoinsRequest.pbobjc.m; sourceTree = "<group>"; };
+		111DE8BA1D752A9500F6C4C0 /* SendEncryptedSignatureRequest.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendEncryptedSignatureRequest.pbobjc.h; sourceTree = "<group>"; };
+		111DE8BB1D752A9500F6C4C0 /* SendEncryptedSignatureRequest.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendEncryptedSignatureRequest.pbobjc.m; sourceTree = "<group>"; };
+		111DE8BD1D752A9500F6C4C0 /* BuyItemAndroidResponse.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyItemAndroidResponse.pbobjc.h; sourceTree = "<group>"; };
+		111DE8BE1D752A9500F6C4C0 /* BuyItemAndroidResponse.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyItemAndroidResponse.pbobjc.m; sourceTree = "<group>"; };
+		111DE8BF1D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyItemPokeCoinsResponse.pbobjc.h; sourceTree = "<group>"; };
+		111DE8C01D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyItemPokeCoinsResponse.pbobjc.m; sourceTree = "<group>"; };
+		111DE8C11D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetStoreItemsResponse.pbobjc.h; sourceTree = "<group>"; };
+		111DE8C21D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetStoreItemsResponse.pbobjc.m; sourceTree = "<group>"; };
+		111DE8C31D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendEncryptedSignatureResponse.pbobjc.h; sourceTree = "<group>"; };
+		111DE8C41D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendEncryptedSignatureResponse.pbobjc.m; sourceTree = "<group>"; };
 		11413D831D64FDE6004F52B6 /* ObjectivePoGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectivePoGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11413D871D64FDE6004F52B6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11413D891D64FDE6004F52B6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -611,10 +633,6 @@
 		11A8893A1D70BB4100F486CC /* ResponseEnvelope.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseEnvelope.pbobjc.m; sourceTree = "<group>"; };
 		11A8893B1D70BB4100F486CC /* Signature.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signature.pbobjc.h; sourceTree = "<group>"; };
 		11A8893C1D70BB4100F486CC /* Signature.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Signature.pbobjc.m; sourceTree = "<group>"; };
-		11A8893D1D70BB4100F486CC /* Unknown6.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unknown6.pbobjc.h; sourceTree = "<group>"; };
-		11A8893E1D70BB4100F486CC /* Unknown6.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unknown6.pbobjc.m; sourceTree = "<group>"; };
-		11A8893F1D70BB4100F486CC /* Unknown6Response.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unknown6Response.pbobjc.h; sourceTree = "<group>"; };
-		11A889401D70BB4100F486CC /* Unknown6Response.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unknown6Response.pbobjc.m; sourceTree = "<group>"; };
 		11A889431D70BB4100F486CC /* AddFortModifierMessage.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFortModifierMessage.pbobjc.h; sourceTree = "<group>"; };
 		11A889441D70BB4100F486CC /* AddFortModifierMessage.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFortModifierMessage.pbobjc.m; sourceTree = "<group>"; };
 		11A889451D70BB4100F486CC /* AttackGymMessage.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttackGymMessage.pbobjc.h; sourceTree = "<group>"; };
@@ -1003,6 +1021,45 @@
 			path = "Signature Info";
 			sourceTree = "<group>";
 		};
+		111DE8B21D752A9500F6C4C0 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				111DE8B31D752A9500F6C4C0 /* PlatformRequestType.pbobjc.h */,
+				111DE8B41D752A9500F6C4C0 /* PlatformRequestType.pbobjc.m */,
+				111DE8B51D752A9500F6C4C0 /* Requests */,
+				111DE8BC1D752A9500F6C4C0 /* Responses */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		111DE8B51D752A9500F6C4C0 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				111DE8B61D752A9500F6C4C0 /* BuyItemAndroidRequest.pbobjc.h */,
+				111DE8B71D752A9500F6C4C0 /* BuyItemAndroidRequest.pbobjc.m */,
+				111DE8B81D752A9500F6C4C0 /* BuyItemPokeCoinsRequest.pbobjc.h */,
+				111DE8B91D752A9500F6C4C0 /* BuyItemPokeCoinsRequest.pbobjc.m */,
+				111DE8BA1D752A9500F6C4C0 /* SendEncryptedSignatureRequest.pbobjc.h */,
+				111DE8BB1D752A9500F6C4C0 /* SendEncryptedSignatureRequest.pbobjc.m */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		111DE8BC1D752A9500F6C4C0 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				111DE8BD1D752A9500F6C4C0 /* BuyItemAndroidResponse.pbobjc.h */,
+				111DE8BE1D752A9500F6C4C0 /* BuyItemAndroidResponse.pbobjc.m */,
+				111DE8BF1D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.h */,
+				111DE8C01D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.m */,
+				111DE8C11D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.h */,
+				111DE8C21D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m */,
+				111DE8C31D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.h */,
+				111DE8C41D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
 		11413D7A1D64FDE6004F52B6 = {
 			isa = PBXGroup;
 			children = (
@@ -1198,6 +1255,8 @@
 			children = (
 				111DE86F1D74F73300F6C4C0 /* Networking */,
 				111DE8A21D74F80700F6C4C0 /* Signature Info */,
+				11A88E971D725D0F00F486CC /* PGUtil.h */,
+				11A88E981D725D0F00F486CC /* PGUtil.m */,
 				114141431D68F5A2004F52B6 /* PGConfig.h */,
 				114141441D68F5A2004F52B6 /* PGConfig.m */,
 				114140C61D6502E8004F52B6 /* PGConstants.h */,
@@ -1210,8 +1269,6 @@
 				114140C51D6502E8004F52B6 /* PGAccountManager.m */,
 				11A88B741D7116A600F486CC /* PGNameGenerator.h */,
 				11A88B751D7116A600F486CC /* PGNameGenerator.m */,
-				11A88E971D725D0F00F486CC /* PGUtil.h */,
-				11A88E981D725D0F00F486CC /* PGUtil.m */,
 			);
 			path = ObjectivePoGo;
 			sourceTree = "<group>";
@@ -1480,6 +1537,7 @@
 		11A889331D70BB4100F486CC /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				111DE8B21D752A9500F6C4C0 /* Platform */,
 				11A889341D70BB4100F486CC /* Envelopes */,
 				11A889411D70BB4100F486CC /* Requests */,
 				11A889B71D70BB4100F486CC /* Responses */,
@@ -1498,10 +1556,6 @@
 				11A8893A1D70BB4100F486CC /* ResponseEnvelope.pbobjc.m */,
 				11A8893B1D70BB4100F486CC /* Signature.pbobjc.h */,
 				11A8893C1D70BB4100F486CC /* Signature.pbobjc.m */,
-				11A8893D1D70BB4100F486CC /* Unknown6.pbobjc.h */,
-				11A8893E1D70BB4100F486CC /* Unknown6.pbobjc.m */,
-				11A8893F1D70BB4100F486CC /* Unknown6Response.pbobjc.h */,
-				11A889401D70BB4100F486CC /* Unknown6Response.pbobjc.m */,
 			);
 			path = Envelopes;
 			sourceTree = "<group>";
@@ -2016,7 +2070,6 @@
 				11A88B371D70BB4200F486CC /* VerifyChallengeResponse.pbobjc.m in Sources */,
 				11A88B391D70BB4200F486CC /* FortSettings.pbobjc.m in Sources */,
 				11A88B321D70BB4200F486CC /* UseItemEggIncubatorResponse.pbobjc.m in Sources */,
-				11A88AC51D70BB4200F486CC /* Unknown6Response.pbobjc.m in Sources */,
 				11A88B3A1D70BB4200F486CC /* GlobalSettings.pbobjc.m in Sources */,
 				11A88B041D70BB4200F486CC /* CheckChallengeResponse.pbobjc.m in Sources */,
 				11A88B511D70BB4200F486CC /* ItemSettings.pbobjc.m in Sources */,
@@ -2054,6 +2107,7 @@
 				11A88A7A1D70BB4100F486CC /* BattleType.pbobjc.m in Sources */,
 				11A88AE71D70BB4200F486CC /* IncenseEncounterMessage.pbobjc.m in Sources */,
 				11A88A981D70BB4200F486CC /* ItemCategory.pbobjc.m in Sources */,
+				111DE8C91D752A9500F6C4C0 /* BuyItemAndroidResponse.pbobjc.m in Sources */,
 				11A88AB71D70BB4200F486CC /* FortSponsor.pbobjc.m in Sources */,
 				111DE89B1D74F73300F6C4C0 /* PGEncounterTutorialCompleteRequest.m in Sources */,
 				11413DF61D650112004F52B6 /* GPBCodedOutputStream.m in Sources */,
@@ -2065,6 +2119,7 @@
 				11A88B181D70BB4200F486CC /* GetDownloadUrlsResponse.pbobjc.m in Sources */,
 				11A88ABA1D70BB4200F486CC /* MapCell.pbobjc.m in Sources */,
 				11A88A961D70BB4100F486CC /* Gender.pbobjc.m in Sources */,
+				111DE8CB1D752A9500F6C4C0 /* GetStoreItemsResponse.pbobjc.m in Sources */,
 				11A88ACB1D70BB4200F486CC /* CheckCodenameAvailableMessage.pbobjc.m in Sources */,
 				11A88A9C1D70BB4200F486CC /* PokemonId.pbobjc.m in Sources */,
 				11A88B4A1D70BB4200F486CC /* FoodAttributes.pbobjc.m in Sources */,
@@ -2076,6 +2131,7 @@
 				11A88A7F1D70BB4100F486CC /* GymMembership.pbobjc.m in Sources */,
 				11A88A9F1D70BB4200F486CC /* PokemonRarity.pbobjc.m in Sources */,
 				11A88AC61D70BB4200F486CC /* AddFortModifierMessage.pbobjc.m in Sources */,
+				111DE8C81D752A9500F6C4C0 /* SendEncryptedSignatureRequest.pbobjc.m in Sources */,
 				11A88B591D70BB4200F486CC /* PokemonUpgradeSettings.pbobjc.m in Sources */,
 				11413DFF1D650112004F52B6 /* GPBUnknownFieldSet.m in Sources */,
 				11A88AAA1D70BB4200F486CC /* InventoryItem.pbobjc.m in Sources */,
@@ -2165,6 +2221,7 @@
 				11A88AAE1D70BB4200F486CC /* InventoryUpgradeType.pbobjc.m in Sources */,
 				11A88B051D70BB4200F486CC /* CheckCodenameAvailableResponse.pbobjc.m in Sources */,
 				111DE89F1D74F73300F6C4C0 /* PGGetPlayerRequest.m in Sources */,
+				111DE8CA1D752A9500F6C4C0 /* BuyItemPokeCoinsResponse.pbobjc.m in Sources */,
 				11413E021D650112004F52B6 /* GPBWireFormat.m in Sources */,
 				11A88ADE1D70BB4200F486CC /* GetDownloadUrlsMessage.pbobjc.m in Sources */,
 				11A88A7C1D70BB4100F486CC /* CaptureAward.pbobjc.m in Sources */,
@@ -2179,6 +2236,7 @@
 				11A88ADF1D70BB4200F486CC /* GetGymDetailsMessage.pbobjc.m in Sources */,
 				114140D81D6502E8004F52B6 /* PGAccount.m in Sources */,
 				11A88AF71D70BB4200F486CC /* UseItemCaptureMessage.pbobjc.m in Sources */,
+				111DE8C51D752A9500F6C4C0 /* PlatformRequestType.pbobjc.m in Sources */,
 				11A88AC21D70BB4200F486CC /* ResponseEnvelope.pbobjc.m in Sources */,
 				114140DA1D6502E8004F52B6 /* PGAccountManager.m in Sources */,
 				111DE8941D74F73300F6C4C0 /* PGResponseBuilder.m in Sources */,
@@ -2193,6 +2251,7 @@
 				11A88AD31D70BB4200F486CC /* EchoMessage.pbobjc.m in Sources */,
 				11A88A751D70BB4100F486CC /* BattleLog.pbobjc.m in Sources */,
 				114140D91D6502E8004F52B6 /* PGAccountInfo.m in Sources */,
+				111DE8C61D752A9500F6C4C0 /* BuyItemAndroidRequest.pbobjc.m in Sources */,
 				11413DF21D650112004F52B6 /* Type.pbobjc.m in Sources */,
 				11A88AAF1D70BB4200F486CC /* ItemAward.pbobjc.m in Sources */,
 				11413DFD1D650112004F52B6 /* GPBRootObject.m in Sources */,
@@ -2229,6 +2288,7 @@
 				11A88AB01D70BB4200F486CC /* ItemData.pbobjc.m in Sources */,
 				11A88AE41D70BB4200F486CC /* GetPlayerMessage.pbobjc.m in Sources */,
 				11A88B1D1D70BB4200F486CC /* GetMapObjectsResponse.pbobjc.m in Sources */,
+				111DE8CC1D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m in Sources */,
 				11413DF41D650112004F52B6 /* GPBArray.m in Sources */,
 				11A88AD01D70BB4200F486CC /* DownloadItemTemplatesMessage.pbobjc.m in Sources */,
 				11A88AF01D70BB4200F486CC /* SetContactSettingsMessage.pbobjc.m in Sources */,
@@ -2237,7 +2297,6 @@
 				114141451D68F5A2004F52B6 /* PGConfig.m in Sources */,
 				11A88AE11D70BB4200F486CC /* GetIncensePokemonMessage.pbobjc.m in Sources */,
 				11A88B271D70BB4200F486CC /* ReleasePokemonResponse.pbobjc.m in Sources */,
-				11A88AC41D70BB4200F486CC /* Unknown6.pbobjc.m in Sources */,
 				11A88A721D70BB4100F486CC /* AssetDigestEntry.pbobjc.m in Sources */,
 				111DE8991D74F73300F6C4C0 /* PGDownloadRemoteConfigVersionRequest.m in Sources */,
 				11A88A7B1D70BB4100F486CC /* BuddyPokemon.pbobjc.m in Sources */,
@@ -2254,6 +2313,7 @@
 				11A88B1A1D70BB4200F486CC /* GetHatchedEggsResponse.pbobjc.m in Sources */,
 				11A88A941D70BB4100F486CC /* CameraInterpolation.pbobjc.m in Sources */,
 				11A88AD41D70BB4200F486CC /* EncounterMessage.pbobjc.m in Sources */,
+				111DE8C71D752A9500F6C4C0 /* BuyItemPokeCoinsRequest.pbobjc.m in Sources */,
 				11413DF11D650112004F52B6 /* Timestamp.pbobjc.m in Sources */,
 				111DE8B01D74F80700F6C4C0 /* PGSensorSpoofer.m in Sources */,
 				11A88A871D70BB4100F486CC /* DailyBonus.pbobjc.m in Sources */,

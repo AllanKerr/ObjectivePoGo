@@ -46,7 +46,7 @@
 }
 
 - (NSString *)firmwareType {
-    return @"9.3.4";
+    return @"9.3.5";
 }
 
 - (NSString *)description {

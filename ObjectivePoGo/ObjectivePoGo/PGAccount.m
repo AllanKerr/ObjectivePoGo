@@ -71,7 +71,6 @@ typedef void(^PGAsyncCompletion)(NSError *error);
 @property (readwrite, nonatomic, strong) CLLocation *location;
 @property (readwrite, nonatomic, strong) CLLocation *lastLocation;
 @property (readwrite, nonatomic, strong) NSArray *locationFixes;
-@property (readwrite, nonatomic) NSInteger maxLocationFixCount;
 @property (readwrite, nonatomic, strong) PGSensorInfo *sensorInfo;
 @property (readwrite, nonatomic, strong) PGDeviceInfo *deviceInfo;
 @property (readwrite, nonatomic, strong) NSData *sessionHash;
@@ -164,12 +163,12 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         self.sessionManager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:sessionConfiguration];
         self.sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
         self.apiURL = PGPokemonApiUrl;
-        self.maxLocationFixCount = 5;
         self.deviceInfo = deviceInfo;
         
         if (CLLocationCoordinate2DIsValid(coordinate)) {
             [self _updateLocationWithCoordinate:coordinate];
         }
+        [self _updateSensorData];
     }
     return self;
 }
@@ -590,12 +589,13 @@ typedef void(^PGAsyncCompletion)(NSError *error);
     CLLocationCoordinate2D currentCoordinate = self.location.coordinate;
     CLLocationDistance maxDistance = [self.location distanceFromLocation:self.lastLocation];
     
-    NSTimeInterval timeOffset = [PGUtil applyNoise:1.175 magnitude:0.35];
+    NSTimeInterval timeOffset = [PGUtil applyNoise:1.002 magnitude:0.175];
     uint64_t timeSinceStart = ([[NSDate date] timeIntervalSince1970] * 1000 - self.startTime) - (timeOffset * 1000);
     uint64_t lastTimeSinceStart = self.lastQueryTime * 1000 - self.startTime;
     
-    NSMutableArray *locationFixes = [NSMutableArray arrayWithCapacity:self.maxLocationFixCount];
-    for (int i = 0; i < self.maxLocationFixCount && timeSinceStart > lastTimeSinceStart; i++) {
+    int emptyCoordinateCount = 0;
+    NSMutableArray *locationFixes = [NSMutableArray arrayWithCapacity:PGConfigMaxLocationFixCount];
+    for (int i = 0; i < PGConfigMaxLocationFixCount && timeSinceStart > lastTimeSinceStart; i++) {
         double travelRate = self.speed.value;
         CLLocationDistance distance = (timeOffset * travelRate) / 1000;
         CLLocationDirection heading = [PGUtil applyNoise:[self _getHeadingBetweenCoordinate:lastCoordinate coordinate:currentCoordinate] magnitude:2.5];
@@ -610,8 +610,15 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         Signature_LocationFix *locationFix = [Signature_LocationFix message];
         locationFix.provider = @"gps";
         locationFix.timestampSnapshot = timeSinceStart;
-        locationFix.latitude = coordinate.latitude;
-        locationFix.longitude = coordinate.longitude;
+        if (emptyCoordinateCount == 0) {
+            locationFix.latitude = coordinate.latitude;
+            locationFix.longitude = coordinate.longitude;
+            emptyCoordinateCount = (arc4random() % 4) + 1;
+        } else {
+            locationFix.latitude = 360;
+            locationFix.longitude = -360;
+            emptyCoordinateCount--;
+        }
         locationFix.altitude = self.altitude.value;
         locationFix.horizontalAccuracy = self.horizontalAccuracy.accuracy;
         locationFix.verticalAccuracy = self.verticalAccuracy.accuracy;
@@ -622,7 +629,7 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         [locationFixes addObject:locationFix];
         
         currentCoordinate = coordinate;
-        timeOffset = [PGUtil applyNoise:1.175 magnitude:0.35];
+        timeOffset = [PGUtil applyNoise:1.002 magnitude:0.175];
         timeSinceStart -= timeOffset * 1000;
     }
     self.locationFixes = locationFixes;
