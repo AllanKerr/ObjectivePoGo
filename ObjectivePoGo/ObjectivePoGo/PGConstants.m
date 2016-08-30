@@ -23,6 +23,6 @@ NSString *const PGPokemonApiClientSecret = @"w8ScCUXJQc6kXKw8FiOhd8Fixzht18Dq3PE
 NSString *const PGPokemonApiService = @"ptc";
 NSString *const PGPokemonApiClientSig = @"321187995bc7cdc2b5fc91b11a96e2baa8602c62";
 
-const uint32_t PGHashSeed = 0x1B845238;
+const uint32_t PGHashSeed = 0x61656632;
 const int64_t PGUnknown25 = 7363665268261373700;
 const uint64_t PGRequestID = 72185515343874;
