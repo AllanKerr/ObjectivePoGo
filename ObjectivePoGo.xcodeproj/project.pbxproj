@@ -38,6 +38,7 @@
 		111DE8CC1D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8C41D752A9500F6C4C0 /* SendEncryptedSignatureResponse.pbobjc.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		111DE8CE1D75606900F6C4C0 /* Accounts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 111DE8CD1D75606900F6C4C0 /* Accounts.plist */; };
 		111DE8D11D7563D500F6C4C0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DE8D01D7563D500F6C4C0 /* ViewController.m */; };
+		111DEC181D78303400F6C4C0 /* PGGetPlayerProfileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 111DEC171D78303400F6C4C0 /* PGGetPlayerProfileRequest.m */; };
 		11413D881D64FDE6004F52B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D871D64FDE6004F52B6 /* main.m */; };
 		11413D8B1D64FDE6004F52B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11413D8A1D64FDE6004F52B6 /* AppDelegate.m */; };
 		11413D911D64FDE6004F52B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11413D8F1D64FDE6004F52B6 /* Main.storyboard */; };
@@ -378,6 +379,8 @@
 		111DE8CD1D75606900F6C4C0 /* Accounts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Accounts.plist; sourceTree = "<group>"; };
 		111DE8CF1D7563D500F6C4C0 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		111DE8D01D7563D500F6C4C0 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		111DEC161D78303400F6C4C0 /* PGGetPlayerProfileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGGetPlayerProfileRequest.h; sourceTree = "<group>"; };
+		111DEC171D78303400F6C4C0 /* PGGetPlayerProfileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGGetPlayerProfileRequest.m; sourceTree = "<group>"; };
 		11413D831D64FDE6004F52B6 /* ObjectivePoGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjectivePoGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11413D871D64FDE6004F52B6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11413D891D64FDE6004F52B6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1000,6 +1003,8 @@
 				111DE88F1D74F73300F6C4C0 /* PGRequest.m */,
 				111DE8901D74F73300F6C4C0 /* PGSetAvatarRequest.h */,
 				111DE8911D74F73300F6C4C0 /* PGSetAvatarRequest.m */,
+				111DEC161D78303400F6C4C0 /* PGGetPlayerProfileRequest.h */,
+				111DEC171D78303400F6C4C0 /* PGGetPlayerProfileRequest.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -2125,6 +2130,7 @@
 				11A88A9C1D70BB4200F486CC /* PokemonId.pbobjc.m in Sources */,
 				11A88B4A1D70BB4200F486CC /* FoodAttributes.pbobjc.m in Sources */,
 				11413DF81D650112004F52B6 /* GPBDictionary.m in Sources */,
+				111DEC181D78303400F6C4C0 /* PGGetPlayerProfileRequest.m in Sources */,
 				11A88ACF1D70BB4200F486CC /* DiskEncounterMessage.pbobjc.m in Sources */,
 				11A88B401D70BB4200F486CC /* CameraSettings.pbobjc.m in Sources */,
 				11A88B031D70BB4200F486CC /* CheckAwardedBadgesResponse.pbobjc.m in Sources */,

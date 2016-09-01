@@ -26,6 +26,7 @@
 #import "PGUtil.h"
 #import "PGAccuracy.h"
 #import "PGWanderingValue.h"
+#import "PGGetPlayerProfileRequest.h"
 
 #import "GetPlayerResponse.pbobjc.h"
 #import "GetMapObjectsResponse.pbobjc.h"
@@ -427,6 +428,18 @@ typedef void(^PGAsyncCompletion)(NSError *error);
         }
     }];
 }
+
+- (void)getPlayerProfileForPlayerName:(NSString *)playerName completion:(PGGetPlayerProfileCompletion)completion {
+    PGGetPlayerProfileRequest *request = [[PGGetPlayerProfileRequest alloc] initWithPlayerName:playerName];
+    [self performRequest:request withCompletion:^(PGResponse *response, NSError *error){
+        if (error == nil) {
+            completion((GetPlayerProfileResponse *)response.message, response.error);
+        } else {
+            completion(nil, error);
+        }
+    }];
+}
+
 
 - (void)getMapObjectsForCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion {
     [self _updateLocationWithCoordinate:coordinate];

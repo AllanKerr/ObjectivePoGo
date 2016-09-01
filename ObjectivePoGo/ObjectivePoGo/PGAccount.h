@@ -11,6 +11,7 @@
 #import "AuthTicket.pbobjc.h"
 #import "GetMapObjectsResponse.pbobjc.h"
 #import "GetPlayerResponse.pbobjc.h"
+#import "GetPlayerProfileResponse.pbobjc.h"
 #import "PGConstants.h"
 #import "MapCell.pbobjc.h"
 #import "MapPokemon.pbobjc.h"
@@ -26,6 +27,7 @@ typedef void(^PGAccountCompletion)(PGAccount *account, NSError *error);
 
 typedef void(^PGMapObjectsCompletion)(NSString *username, GetMapObjectsResponse *mapObjects, NSError *error);
 typedef void(^PGGetProfileCompletion)(GetPlayerResponse *playerProfile, NSError *error);
+typedef void(^PGGetPlayerProfileCompletion)(GetPlayerProfileResponse *playerProfile, NSError *error);
 
 @interface PGAccount : NSObject <PGRequestInfoProvider>
 @property (readonly, nonatomic) BOOL isReadyForQuery;
@@ -49,6 +51,7 @@ typedef void(^PGGetProfileCompletion)(GetPlayerResponse *playerProfile, NSError 
 + (void)loginWithAccountInfo:(PGAccountInfo *)accountInfo deviceInfo:(PGDeviceInfo *)deviceInfo atCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGAccountCompletion)completion;
 - (void)getMapObjectsForCoordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
 - (void)getMapObjectsForCellId:(uint64_t)cellId coordinate:(CLLocationCoordinate2D)coordinate completion:(PGMapObjectsCompletion)completion;
+- (void)getPlayerProfileForPlayerName:(NSString *)playerName completion:(PGGetPlayerProfileCompletion)completion;
 - (void)getProfileWithCompletion:(PGGetProfileCompletion)completion;
 - (CLLocationDistance)distanceFromCoordinate:(CLLocationCoordinate2D)coordinate;
 @end
